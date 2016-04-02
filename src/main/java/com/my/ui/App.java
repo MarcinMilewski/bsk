@@ -1,6 +1,7 @@
 package com.my.ui;
 
 import com.my.cryptography.enums.Algorithm;
+import com.my.cryptography.factory.DecryptorFactory;
 import com.my.cryptography.factory.EncryptorFactory;
 import com.my.ui.creator.factory.AlgorithmFieldsCreatorFactory;
 import com.my.ui.reader.factory.AlgorithmFieldsReaderFactory;
@@ -16,7 +17,7 @@ public class App extends JFrame {
     private JLabel label;
     private JList list;
     private TextArea input, output;
-    private Button encryptButton, decryptButton;
+    private Button encryptButton, decryptButton, decryptOutput;
     private JPanel panel;
     private JPanel northPanel, southPanel, centerPanel, northWestPanel;
     private List<TextField> algorithmTextFields;
@@ -50,12 +51,26 @@ public class App extends JFrame {
     private void createCipherDecipherButtons() {
         encryptButton = new Button("Encrypt");
         decryptButton = new Button("Decrypt");
+        decryptOutput = new Button("Decrypt output");
         centerPanel.add(encryptButton);
         centerPanel.add(decryptButton);
+        centerPanel.add(decryptOutput);
 
         encryptButton.addActionListener(e -> {
             Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
             String encrypted = EncryptorFactory.getEncryptor(Algorithm.RAIL_FENCE).encrypt(input.getText(), properties);
+            output.setText(encrypted);
+        });
+
+        decryptButton.addActionListener(e -> {
+            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
+            String encrypted = DecryptorFactory.getDecryptor(Algorithm.RAIL_FENCE).decrypt(input.getText(), properties);
+            output.setText(encrypted);
+        });
+
+        decryptOutput.addActionListener(e -> {
+            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
+            String encrypted = DecryptorFactory.getDecryptor(Algorithm.RAIL_FENCE).decrypt(output.getText(), properties);
             output.setText(encrypted);
         });
     }
