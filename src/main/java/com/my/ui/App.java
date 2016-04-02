@@ -1,6 +1,6 @@
 package com.my.ui;
 
-import com.my.enums.CipherAlgorithm;
+import com.my.cryptography.enums.Algorithm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -108,10 +108,10 @@ public class App extends JFrame {
     }
 
     private void createAlgorithmSelect() {
-        list = new JList(CipherAlgorithm.values());
+        list = new JList(Algorithm.values());
         list.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                CipherAlgorithm algorithm = (CipherAlgorithm) list.getSelectedValue();
+                Algorithm algorithm = (Algorithm) list.getSelectedValue();
             }
         });
 
