@@ -11,9 +11,9 @@ public class App extends JFrame {
     private JLabel label;
     private JList list;
     private TextArea input, output;
-    private Button cipherButton, decipherButton;
+    private Button encryptButton, decryptButton;
     private JPanel panel;
-    private JPanel northPanel, southPanel;
+    private JPanel northPanel, southPanel, centerPanel;
 
     public App() throws HeadlessException {
         initUi();
@@ -23,10 +23,33 @@ public class App extends JFrame {
         createWindow();
         createMenuBar();
         createPanel();
-        createTopPanel();
+        createNorthPanel();
+        createCenterPanel();
         createSouthPanel();
         createAlgorithmSelect();
+        createCipherDecipherButtons();
         createInputOutputTextAreas();
+
+        pack();
+    }
+
+    private void createCipherDecipherButtons() {
+        encryptButton = new Button("Encrypt");
+        decryptButton = new Button("Decrypt");
+        centerPanel.add(encryptButton);
+        centerPanel.add(decryptButton);
+    }
+
+    private void createCenterPanel() {
+        centerPanel = new JPanel();
+        centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridwidth = 3;
+        c.gridy = 2;
+        c.weightx = 0.0;
+        panel.add(centerPanel, c);
     }
 
 
@@ -58,18 +81,29 @@ public class App extends JFrame {
     private void createSouthPanel() {
         southPanel = new JPanel();
         southPanel.setLayout(new GridBagLayout());
-        panel.add(southPanel, BorderLayout.SOUTH);
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridwidth = 3;
+        c.gridy = 3;
+        c.weightx = 0.0;
+        panel.add(southPanel, c);
     }
 
-    private void createTopPanel() {
+    private void createNorthPanel() {
         northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 15));
-        panel.add(northPanel, BorderLayout.NORTH);
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridwidth = 3;
+        c.gridy = 0;
+        c.weightx = 0.0;
+        panel.add(northPanel, c);
     }
 
     private void createPanel() {
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         add(panel);
     }
 
@@ -83,7 +117,6 @@ public class App extends JFrame {
 
         JScrollPane pane = new JScrollPane();
         pane.getViewport().add(list);
-        pane.setPreferredSize(new Dimension(200, 200));
         northPanel.add(pane);
     }
 
