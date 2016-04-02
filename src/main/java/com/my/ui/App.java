@@ -1,8 +1,8 @@
 package com.my.ui;
 
-import com.my.cryptography.enums.Algorithm;
-import com.my.cryptography.factory.DecryptorFactory;
-import com.my.cryptography.factory.EncryptorFactory;
+import com.my.core.cryptography.enums.Algorithm;
+import com.my.core.cryptography.factory.DecryptorFactory;
+import com.my.core.cryptography.factory.EncryptorFactory;
 import com.my.ui.creator.factory.AlgorithmFieldsCreatorFactory;
 import com.my.ui.reader.factory.AlgorithmFieldsReaderFactory;
 

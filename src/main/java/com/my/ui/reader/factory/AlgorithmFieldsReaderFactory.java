@@ -1,6 +1,6 @@
 package com.my.ui.reader.factory;
 
-import com.my.cryptography.enums.Algorithm;
+import com.my.core.cryptography.enums.Algorithm;
 import com.my.ui.reader.AlgorithmFieldsReader;
 import com.my.ui.reader.RailFenceFieldsReader;
 

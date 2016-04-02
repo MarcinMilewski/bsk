@@ -1,6 +1,6 @@
 package com.my.ui.creator.factory;
 
-import com.my.cryptography.enums.Algorithm;
+import com.my.core.cryptography.enums.Algorithm;
 import com.my.ui.creator.AlgorithmFieldsCreator;
 import com.my.ui.creator.RailFenceFieldsCreator;
 

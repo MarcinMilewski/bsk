@@ -1,6 +1,6 @@
 package com.my.ui.reader;
 
-import com.my.cryptography.railfence.properties.RailfenceProperty;
+import com.my.core.cryptography.railfence.properties.RailfenceProperty;
 import com.my.ui.items.RailFencePropertyItem;
 
 import java.awt.*;
