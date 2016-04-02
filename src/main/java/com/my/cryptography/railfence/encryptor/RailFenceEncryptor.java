@@ -15,6 +15,7 @@ public class RailFenceEncryptor implements Encryptor {
     }
 
     private String encryptInternal(int depth, String data) {
+        if (depth <= 1) return data;
         StringBuilder encrypted = new StringBuilder();
         int startIndex = 0;
         for (int stage = depth - 1; stage >= 0; stage--, startIndex++) {

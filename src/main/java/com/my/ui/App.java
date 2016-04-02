@@ -18,7 +18,7 @@ public class App extends JFrame {
     private TextArea input, output;
     private Button encryptButton, decryptButton;
     private JPanel panel;
-    private JPanel northPanel, southPanel, centerPanel;
+    private JPanel northPanel, southPanel, centerPanel, northWestPanel;
     private List<TextField> algorithmTextFields;
     private Algorithm algorithm;
 
@@ -31,13 +31,20 @@ public class App extends JFrame {
         createMenuBar();
         createPanel();
         createNorthPanel();
+        createAlgorithmSelect();
+        createNorthWestPanel();
         createCenterPanel();
         createSouthPanel();
-        createAlgorithmSelect();
         createCipherDecipherButtons();
         createInputOutputTextAreas();
 
         pack();
+    }
+
+    private void createNorthWestPanel() {
+        northWestPanel = new JPanel();
+        northWestPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
+        northPanel.add(northWestPanel);
     }
 
     private void createCipherDecipherButtons() {
@@ -122,13 +129,13 @@ public class App extends JFrame {
         list = new JList(Algorithm.values());
         list.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
+                northWestPanel.removeAll();
                 algorithm = (Algorithm) list.getSelectedValue();
                 algorithmTextFields = AlgorithmFieldsCreatorFactory.getCreator(algorithm).getTextFields();
                 for (TextField algorithmTextField : algorithmTextFields) {
-                    northPanel.add(algorithmTextField);
+                    northWestPanel.add(algorithmTextField);
                 }
-                northPanel.revalidate();
-                panel.revalidate();
+                northWestPanel.revalidate();
             }
         });
 
