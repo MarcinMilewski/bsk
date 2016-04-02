@@ -21,8 +21,7 @@ public class RailFenceEncryptorTest {
     public void whenNoDepthIsGivenShouldThrowException() throws Exception {
         String output = railFenceEncryptor.encrypt("Cryptography", new Properties());
     }
-
-
+    
     @Test
     public void whenDepthIs3AndDataIsCryptographyShouldBeCtarporpyygh() throws Exception {
         Properties properties = new Properties();

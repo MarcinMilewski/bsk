@@ -1,10 +1,15 @@
 package com.my.ui;
 
 import com.my.cryptography.enums.Algorithm;
+import com.my.cryptography.factory.EncryptorFactory;
+import com.my.ui.creator.factory.AlgorithmFieldsCreatorFactory;
+import com.my.ui.reader.factory.AlgorithmFieldsReaderFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.List;
+import java.util.Properties;
 
 public class App extends JFrame {
 
@@ -14,6 +19,8 @@ public class App extends JFrame {
     private Button encryptButton, decryptButton;
     private JPanel panel;
     private JPanel northPanel, southPanel, centerPanel;
+    private List<TextField> algorithmTextFields;
+    private Algorithm algorithm;
 
     public App() throws HeadlessException {
         initUi();
@@ -38,6 +45,12 @@ public class App extends JFrame {
         decryptButton = new Button("Decrypt");
         centerPanel.add(encryptButton);
         centerPanel.add(decryptButton);
+
+        encryptButton.addActionListener(e -> {
+            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
+            String encrypted = EncryptorFactory.getEncryptor(Algorithm.RAIL_FENCE).encrypt(input.getText(), properties);
+            output.setText(encrypted);
+        });
     }
 
     private void createCenterPanel() {
@@ -55,9 +68,7 @@ public class App extends JFrame {
 
     private void createInputOutputTextAreas() {
         input = new TextArea();
-//        input.setPreferredSize(new Dimension(300, 100));
         output = new TextArea("Output");
-//        output.setPreferredSize(new Dimension(300, 100));
         output.setEditable(false);
 
         GridBagConstraints inputConstraint = new GridBagConstraints();
@@ -111,7 +122,13 @@ public class App extends JFrame {
         list = new JList(Algorithm.values());
         list.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                Algorithm algorithm = (Algorithm) list.getSelectedValue();
+                algorithm = (Algorithm) list.getSelectedValue();
+                algorithmTextFields = AlgorithmFieldsCreatorFactory.getCreator(algorithm).getTextFields();
+                for (TextField algorithmTextField : algorithmTextFields) {
+                    northPanel.add(algorithmTextField);
+                }
+                northPanel.revalidate();
+                panel.revalidate();
             }
         });
 

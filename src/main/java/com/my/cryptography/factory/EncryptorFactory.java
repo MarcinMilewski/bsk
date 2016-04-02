@@ -1,6 +1,6 @@
 package com.my.cryptography.factory;
 
-import com.my.Encryptor;
+import com.my.cryptography.Encryptor;
 import com.my.cryptography.enums.Algorithm;
 import com.my.cryptography.railfence.encryptor.RailFenceEncryptor;
 

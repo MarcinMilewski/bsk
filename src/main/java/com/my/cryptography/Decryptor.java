@@ -1,4 +1,4 @@
-package com.my;
+package com.my.cryptography;
 
 import java.util.Properties;
 
