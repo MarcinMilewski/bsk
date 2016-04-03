@@ -15,5 +15,10 @@ public class SimpleMatrixTranspositionDecryptorTest {
         Assert.assertThat(output, is("cryptographyosa"));
     }
 
-
+    @Test
+    public void whenTextIsLongerForOneMatrixShoudlReadFromMore() throws Exception {
+        SimpleMatrixTranspositionDecryptor simpleMatrixTranspositionDecryptor = new SimpleMatrixTranspositionDecryptor();
+        String output = simpleMatrixTranspositionDecryptor.decrypt("yroyrpaspacohcotpatprgyrgoshay", new Properties());
+        Assert.assertThat(output, is("cryptographyosacryptographyosa"));
+    }
 }

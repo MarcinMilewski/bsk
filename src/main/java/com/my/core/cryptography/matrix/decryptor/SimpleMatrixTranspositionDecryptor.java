@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class SimpleMatrixTranspositionDecryptor implements Decryptor {
     @Override
@@ -17,6 +18,8 @@ public class SimpleMatrixTranspositionDecryptor implements Decryptor {
         final int columnsNumber = 5;
         final int size = rowsNumber * columnsNumber;
         List<Integer> key = Lists.newArrayList(3, 4, 1, 5, 2);
+        key = key.stream().map(integer -> integer - 1).collect(Collectors.toList());
+
         List<String> strings = getSubstrings(data, size);
         List<CharacterMatrix> matrices = createMatrices(strings.size());
         for (String encoded : strings) {
@@ -27,15 +30,13 @@ public class SimpleMatrixTranspositionDecryptor implements Decryptor {
 
         StringBuilder sb = new StringBuilder();
         for (CharacterMatrix matrix : matrices) {
-            sb.append(readByKeyOrder(matrix, key));
+            sb.append(readBylines(matrix));
         }
         return sb.toString();
     }
 
-    private String readByKeyOrder(CharacterMatrix matrix, List<Integer> key) {
-        StringBuilder sb = new StringBuilder();
-        key.stream().forEach(k -> sb.append(matrix.getColumn(k)));
-        return sb.toString();
+    private String readBylines(CharacterMatrix matrix) {
+        return matrix.readByLines();
     }
 
     private CharacterMatrix createMatriceWithEncoded(int rowsNumber, Map<Integer, String> columnToSubstringMap) {
@@ -61,7 +62,7 @@ public class SimpleMatrixTranspositionDecryptor implements Decryptor {
     private Map<Integer, Integer> getColumnToLettersNumberMap(String encoded, int rowsNumber, int columnsNumber) {
         Map<Integer, Integer> columnLettersNumberMap = new HashMap<>();
         final int mod = encoded.length() % columnsNumber;
-        final int standardLengthOfColumn = (int) Math.floor((rowsNumber * columnsNumber) / columnsNumber);
+        final int standardLengthOfColumn = (int) Math.floor(encoded.length() / columnsNumber);
         for (int i = 0; i < columnsNumber; i++) {
             columnLettersNumberMap.put(i, i + 1 <= mod ? standardLengthOfColumn + 1 : standardLengthOfColumn);
         }
