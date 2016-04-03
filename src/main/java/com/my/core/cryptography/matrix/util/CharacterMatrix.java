@@ -28,9 +28,9 @@ public class CharacterMatrix {
         for (int j = 0; j < height; ++j) {
             for (int i = 0; i < width; ++i) {
                 if (characterIterator.hasNext()) {
-                    matrix[i][j] = characterIterator.next();
+                    matrix[j][i] = characterIterator.next();
                 } else {
-                    matrix[i][j] = null;
+                    matrix[j][i] = null;
                 }
             }
         }

@@ -28,7 +28,7 @@ public class SimpleMatrixTranspositionEncryptor implements Encryptor{
         int offest = width * height;
         List<String> result = new ArrayList<>();
         for (int i = 0; i < data.length(); i = i + offest) {
-            if (data.length() <= i + offest) {
+            if (data.length() > i + offest) {
                 result.add(data.substring(i, i + offest));
             } else {
                 result.add(data.substring(i));
@@ -40,11 +40,11 @@ public class SimpleMatrixTranspositionEncryptor implements Encryptor{
     private String encryptInternal(List<CharacterMatrix> matrices) {
         StringBuilder sb = new StringBuilder();
         for (CharacterMatrix matrix : matrices) {
+            sb.append(matrix.getByColumn(2));
             sb.append(matrix.getByColumn(3));
+            sb.append(matrix.getByColumn(0));
             sb.append(matrix.getByColumn(4));
             sb.append(matrix.getByColumn(1));
-            sb.append(matrix.getByColumn(5));
-            sb.append(matrix.getByColumn(2));
         }
         return sb.toString();
     }
