@@ -27,16 +27,12 @@ public class CharacterMatrix {
         CharacterIterator characterIterator = new CharacterIterator(data);
         for (int j = 0; j < height; ++j) {
             for (int i = 0; i < width; ++i) {
-                if (characterIterator.hasNext()) {
-                    matrix[j][i] = characterIterator.next();
-                } else {
-                    matrix[j][i] = null;
-                }
+                matrix[j][i] = characterIterator.hasNext() ? characterIterator.next() : null;
             }
         }
     }
 
-    public String getByColumn(int column) {
+    public String getColumn(int column) {
         if (column >= width) {
             throw new IllegalArgumentException();
         } else {
@@ -47,6 +43,14 @@ public class CharacterMatrix {
                 }
             }
             return sb.toString();
+        }
+    }
+
+    public void setColumn(int column, String data) {
+        if (data.length() > height) throw new IllegalArgumentException();
+        CharacterIterator characterIterator = new CharacterIterator(data);
+        for (int i = 0; i < height; i++) {
+            matrix[i][column] = characterIterator.hasNext() ? characterIterator.next() : null;
         }
     }
 }

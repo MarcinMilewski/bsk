@@ -10,6 +10,7 @@ import java.util.Properties;
 public class SimpleMatrixTranspositionEncryptor implements Encryptor{
     @Override
     public String encrypt(String data, Properties properties) {
+        // matrix 5x5, key - 3 4 1 5 2
         List<CharacterMatrix> matrices = createMatrices(data);
         return encryptInternal(matrices);
     }
@@ -40,11 +41,11 @@ public class SimpleMatrixTranspositionEncryptor implements Encryptor{
     private String encryptInternal(List<CharacterMatrix> matrices) {
         StringBuilder sb = new StringBuilder();
         for (CharacterMatrix matrix : matrices) {
-            sb.append(matrix.getByColumn(2));
-            sb.append(matrix.getByColumn(3));
-            sb.append(matrix.getByColumn(0));
-            sb.append(matrix.getByColumn(4));
-            sb.append(matrix.getByColumn(1));
+            sb.append(matrix.getColumn(2));
+            sb.append(matrix.getColumn(3));
+            sb.append(matrix.getColumn(0));
+            sb.append(matrix.getColumn(4));
+            sb.append(matrix.getColumn(1));
         }
         return sb.toString();
     }

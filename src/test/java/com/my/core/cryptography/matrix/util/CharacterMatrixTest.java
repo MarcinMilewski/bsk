@@ -10,7 +10,19 @@ public class CharacterMatrixTest {
     @Test
     public void whenMatrix5x5AndTextCryptographyosaGetBy0ColumnShouldBeCoh() throws Exception {
         CharacterMatrix characterMatrix = new CharacterMatrix(5, 5, "cryptographyosa");
-        Assert.assertThat(characterMatrix.getByColumn(0), is("coh"));
+        Assert.assertThat(characterMatrix.getColumn(0), is("coh"));
     }
 
+    @Test
+    public void setByColumnTest() throws Exception {
+        CharacterMatrix characterMatrix = new CharacterMatrix(5, 5);
+        characterMatrix.setColumn(0, "coh");
+        Assert.assertThat(characterMatrix.getColumn(0), is("coh"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setByColumnTooLongDataTest() throws Exception {
+        CharacterMatrix characterMatrix = new CharacterMatrix(5, 5);
+        characterMatrix.setColumn(0, "cohhhh");
+    }
 }
