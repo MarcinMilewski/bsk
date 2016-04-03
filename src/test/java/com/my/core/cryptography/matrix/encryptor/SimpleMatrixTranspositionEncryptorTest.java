@@ -23,4 +23,10 @@ public class SimpleMatrixTranspositionEncryptorTest {
         Assert.assertThat(output, is("yropascohtpargy"));
     }
 
+    @Test
+    public void whenTextIsLongerForOneMatrixShoudlReadFromMore() throws Exception {
+        String output = simpleMatrixTranspositionEncryptor.encrypt("cryptographyosacryptographyosa", new Properties());
+        Assert.assertThat(output, is("yroyrpaspacohcotpatprgyrgoshay"));
+    }
+
 }
