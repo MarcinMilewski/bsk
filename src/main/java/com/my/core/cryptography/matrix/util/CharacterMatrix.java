@@ -54,6 +54,14 @@ public class CharacterMatrix {
         }
     }
 
+    public void setRow(int row, String data) {
+        if (data.length() > width) throw new IllegalArgumentException();
+        CharacterIterator characterIterator = new CharacterIterator(data);
+        for (int i = 0; i < width; i++) {
+            matrix[row][i] = characterIterator.hasNext() ? characterIterator.next() : null;
+        }
+    }
+
     public String readByLines() {
         StringBuilder sb = new StringBuilder();
         for (int j = 0; j < height; ++j) {
@@ -62,5 +70,19 @@ public class CharacterMatrix {
             }
         }
         return sb.toString();
+    }
+
+    public String getRow(int row) {
+        if (row >= height) {
+            throw new IllegalArgumentException();
+        } else {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < width; i++) {
+                if (matrix[row][i] != null) {
+                    sb.append(matrix[row][i]);
+                }
+            }
+            return sb.toString();
+        }
     }
 }

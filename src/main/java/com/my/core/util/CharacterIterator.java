@@ -10,15 +10,29 @@ public class CharacterIterator implements Iterator<Character> {
         this.str = str;
     }
 
-    public boolean hasNext() {
-        return pos < str.length();
-    }
-
     public Character next() {
         return str.charAt(pos++);
     }
 
     public void remove() {
         throw new UnsupportedOperationException();
+    }
+
+    public String getNext(int number) {
+        String toReturn = null;
+        if (pos + number < str.length()) {
+            toReturn =  str.substring(pos, pos + number);
+            pos += number;
+        } else if (!hasNext()) {
+            toReturn = "";
+        } else {
+            toReturn =  str.substring(pos);
+            pos = str.length();
+        }
+        return toReturn;
+    }
+
+    public boolean hasNext() {
+        return pos < str.length();
     }
 }
