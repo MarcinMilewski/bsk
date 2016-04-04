@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class SimpleMatrixTranspositionEncryptor implements Encryptor{
+public class NumberKeyMatrixTranspositionEncryptor implements Encryptor{
     @Override
     public String encrypt(String data, Properties properties) {
         // matrix 5x5, key - 3 4 1 5 2

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-public class SimpleMatrixTranspositionDecryptor implements Decryptor {
+public class NumberKeyMatrixTranspositionDecryptor implements Decryptor {
     @Override
     public String decrypt(String data, Properties properties) {
         final int rowsNumber = 5;

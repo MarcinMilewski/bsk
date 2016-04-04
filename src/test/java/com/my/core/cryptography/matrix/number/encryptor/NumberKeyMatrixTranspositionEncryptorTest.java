@@ -8,24 +8,24 @@ import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.is;
 
-public class SimpleMatrixTranspositionEncryptorTest {
+public class NumberKeyMatrixTranspositionEncryptorTest {
 
-    private SimpleMatrixTranspositionEncryptor simpleMatrixTranspositionEncryptor;
+    private NumberKeyMatrixTranspositionEncryptor numberKeyMatrixTranspositionEncryptor;
 
     @Before
     public void setUp() throws Exception {
-        simpleMatrixTranspositionEncryptor = new SimpleMatrixTranspositionEncryptor();
+        numberKeyMatrixTranspositionEncryptor = new NumberKeyMatrixTranspositionEncryptor();
     }
 
     @Test
     public void whenTextCryptographyosaAnd5x5AndKey34152ShouldBeYropascohtpargy() throws Exception {
-        String output = simpleMatrixTranspositionEncryptor.encrypt("cryptographyosa", new Properties());
+        String output = numberKeyMatrixTranspositionEncryptor.encrypt("cryptographyosa", new Properties());
         Assert.assertThat(output, is("yropascohtpargy"));
     }
 
     @Test
     public void whenTextIsLongerForOneMatrixShoudlReadFromMore() throws Exception {
-        String output = simpleMatrixTranspositionEncryptor.encrypt("cryptographyosacryptographyosa", new Properties());
+        String output = numberKeyMatrixTranspositionEncryptor.encrypt("cryptographyosacryptographyosa", new Properties());
         Assert.assertThat(output, is("yroyrpaspacohcotpatprgyrgoshay"));
     }
 
