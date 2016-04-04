@@ -15,7 +15,7 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 public class WordKeyMatrixTranspositionDecryptor implements Decryptor {
-    private final List<Character> alphabet = Lists.newArrayList('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+    protected final List<Character> alphabet = Lists.newArrayList('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
 
     @Override
     public String decrypt(String data, Properties properties) {
@@ -40,13 +40,13 @@ public class WordKeyMatrixTranspositionDecryptor implements Decryptor {
         return sb.toString();
     }
 
-    private CharacterMatrix createMatrixWithEncodedData(int rowsNumber, Map<Integer, String> columnSubstringMap) {
+    protected CharacterMatrix createMatrixWithEncodedData(int rowsNumber, Map<Integer, String> columnSubstringMap) {
         CharacterMatrix characterMatrix = new CharacterMatrix(rowsNumber, columnSubstringMap.size());
         columnSubstringMap.entrySet().stream().forEach(e -> characterMatrix.setColumn(e.getKey(), e.getValue()));
         return characterMatrix;
     }
 
-    private Map<Integer, String> getColumnSubstringMap(String encoded, Map<Integer, Integer> columnToLettersNumberMap, List<Integer> key) {
+    protected Map<Integer, String> getColumnSubstringMap(String encoded, Map<Integer, Integer> columnToLettersNumberMap, List<Integer> key) {
         Map<Integer, String> columnToSubstringMap = new HashMap<>();
         int startIndex = 0;
         for (Integer currentColumn : key) {
@@ -56,11 +56,11 @@ public class WordKeyMatrixTranspositionDecryptor implements Decryptor {
         return columnToSubstringMap;
     }
 
-    private String getColumnSubstring(String encoded, Integer startIndex, Integer offset) {
+    protected String getColumnSubstring(String encoded, Integer startIndex, Integer offset) {
         return encoded.length() > startIndex + offset ? encoded.substring(startIndex, startIndex + offset) : encoded.substring(startIndex);
     }
 
-    private Map<Integer, Integer> getColumnLettersNumberMap(String encoded, int rowsNumber, int columnsNumber) {
+    protected Map<Integer, Integer> getColumnLettersNumberMap(String encoded, int rowsNumber, int columnsNumber) {
         Map<Integer, Integer> columnLettersNumberMap = new HashMap<>();
         final int mod = encoded.length() % columnsNumber;
         final int standardLengthOfColumn = (int) Math.floor(encoded.length() / columnsNumber);
@@ -70,7 +70,7 @@ public class WordKeyMatrixTranspositionDecryptor implements Decryptor {
         return columnLettersNumberMap;
     }
 
-    private List<String> getSubstrings(String data, int size) {
+    protected List<String> getSubstrings(String data, int size) {
         List<String> result = new ArrayList<>();
         for (int i = 0; i < data.length(); i = i + size) {
             if (data.length() > i + size) {
@@ -82,7 +82,7 @@ public class WordKeyMatrixTranspositionDecryptor implements Decryptor {
         return result;
     }
 
-    private List<CharacterMatrix> createMatrices(int matricesNumber, int rowsNumber, int columnsNumber) {
+    protected List<CharacterMatrix> createMatrices(int matricesNumber, int rowsNumber, int columnsNumber) {
         List<CharacterMatrix> matrices = new ArrayList<>();
         for (int i = 0; i < matricesNumber; ++i) {
             matrices.add(new CharacterMatrix(columnsNumber, rowsNumber));
@@ -90,7 +90,7 @@ public class WordKeyMatrixTranspositionDecryptor implements Decryptor {
         return matrices;
     }
 
-    private List<Integer> getOrder(String keyword) {
+    protected List<Integer> getOrder(String keyword) {
         Map<Integer, Character> positionCharacterMap = Maps.newHashMap();
         for (int i = 0; i < keyword.length(); i++) {
             positionCharacterMap.put(i, keyword.charAt(i));

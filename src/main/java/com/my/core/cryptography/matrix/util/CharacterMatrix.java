@@ -2,6 +2,8 @@ package com.my.core.cryptography.matrix.util;
 
 import com.my.core.util.CharacterIterator;
 
+import java.util.List;
+
 public class CharacterMatrix {
     private final int width;
     private final int height;
@@ -54,6 +56,12 @@ public class CharacterMatrix {
         }
     }
 
+    public void setColumn(int column, List<Character> characterList) {
+        if (characterList.size() > height) throw new IllegalArgumentException();
+        for (int i = 0; i < height; i++) {
+            matrix[i][column] =  characterList.get(i);
+        }
+    }
     public void setRow(int row, String data) {
         if (data.length() > width) throw new IllegalArgumentException();
         CharacterIterator characterIterator = new CharacterIterator(data);

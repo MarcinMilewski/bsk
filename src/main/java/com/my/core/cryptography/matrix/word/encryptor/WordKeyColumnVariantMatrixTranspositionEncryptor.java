@@ -34,8 +34,4 @@ public class WordKeyColumnVariantMatrixTranspositionEncryptor extends WordKeyMat
         return matrices;
     }
 
-    @Override
-    protected String encryptInternal(List<CharacterMatrix> matrices, String keyword) {
-        return super.encryptInternal(matrices, keyword);
-    }
 }
