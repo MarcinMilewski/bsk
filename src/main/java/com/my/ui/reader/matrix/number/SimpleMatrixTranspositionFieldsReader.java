@@ -1,4 +1,4 @@
-package com.my.ui.reader.matrix;
+package com.my.ui.reader.matrix.number;
 
 import com.my.core.cryptography.matrix.properties.SimpleMatrixTranspositionProperty;
 import com.my.ui.reader.AlgorithmFieldsReader;

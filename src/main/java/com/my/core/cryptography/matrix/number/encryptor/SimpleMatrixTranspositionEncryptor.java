@@ -19,8 +19,7 @@ public class SimpleMatrixTranspositionEncryptor implements Encryptor{
         List<String> strings = split(data, 5, 5);
         List<CharacterMatrix> matrices = new ArrayList<>();
         for (String string : strings) {
-            string.replaceAll("\\s+","");
-            matrices.add(new CharacterMatrix(5, 5, string));
+            matrices.add(new CharacterMatrix(5, 5,string.replaceAll("\\s+","")));
         }
         return matrices;
     }

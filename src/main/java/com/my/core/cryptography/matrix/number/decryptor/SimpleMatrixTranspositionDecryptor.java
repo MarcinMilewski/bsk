@@ -19,33 +19,28 @@ public class SimpleMatrixTranspositionDecryptor implements Decryptor {
         final int size = rowsNumber * columnsNumber;
         List<Integer> key = Lists.newArrayList(3, 4, 1, 5, 2);
         key = key.stream().map(integer -> integer - 1).collect(Collectors.toList());
-
         List<String> strings = getSubstrings(data, size);
         List<CharacterMatrix> matrices = createMatrices(strings.size());
+
         for (String encoded : strings) {
-            Map<Integer, Integer> columnToLettersNumberMap = getColumnToLettersNumberMap(encoded, rowsNumber, columnsNumber);
-            Map<Integer, String> columnToSubstringMap = getColumnToSubstringMap(encoded, columnToLettersNumberMap, key);
-            matrices.add(createMatriceWithEncoded(rowsNumber, columnToSubstringMap));
+            Map<Integer, Integer> columnLettersNumberMap = getColumnLettersNumberMap(encoded, rowsNumber, columnsNumber);
+            Map<Integer, String> columnSubstringMap = getColumnSubstringMap(encoded, columnLettersNumberMap, key);
+
+            matrices.add(createMatrixWithEncodedData(rowsNumber, columnSubstringMap));
         }
 
         StringBuilder sb = new StringBuilder();
-        for (CharacterMatrix matrix : matrices) {
-            sb.append(readBylines(matrix));
-        }
+        matrices.forEach(m -> sb.append(m.readByLines()));
         return sb.toString();
     }
 
-    private String readBylines(CharacterMatrix matrix) {
-        return matrix.readByLines();
-    }
-
-    private CharacterMatrix createMatriceWithEncoded(int rowsNumber, Map<Integer, String> columnToSubstringMap) {
-        CharacterMatrix characterMatrix = new CharacterMatrix(rowsNumber, columnToSubstringMap.size());
-        columnToSubstringMap.entrySet().stream().forEach(e -> characterMatrix.setColumn(e.getKey(), e.getValue()));
+    private CharacterMatrix createMatrixWithEncodedData(int rowsNumber, Map<Integer, String> columnSubstringMap) {
+        CharacterMatrix characterMatrix = new CharacterMatrix(rowsNumber, columnSubstringMap.size());
+        columnSubstringMap.entrySet().stream().forEach(e -> characterMatrix.setColumn(e.getKey(), e.getValue()));
         return characterMatrix;
     }
 
-    private Map<Integer, String> getColumnToSubstringMap(String encoded, Map<Integer, Integer> columnToLettersNumberMap, List<Integer> key) {
+    private Map<Integer, String> getColumnSubstringMap(String encoded, Map<Integer, Integer> columnToLettersNumberMap, List<Integer> key) {
         Map<Integer, String> columnToSubstringMap = new HashMap<>();
         int startIndex = 0;
         for (Integer currentColumn : key) {
@@ -59,7 +54,7 @@ public class SimpleMatrixTranspositionDecryptor implements Decryptor {
         return encoded.length() > startIndex + offset ? encoded.substring(startIndex, startIndex + offset) : encoded.substring(startIndex);
     }
 
-    private Map<Integer, Integer> getColumnToLettersNumberMap(String encoded, int rowsNumber, int columnsNumber) {
+    private Map<Integer, Integer> getColumnLettersNumberMap(String encoded, int rowsNumber, int columnsNumber) {
         Map<Integer, Integer> columnLettersNumberMap = new HashMap<>();
         final int mod = encoded.length() % columnsNumber;
         final int standardLengthOfColumn = (int) Math.floor(encoded.length() / columnsNumber);

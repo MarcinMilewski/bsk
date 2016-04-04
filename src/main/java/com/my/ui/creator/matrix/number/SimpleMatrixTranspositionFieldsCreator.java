@@ -1,4 +1,4 @@
-package com.my.ui.creator.matrix;
+package com.my.ui.creator.matrix.number;
 
 import com.google.common.collect.Maps;
 import com.my.core.cryptography.matrix.properties.SimpleMatrixTranspositionProperty;
@@ -11,11 +11,11 @@ public class SimpleMatrixTranspositionFieldsCreator implements AlgorithmFieldsCr
     @Override
     public Map<Label, TextField> getFields() {
         Map<Label, TextField> labelTextFieldMap = Maps.newHashMap();
-        TextField depth = new TextField();
-        depth.setName(SimpleMatrixTranspositionProperty.KEY.name());
-        depth.setText("3,4,1,5,2");
-        depth.setEditable(false);
-        labelTextFieldMap.put(new Label("Key"), depth);
+        TextField numberKey = new TextField();
+        numberKey.setName(SimpleMatrixTranspositionProperty.KEY.name());
+        numberKey.setText("3,4,1,5,2");
+        numberKey.setEditable(false);
+        labelTextFieldMap.put(new Label("Key"), numberKey);
         return labelTextFieldMap;
     }
 }

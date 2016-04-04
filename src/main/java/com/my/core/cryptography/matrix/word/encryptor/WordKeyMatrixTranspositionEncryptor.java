@@ -61,7 +61,6 @@ public class WordKeyMatrixTranspositionEncryptor implements Encryptor {
         for (int i = 0; i < keyword.length(); i++) {
             positionCharacterMap.put(i, keyword.charAt(i));
         }
-
         List<Integer> order = Lists.newArrayList();
         String lowerCaseKeyword = keyword.toLowerCase();
         for (Character character : alphabet) {
