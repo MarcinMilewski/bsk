@@ -58,19 +58,19 @@ public class App extends JFrame {
 
         encryptButton.addActionListener(e -> {
             Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
-            String encrypted = EncryptorFactory.getEncryptor(Algorithm.RAIL_FENCE).encrypt(input.getText(), properties);
+            String encrypted = EncryptorFactory.getEncryptor(algorithm).encrypt(input.getText(), properties);
             output.setText(encrypted);
         });
 
         decryptButton.addActionListener(e -> {
             Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
-            String encrypted = DecryptorFactory.getDecryptor(Algorithm.RAIL_FENCE).decrypt(input.getText(), properties);
+            String encrypted = DecryptorFactory.getDecryptor(algorithm).decrypt(input.getText(), properties);
             output.setText(encrypted);
         });
 
         decryptOutput.addActionListener(e -> {
             Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
-            String encrypted = DecryptorFactory.getDecryptor(Algorithm.RAIL_FENCE).decrypt(output.getText(), properties);
+            String encrypted = DecryptorFactory.getDecryptor(algorithm).decrypt(output.getText(), properties);
             output.setText(encrypted);
         });
     }
