@@ -9,7 +9,7 @@ import com.my.ui.reader.factory.AlgorithmFieldsReaderFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class App extends JFrame {
@@ -20,7 +20,7 @@ public class App extends JFrame {
     private Button encryptButton, decryptButton, decryptOutput;
     private JPanel panel;
     private JPanel northPanel, southPanel, centerPanel, northWestPanel;
-    private List<TextField> algorithmTextFields;
+    private Map<Label,TextField> algorithmTextFields;
     private Algorithm algorithm;
 
     public App() throws HeadlessException {
@@ -146,9 +146,10 @@ public class App extends JFrame {
             if (!e.getValueIsAdjusting()) {
                 northWestPanel.removeAll();
                 algorithm = (Algorithm) list.getSelectedValue();
-                algorithmTextFields = AlgorithmFieldsCreatorFactory.getCreator(algorithm).getTextFields();
-                for (TextField algorithmTextField : algorithmTextFields) {
-                    northWestPanel.add(algorithmTextField);
+                algorithmTextFields = AlgorithmFieldsCreatorFactory.getCreator(algorithm).getFields();
+                for (Map.Entry<Label, TextField> labelTextFieldEntry : algorithmTextFields.entrySet()) {
+                    northWestPanel.add(labelTextFieldEntry.getKey());
+                    northWestPanel.add(labelTextFieldEntry.getValue());
                 }
                 northWestPanel.revalidate();
             }

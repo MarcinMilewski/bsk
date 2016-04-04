@@ -1,21 +1,21 @@
 package com.my.ui.creator.matrix;
 
+import com.google.common.collect.Maps;
+import com.my.core.cryptography.matrix.properties.SimpleMatrixTranspositionProperty;
 import com.my.ui.creator.AlgorithmFieldsCreator;
-import com.my.ui.items.SimpleMatrixTranspositionPropertyItem;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class SimpleMatrixTranspositionFieldsCreator implements AlgorithmFieldsCreator{
     @Override
-    public List<TextField> getTextFields() {
-        List<TextField> textFields = new ArrayList<>();
+    public Map<Label, TextField> getFields() {
+        Map<Label, TextField> labelTextFieldMap = Maps.newHashMap();
         TextField depth = new TextField();
-        depth.setName(SimpleMatrixTranspositionPropertyItem.KEY.name());
+        depth.setName(SimpleMatrixTranspositionProperty.KEY.name());
         depth.setText("3,4,1,5,2");
         depth.setEditable(false);
-        textFields.add(depth);
-        return textFields;
+        labelTextFieldMap.put(new Label("Key"), depth);
+        return labelTextFieldMap;
     }
 }

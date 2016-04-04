@@ -1,21 +1,21 @@
 package com.my.ui.creator.railfence;
 
+import com.google.common.collect.Maps;
+import com.my.core.cryptography.railfence.properties.RailfenceProperty;
 import com.my.ui.creator.AlgorithmFieldsCreator;
-import com.my.ui.items.RailFencePropertyItem;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class RailFenceFieldsCreator implements AlgorithmFieldsCreator {
     @Override
-    public List<TextField> getTextFields() {
-        List<TextField> textFields = new ArrayList<>();
+    public Map<Label, TextField> getFields() {
+        Map<Label,TextField> labelToFieldMap =Maps.newHashMap();
         TextField depth = new TextField();
-        depth.setName(RailFencePropertyItem.DEPTH.name());
+        depth.setName(RailfenceProperty.DEPTH.name());
         depth.setText("3");
         depth.setEditable(false);
-        textFields.add(depth);
-        return textFields;
+        labelToFieldMap.put(new Label("Depth"), depth);
+        return labelToFieldMap;
     }
 }

@@ -2,8 +2,8 @@ package com.my.ui.creator;
 
 
 import java.awt.*;
-import java.util.List;
+import java.util.Map;
 
 public interface AlgorithmFieldsCreator {
-    List<TextField> getTextFields();
+    Map<Label, TextField> getFields();
 }

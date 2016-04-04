@@ -1,22 +1,22 @@
 package com.my.ui.reader.railfence;
 
 import com.my.core.cryptography.railfence.properties.RailfenceProperty;
-import com.my.ui.items.RailFencePropertyItem;
 import com.my.ui.reader.AlgorithmFieldsReader;
 
 import java.awt.*;
-import java.util.*;
+import java.util.Map;
+import java.util.Properties;
 
 public class RailFenceFieldsReader implements AlgorithmFieldsReader {
 
     @Override
-    public Properties read(java.util.List<TextField> textFields) {
-        if (textFields.isEmpty()) throw new IllegalArgumentException();
+    public Properties read(Map<Label, TextField> labelTextFieldMap) {
+        if (labelTextFieldMap.isEmpty()) throw new IllegalArgumentException();
         Properties properties = new Properties();
-        for (TextField textField : textFields) {
-            RailFencePropertyItem railFencePropertyItem = RailFencePropertyItem.valueOf(textField.getName());
+        for (Map.Entry<Label, TextField> labelTextFieldEntry : labelTextFieldMap.entrySet()) {
+            RailfenceProperty railFencePropertyItem = RailfenceProperty.valueOf(labelTextFieldEntry.getValue().getName());
             switch (railFencePropertyItem) {
-                case DEPTH: properties.setProperty(RailfenceProperty.DEPTH.name(), textField.getText()); break;
+                case DEPTH: properties.setProperty(RailfenceProperty.DEPTH.name(), labelTextFieldEntry.getValue().getText()); break;
             }
         }
         return properties;
