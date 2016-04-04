@@ -1,4 +1,4 @@
-package com.my.core.cryptography.matrix.decryptor;
+package com.my.core.cryptography.matrix.number.decryptor;
 
 import org.junit.Assert;
 import org.junit.Test;

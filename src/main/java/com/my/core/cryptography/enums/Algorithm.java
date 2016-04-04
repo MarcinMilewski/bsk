@@ -2,5 +2,6 @@ package com.my.core.cryptography.enums;
 
 public enum Algorithm {
     RAIL_FENCE,
-    SIMPLE_MATRIX_SHIFTING;
+    NUMBER_KEY_MATRIX_TRANSPOSITION,
+    WORD_KEY_MATRIX_TRANSPOSITION;
 }

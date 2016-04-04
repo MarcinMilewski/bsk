@@ -12,7 +12,7 @@ public class AlgorithmFieldsCreatorFactory {
     public static AlgorithmFieldsCreator getCreator(Algorithm algorithm) {
         switch (algorithm) {
             case RAIL_FENCE: return new RailFenceFieldsCreator();
-            case SIMPLE_MATRIX_SHIFTING: return new SimpleMatrixTranspositionFieldsCreator();
+            case NUMBER_KEY_MATRIX_TRANSPOSITION: return new SimpleMatrixTranspositionFieldsCreator();
             default: throw new IllegalArgumentException();
         }
     }

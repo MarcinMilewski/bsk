@@ -1,4 +1,4 @@
-package com.my.core.cryptography.matrix.encryptor;
+package com.my.core.cryptography.matrix.number.encryptor;
 
 import com.my.core.cryptography.Encryptor;
 import com.my.core.cryptography.matrix.util.CharacterMatrix;

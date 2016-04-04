@@ -12,7 +12,7 @@ public class AlgorithmFieldsReaderFactory {
     public static AlgorithmFieldsReader getAlgorithmFieldsReader(Algorithm algorithm) {
         switch (algorithm) {
             case RAIL_FENCE: return new RailFenceFieldsReader();
-            case SIMPLE_MATRIX_SHIFTING: return new SimpleMatrixTranspositionFieldsReader();
+            case NUMBER_KEY_MATRIX_TRANSPOSITION: return new SimpleMatrixTranspositionFieldsReader();
             default: throw new IllegalArgumentException();
         }
     }

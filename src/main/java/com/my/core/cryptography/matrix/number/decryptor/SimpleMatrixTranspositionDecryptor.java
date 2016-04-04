@@ -1,4 +1,4 @@
-package com.my.core.cryptography.matrix.decryptor;
+package com.my.core.cryptography.matrix.number.decryptor;
 
 import com.google.common.collect.Lists;
 import com.my.core.cryptography.Decryptor;
