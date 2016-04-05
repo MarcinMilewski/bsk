@@ -81,7 +81,7 @@ public class WordKeyColumnVariantMatrixTranspositionDecryptor extends WordKeyMat
                 rowCharsNumberMap.put(i, order.get(i) + 1);
                 stringIndex += order.get(i) + 1;
             } else if (stringIndex != encoded.length()) {
-                rowCharsNumberMap.put(i, encoded.length() - stringIndex + 1);
+                rowCharsNumberMap.put(i, encoded.length() - stringIndex);
                 stringIndex = encoded.length();
             } else {
                 rowCharsNumberMap.put(i, 0);

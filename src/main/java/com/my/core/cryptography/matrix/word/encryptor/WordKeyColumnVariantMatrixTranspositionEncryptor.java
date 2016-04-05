@@ -17,7 +17,8 @@ public class WordKeyColumnVariantMatrixTranspositionEncryptor extends WordKeyMat
 
     @Override
     protected List<CharacterMatrix> createMatrices(String data, int rowsNumber, int columnsNumber) {
-        List<String> strings = split(data, rowsNumber, columnsNumber);
+
+        List<String> strings = split(data, getSubstringSize(order.size()));
         List<CharacterMatrix> matrices = new ArrayList<>();
 
         for (String string : strings) {
@@ -34,4 +35,11 @@ public class WordKeyColumnVariantMatrixTranspositionEncryptor extends WordKeyMat
         return matrices;
     }
 
+    private int getSubstringSize(int length) {
+        int size = 0;
+        for (int i = length; i > 0; i--) {
+            size += i;
+        }
+        return size;
+    }
 }

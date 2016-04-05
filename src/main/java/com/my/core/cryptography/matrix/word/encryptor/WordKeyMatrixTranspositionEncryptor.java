@@ -30,7 +30,7 @@ public class WordKeyMatrixTranspositionEncryptor implements Encryptor {
     }
 
     protected List<CharacterMatrix> createMatrices(String data, int rowsNumber, int columnsNumber) {
-        List<String> strings = split(data, rowsNumber, columnsNumber);
+        List<String> strings = split(data, rowsNumber * columnsNumber);
         List<CharacterMatrix> matrices = new ArrayList<>();
         for (String string : strings) {
             //string.replaceAll("\\s+",""))
@@ -39,12 +39,11 @@ public class WordKeyMatrixTranspositionEncryptor implements Encryptor {
         return matrices;
     }
 
-    protected List<String> split(String data, int width, int height) {
-        int offest = width * height;
+    protected List<String> split(String data, int size) {
         List<String> result = new ArrayList<>();
-        for (int i = 0; i < data.length(); i = i + offest) {
-            if (data.length() > i + offest) {
-                result.add(data.substring(i, i + offest));
+        for (int i = 0; i < data.length(); i = i + size) {
+            if (data.length() > i + size) {
+                result.add(data.substring(i, i + size));
             } else {
                 result.add(data.substring(i));
             }
