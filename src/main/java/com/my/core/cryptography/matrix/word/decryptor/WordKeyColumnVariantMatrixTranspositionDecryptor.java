@@ -21,7 +21,9 @@ public class WordKeyColumnVariantMatrixTranspositionDecryptor extends WordKeyMat
 
         List<Integer> order = getOrder(keyword);
 
-        List<String> strings = getSubstrings(data, rowsNumber * columnsNumber);
+        final int subStringSize = getSubstringSize(keyword.length());
+        List<String> strings = getSubstrings(data, subStringSize);
+
         List<CharacterMatrix> matrices = createMatrices(strings.size(), rowsNumber, columnsNumber);
 
         for (String encoded : strings) {
@@ -41,6 +43,14 @@ public class WordKeyColumnVariantMatrixTranspositionDecryptor extends WordKeyMat
         return sb.toString();
     }
 
+    private int getSubstringSize(int length) {
+        int size = 0;
+        for (int i = length; i > 0; i--) {
+            size += i;
+        }
+        return size;
+    }
+
     private CharacterMatrix createInitialMatrix(int rowsNumber, Map<Integer, List<Character>> columnSubstringMap) {
         CharacterMatrix characterMatrix = new CharacterMatrix(rowsNumber, columnSubstringMap.size());
         columnSubstringMap.entrySet().forEach(e -> characterMatrix.setColumn(e.getKey(), e.getValue()));
@@ -51,7 +61,7 @@ public class WordKeyColumnVariantMatrixTranspositionDecryptor extends WordKeyMat
         if (!encoded.hasNext()) return Lists.newArrayList();
         List<Character> columnData = Lists.newArrayList();
         currentColumn += 1;
-        for (int row = 0; row < rowCharsNumberMap.size(); row++ ) {
+        for (int row = 0; row < rowCharsNumberMap.size(); row++) {
             int charsInRow = rowCharsNumberMap.get(row);
             if (currentColumn <= charsInRow) {
                 columnData.add(encoded.next());
