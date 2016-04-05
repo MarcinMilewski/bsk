@@ -59,7 +59,7 @@ public class CharacterMatrix {
     public void setColumn(int column, List<Character> characterList) {
         if (characterList.size() > height) throw new IllegalArgumentException();
         for (int i = 0; i < height; i++) {
-            matrix[i][column] =  characterList.get(i);
+            matrix[i][column] = i < characterList.size() ? characterList.get(i) : null;
         }
     }
     public void setRow(int row, String data) {
