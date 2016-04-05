@@ -152,6 +152,7 @@ public class App extends JFrame {
                     northWestPanel.add(labelTextFieldEntry.getValue());
                 }
                 northWestPanel.revalidate();
+                pack();
             }
         });
 

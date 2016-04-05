@@ -23,7 +23,7 @@ public class WordKeyMatrixTranspositionEncryptorTest {
 
     @Test
     public void encrypt() throws Exception {
-        String output = wordKeyMatrixTranspositionEncryptor.encrypt("here is a secret message enciphered by transposition", properties);
+        String output = wordKeyMatrixTranspositionEncryptor.encrypt("hereisasecretmessageencipheredbytransposition", properties);
         Assert.assertThat(output, is("hecrnceyiisepsgdirntoaaesrmpnssroeebtetiaeehs"));
     }
 

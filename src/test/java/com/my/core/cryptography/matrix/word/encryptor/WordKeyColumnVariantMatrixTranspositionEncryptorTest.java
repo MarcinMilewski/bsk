@@ -20,7 +20,7 @@ public class WordKeyColumnVariantMatrixTranspositionEncryptorTest {
         this.wordKeyColumnVariantMatrixTranspositionEncryptor = new WordKeyColumnVariantMatrixTranspositionEncryptor();
         properties = new Properties();
         properties.setProperty(WordKeyMatrixTranspositionProperty.KEY_WORD.name(), "convenience");
-        input = "here is a secret message enciphered by transposition";
+        input = "hereisasecretmessageencipheredbytransposition";
     }
 
     @Test

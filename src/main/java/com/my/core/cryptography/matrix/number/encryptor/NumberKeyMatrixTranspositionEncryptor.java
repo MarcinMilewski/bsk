@@ -19,7 +19,7 @@ public class NumberKeyMatrixTranspositionEncryptor implements Encryptor{
         List<String> strings = split(data, 5, 5);
         List<CharacterMatrix> matrices = new ArrayList<>();
         for (String string : strings) {
-            matrices.add(new CharacterMatrix(5, 5,string.replaceAll("\\s+","")));
+            matrices.add(new CharacterMatrix(5, 5,string));
         }
         return matrices;
     }

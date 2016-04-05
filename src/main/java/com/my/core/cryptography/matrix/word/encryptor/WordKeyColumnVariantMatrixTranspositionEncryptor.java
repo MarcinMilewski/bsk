@@ -22,7 +22,7 @@ public class WordKeyColumnVariantMatrixTranspositionEncryptor extends WordKeyMat
 
         for (String string : strings) {
             CharacterMatrix matrix = new CharacterMatrix(columnsNumber, rowsNumber);
-            CharacterIterator characterIterator = new CharacterIterator(string.replaceAll("\\s+",""));
+            CharacterIterator characterIterator = new CharacterIterator(string);
             int row = 0;
             for (Integer currentColumn : order) {
                 matrix.setRow(row, characterIterator.getNext(currentColumn + 1));

@@ -33,7 +33,8 @@ public class WordKeyMatrixTranspositionEncryptor implements Encryptor {
         List<String> strings = split(data, rowsNumber, columnsNumber);
         List<CharacterMatrix> matrices = new ArrayList<>();
         for (String string : strings) {
-            matrices.add(new CharacterMatrix(columnsNumber, rowsNumber, string.replaceAll("\\s+","")));
+            //string.replaceAll("\\s+",""))
+            matrices.add(new CharacterMatrix(columnsNumber, rowsNumber, string));
         }
         return matrices;
     }
