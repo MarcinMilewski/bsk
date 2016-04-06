@@ -13,8 +13,8 @@ public class VigenereCipherDecryptor implements Decryptor {
     public String decrypt(String data, Properties properties) {
         String keyword = properties.getProperty(VigenereCipherProperty.KEY_WORD.name());
         if (keyword.isEmpty()) throw new IllegalArgumentException("k cannot be empty");
-        String key = generateStraightKey(keyword, data.length());
-        return decryptInternal(data, key);
+        String key = generateStraightKey(keyword, data.length()).toLowerCase();
+        return decryptInternal(data.toLowerCase(), key);
     }
 
     private String generateStraightKey(String keyword, int length) {

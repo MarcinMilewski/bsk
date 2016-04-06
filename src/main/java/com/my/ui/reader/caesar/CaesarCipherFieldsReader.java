@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.Map;
 import java.util.Properties;
 
-public class CaesarFieldsReader implements AlgorithmFieldsReader {
+public class CaesarCipherFieldsReader implements AlgorithmFieldsReader {
     @Override
     public Properties read(Map<Label, TextField> labelTextFieldMap) {
         if (labelTextFieldMap.isEmpty()) throw new IllegalArgumentException();

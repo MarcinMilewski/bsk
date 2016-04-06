@@ -7,6 +7,7 @@ import com.my.core.cryptography.matrix.number.encryptor.NumberKeyMatrixTransposi
 import com.my.core.cryptography.matrix.word.encryptor.WordKeyColumnVariantMatrixTranspositionEncryptor;
 import com.my.core.cryptography.matrix.word.encryptor.WordKeyMatrixTranspositionEncryptor;
 import com.my.core.cryptography.railfence.encryptor.RailFenceEncryptor;
+import com.my.core.cryptography.vigenere.encryptor.VigenereCipherEncryptor;
 
 public class EncryptorFactory {
     private EncryptorFactory() {}
@@ -18,6 +19,7 @@ public class EncryptorFactory {
             case WORD_KEY_MATRIX_TRANSPOSITION: return new WordKeyMatrixTranspositionEncryptor();
             case WORD_KEY_COLUMN_VARIANT_MATRIX_TRANSPOSITION: return new WordKeyColumnVariantMatrixTranspositionEncryptor();
             case CAESAR_CIPHER: return new CaesarCipherEncryptor();
+            case VIGENERE_CIPHER: return new VigenereCipherEncryptor();
             default: throw new IllegalArgumentException();
         }
     }

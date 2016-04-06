@@ -14,8 +14,8 @@ public class VigenereCipherEncryptor implements Encryptor {
         public String encrypt(String data, Properties properties) {
             String keyword = properties.getProperty(VigenereCipherProperty.KEY_WORD.name());
             if (keyword.isEmpty()) throw new IllegalArgumentException("k cannot be empty");
-            String key = generateStraightKey(keyword, data.length());
-            return encryptInternal(data, key);
+            String key = generateStraightKey(keyword, data.length()).toLowerCase();
+            return encryptInternal(data.toLowerCase(), key);
         }
 
         private String generateStraightKey(String keyword, int length) {

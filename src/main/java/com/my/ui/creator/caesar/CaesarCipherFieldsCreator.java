@@ -7,7 +7,7 @@ import com.my.ui.creator.AlgorithmFieldsCreator;
 import java.awt.*;
 import java.util.Map;
 
-public class CaesarFieldsCreator implements AlgorithmFieldsCreator {
+public class CaesarCipherFieldsCreator implements AlgorithmFieldsCreator {
     @Override
     public Map<Label, TextField> getFields() {
         Map<Label, TextField> labelTextFieldMap = Maps.newHashMap();
