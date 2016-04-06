@@ -1,6 +1,7 @@
 package com.my.core.cryptography.factory;
 
 import com.my.core.cryptography.Decryptor;
+import com.my.core.cryptography.caesar.decryptor.CaesarCipherDecryptor;
 import com.my.core.cryptography.enums.Algorithm;
 import com.my.core.cryptography.matrix.number.decryptor.NumberKeyMatrixTranspositionDecryptor;
 import com.my.core.cryptography.matrix.word.decryptor.WordKeyColumnVariantMatrixTranspositionDecryptor;
@@ -17,6 +18,7 @@ public class DecryptorFactory {
             case NUMBER_KEY_MATRIX_TRANSPOSITION: return new NumberKeyMatrixTranspositionDecryptor();
             case WORD_KEY_MATRIX_TRANSPOSITION: return new WordKeyMatrixTranspositionDecryptor();
             case WORD_KEY_COLUMN_VARIANT_MATRIX_TRANSPOSITION: return new WordKeyColumnVariantMatrixTranspositionDecryptor();
+            case CAESAR_CIPHER: return new CaesarCipherDecryptor();
             default: throw new IllegalArgumentException();
         }
     }

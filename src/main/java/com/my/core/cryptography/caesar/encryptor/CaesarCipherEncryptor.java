@@ -16,7 +16,7 @@ public class CaesarCipherEncryptor implements Encryptor {
         Integer k0 = Integer.valueOf(properties.getProperty(CaesarProperty.K0.name()));
         Integer k1 = Integer.valueOf(properties.getProperty(CaesarProperty.K1.name()));
         Integer n = Integer.valueOf(properties.getProperty(CaesarProperty.N.name()));
-
+        if (n > alphabet.size()) throw new IllegalArgumentException("n cannot be bigger than alphabet size");
         if (!(coprime(k0, n) && coprime(k1, n))) throw new IllegalArgumentException("k1, k0 are not coprime with n");
         return encryptInternal(data.replaceAll("\\s+", ""), k0, k1, n);
     }

@@ -180,7 +180,6 @@ public class App extends JFrame {
     }
 
     public static void main(String[] args ) {
-
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 App app = new App();
@@ -189,3 +188,4 @@ public class App extends JFrame {
         });
     }
 }
+
