@@ -1,4 +1,4 @@
-package com.my.core.cryptography.caesar.util;
+package com.my.core.util;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableMap;
@@ -35,5 +35,23 @@ public class AlphabetBiMap {
                     .build();
 
     public static final ImmutableMap<Character, Integer> characterValueMap = alphabet.inverse();
+
+    public static final ImmutableMap<Integer, ImmutableMap<Integer, Character>> alphabets = buildAlphabetsMap();
+
+    private static ImmutableMap<Integer, ImmutableMap<Integer, Character>> buildAlphabetsMap() {
+        ImmutableMap.Builder<Integer, ImmutableMap<Integer, Character>> builder = new ImmutableMap.Builder<>();
+        for (int i = 0; i < 26; i++) {
+            builder.put(i, getShiftedAlphabet(i));
+        }
+        return builder.build();
+    }
+
+    private static ImmutableMap<Integer, Character> getShiftedAlphabet(int shift) {
+        ImmutableMap.Builder<Integer, Character> builder = new ImmutableMap.Builder<>();
+        for (int i = 0; i < alphabet.size(); i++) {
+            builder.put(i, alphabet.get((i + shift) % alphabet.size()));
+        }
+        return builder.build();
+    }
 
 }

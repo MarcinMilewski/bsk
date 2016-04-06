@@ -1,7 +1,7 @@
 package com.my.core.cryptography.caesar.decryptor;
 
 import com.my.core.cryptography.caesar.encryptor.CaesarCipherEncryptor;
-import com.my.core.cryptography.caesar.property.CaesarProperty;
+import com.my.core.cryptography.caesar.property.CaesarCipherProperty;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,9 +17,9 @@ public class CaesarCipherDecryptorTest {
     public void setUp() throws Exception {
         caesarCipherDecryptor = new CaesarCipherDecryptor();
         properties = new Properties();
-        properties.setProperty(CaesarProperty.K0.name(), "4");
-        properties.setProperty(CaesarProperty.K1.name(), "5");
-        properties.setProperty(CaesarProperty.N.name(), "21");
+        properties.setProperty(CaesarCipherProperty.K0.name(), "4");
+        properties.setProperty(CaesarCipherProperty.K1.name(), "5");
+        properties.setProperty(CaesarCipherProperty.N.name(), "21");
     }
 
     @Test

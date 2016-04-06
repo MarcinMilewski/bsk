@@ -2,19 +2,19 @@ package com.my.core.cryptography.caesar.decryptor;
 
 import com.google.common.math.IntMath;
 import com.my.core.cryptography.Decryptor;
-import com.my.core.cryptography.caesar.property.CaesarProperty;
+import com.my.core.cryptography.caesar.property.CaesarCipherProperty;
 
 import java.util.Properties;
 
-import static com.my.core.cryptography.caesar.util.AlphabetBiMap.alphabet;
-import static com.my.core.cryptography.caesar.util.AlphabetBiMap.characterValueMap;
+import static com.my.core.util.AlphabetBiMap.alphabet;
+import static com.my.core.util.AlphabetBiMap.characterValueMap;
 
 public class CaesarCipherDecryptor implements Decryptor{
     @Override
     public String decrypt(String data, Properties properties) {
-        Integer k0 = Integer.valueOf(properties.getProperty(CaesarProperty.K0.name()));
-        Integer k1 = Integer.valueOf(properties.getProperty(CaesarProperty.K1.name()));
-        Integer n = Integer.valueOf(properties.getProperty(CaesarProperty.N.name()));
+        Integer k0 = Integer.valueOf(properties.getProperty(CaesarCipherProperty.K0.name()));
+        Integer k1 = Integer.valueOf(properties.getProperty(CaesarCipherProperty.K1.name()));
+        Integer n = Integer.valueOf(properties.getProperty(CaesarCipherProperty.N.name()));
         if (n > alphabet.size()) throw new IllegalArgumentException("n cannot be bigger than alphabet size");
 
         if (!(coprime(k0, n) && coprime(k1, n))) throw new IllegalArgumentException("k1, k0 are not coprime with n");

@@ -1,5 +1,5 @@
 package com.my.core.cryptography.caesar.property;
 
-public enum CaesarProperty {
+public enum CaesarCipherProperty {
     K0, K1, N;
 }
