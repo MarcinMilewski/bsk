@@ -11,4 +11,15 @@ public class BinaryUtils {
         }
         return mask;
     }
+
+    public static BitSet shiftRightNoCarry(BitSet bits) {
+        BitSet shifted = new BitSet(bits.length());
+        shifted.clear(0);
+
+        int j = 1;
+        for (int i = 0; i < bits.length(); i++, j++) {
+            shifted.set(j, bits.get(i));
+        }
+        return shifted;
+    }
 }

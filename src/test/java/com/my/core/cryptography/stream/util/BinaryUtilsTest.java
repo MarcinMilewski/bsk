@@ -18,4 +18,14 @@ public class BinaryUtilsTest {
         Assert.assertThat(mask.get(4), is(false));
     }
 
+    @Test
+    public void shiftRightNoCarryTest() throws Exception {
+        BitSet mask = BinaryUtils.getMask("10100");
+        mask = BinaryUtils.shiftRightNoCarry(mask); // should be 01010
+        Assert.assertThat(mask.get(0), is(false));
+        Assert.assertThat(mask.get(1), is(true));
+        Assert.assertThat(mask.get(2), is(false));
+        Assert.assertThat(mask.get(3), is(true));
+        Assert.assertThat(mask.get(4), is(false));
+    }
 }
