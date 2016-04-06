@@ -18,7 +18,7 @@ public class LfsrGenerator {
     }
 
     public BitSet generate(Properties properties, int number) {
-        String polynomialString = properties.getProperty(LfsrGeneratorProperty.polynomial.name());
+        String polynomialString = properties.getProperty(LfsrGeneratorProperty.POLYNOMIAL.name());
         String generatorStateString = properties.getProperty(LfsrGeneratorProperty.SEED.name());
         if (polynomialString == null || polynomialString.isEmpty()) throw new IllegalArgumentException();
         if (generatorStateString == null || generatorStateString.length() != polynomialString.length()) throw new IllegalArgumentException();
@@ -32,14 +32,14 @@ public class LfsrGenerator {
             boolean computedBit = lfsrGeneratorBitComputer.compute(additionOrder, generatorState);
             generatorState = shiftRightNoCarry(generatorState);
             generatorState.set(0, computedBit);
-            output.set(0, computedBit);
+            output.set(i, computedBit);
         }
         return output;
     }
 
     private List<Integer> getAdditionOrder(BitSet polynomial) {
         List<Integer> order = Lists.newArrayList();
-        for (int i = polynomial.size() -1 ; i >=0 ; i++) {
+        for (int i = polynomial.length() -1 ; i >=0 ; i--) {
             if (polynomial.get(i) == true) {
                 order.add(i);
             }
