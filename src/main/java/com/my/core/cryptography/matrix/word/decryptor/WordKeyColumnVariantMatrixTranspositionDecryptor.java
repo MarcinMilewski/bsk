@@ -7,6 +7,7 @@ import com.my.core.cryptography.matrix.util.CharacterMatrix;
 import com.my.core.cryptography.matrix.word.properties.WordKeyMatrixTranspositionProperty;
 import com.my.core.util.CharacterIterator;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -41,6 +42,11 @@ public class WordKeyColumnVariantMatrixTranspositionDecryptor extends WordKeyMat
         StringBuilder sb = new StringBuilder();
         matrices.forEach(m -> sb.append(m.readByLines()));
         return sb.toString();
+    }
+
+    @Override
+    public File decrypt(File data, Properties properties) {
+        return null;
     }
 
     private int getSubstringSize(int length) {

@@ -4,6 +4,7 @@ import com.google.common.math.IntMath;
 import com.my.core.cryptography.Encryptor;
 import com.my.core.cryptography.caesar.property.CaesarCipherProperty;
 
+import java.io.File;
 import java.util.Properties;
 
 import static com.my.core.util.AlphabetBiMap.alphabet;
@@ -19,6 +20,11 @@ public class CaesarCipherEncryptor implements Encryptor {
         if (n > alphabet.size()) throw new IllegalArgumentException("n cannot be bigger than alphabet size");
         if (!(coprime(k0, n) && coprime(k1, n))) throw new IllegalArgumentException("k1, k0 are not coprime with n");
         return encryptInternal(data.replaceAll("\\s+", ""), k0, k1, n);
+    }
+
+    @Override
+    public File encrypt(File data, Properties properties) {
+        return null;
     }
 
     private String encryptInternal(String data, Integer k0, Integer k1, Integer n) {

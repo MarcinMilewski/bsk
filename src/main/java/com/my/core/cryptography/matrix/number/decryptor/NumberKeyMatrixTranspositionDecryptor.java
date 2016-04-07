@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.my.core.cryptography.Decryptor;
 import com.my.core.cryptography.matrix.util.CharacterMatrix;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,11 @@ public class NumberKeyMatrixTranspositionDecryptor implements Decryptor {
         StringBuilder sb = new StringBuilder();
         matrices.forEach(m -> sb.append(m.readByLines()));
         return sb.toString();
+    }
+
+    @Override
+    public File decrypt(File data, Properties properties) {
+        return null;
     }
 
     private CharacterMatrix createMatrixWithEncodedData(int rowsNumber, Map<Integer, String> columnSubstringMap) {

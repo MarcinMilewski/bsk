@@ -3,6 +3,7 @@ package com.my.core.cryptography.railfence.decryptor;
 import com.my.core.cryptography.Decryptor;
 import com.my.core.cryptography.railfence.properties.RailfenceProperty;
 
+import java.io.File;
 import java.util.Properties;
 
 public class RailFenceDecryptor implements Decryptor {
@@ -13,6 +14,11 @@ public class RailFenceDecryptor implements Decryptor {
         String depth = properties.getProperty(RailfenceProperty.DEPTH.name());
         if (depth == null || depth.isEmpty() || data.isEmpty()) throw new IllegalArgumentException();
         return decryptInternal(Integer.valueOf(depth), data);
+    }
+
+    @Override
+    public File decrypt(File data, Properties properties) {
+        return null;
     }
 
     private String decryptInternal(Integer depth, String data) {

@@ -7,6 +7,7 @@ import com.my.core.cryptography.Decryptor;
 import com.my.core.cryptography.matrix.util.CharacterMatrix;
 import com.my.core.cryptography.matrix.word.properties.WordKeyMatrixTranspositionProperty;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,11 @@ public class WordKeyMatrixTranspositionDecryptor implements Decryptor {
         StringBuilder sb = new StringBuilder();
         matrices.forEach(m -> sb.append(m.readByLines()));
         return sb.toString();
+    }
+
+    @Override
+    public File decrypt(File data, Properties properties) {
+        return null;
     }
 
     protected CharacterMatrix createMatrixWithEncodedData(int rowsNumber, Map<Integer, String> columnSubstringMap) {

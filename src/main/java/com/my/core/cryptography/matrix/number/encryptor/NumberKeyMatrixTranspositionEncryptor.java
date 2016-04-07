@@ -3,6 +3,7 @@ package com.my.core.cryptography.matrix.number.encryptor;
 import com.my.core.cryptography.Encryptor;
 import com.my.core.cryptography.matrix.util.CharacterMatrix;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -13,6 +14,11 @@ public class NumberKeyMatrixTranspositionEncryptor implements Encryptor{
         // matrix 5x5, key - 3 4 1 5 2
         List<CharacterMatrix> matrices = createMatrices(data);
         return encryptInternal(matrices);
+    }
+
+    @Override
+    public File encrypt(File data, Properties properties) {
+        return null;
     }
 
     private List<CharacterMatrix> createMatrices(String data) {

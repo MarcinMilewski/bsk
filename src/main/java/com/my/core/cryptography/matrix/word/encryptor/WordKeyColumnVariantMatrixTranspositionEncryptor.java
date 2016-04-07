@@ -4,6 +4,7 @@ import com.my.core.cryptography.Encryptor;
 import com.my.core.cryptography.matrix.util.CharacterMatrix;
 import com.my.core.util.CharacterIterator;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -13,6 +14,11 @@ public class WordKeyColumnVariantMatrixTranspositionEncryptor extends WordKeyMat
     @Override
     public String encrypt(String data, Properties properties) {
         return super.encrypt(data, properties);
+    }
+
+    @Override
+    public File encrypt(File data, Properties properties) {
+        return null;
     }
 
     @Override

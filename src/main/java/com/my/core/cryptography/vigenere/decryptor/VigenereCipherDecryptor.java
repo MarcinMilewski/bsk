@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableBiMap;
 import com.my.core.cryptography.Decryptor;
 import com.my.core.cryptography.vigenere.property.VigenereCipherProperty;
 
+import java.io.File;
 import java.util.Properties;
 
 import static com.my.core.util.AlphabetBiMap.*;
@@ -15,6 +16,11 @@ public class VigenereCipherDecryptor implements Decryptor {
         if (keyword.isEmpty()) throw new IllegalArgumentException("k cannot be empty");
         String key = generateStraightKey(keyword, data.length()).toLowerCase();
         return decryptInternal(data.toLowerCase(), key);
+    }
+
+    @Override
+    public File decrypt(File data, Properties properties) {
+        return null;
     }
 
     private String generateStraightKey(String keyword, int length) {

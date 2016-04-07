@@ -3,6 +3,7 @@ package com.my.core.cryptography.vigenere.encryptor;
 import com.my.core.cryptography.Encryptor;
 import com.my.core.cryptography.vigenere.property.VigenereCipherProperty;
 
+import java.io.File;
 import java.util.Properties;
 
 import static com.my.core.util.AlphabetBiMap.alphabets;
@@ -18,7 +19,12 @@ public class VigenereCipherEncryptor implements Encryptor {
             return encryptInternal(data.toLowerCase(), key);
         }
 
-        private String generateStraightKey(String keyword, int length) {
+    @Override
+    public File encrypt(File data, Properties properties) {
+        return null;
+    }
+
+    private String generateStraightKey(String keyword, int length) {
             StringBuilder sb = new StringBuilder();
             int keywordLength = keyword.length();
             for (int i = 0; i < length; i++) {

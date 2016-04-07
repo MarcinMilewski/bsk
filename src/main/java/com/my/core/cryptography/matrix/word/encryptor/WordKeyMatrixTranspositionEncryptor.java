@@ -7,6 +7,7 @@ import com.my.core.cryptography.Encryptor;
 import com.my.core.cryptography.matrix.util.CharacterMatrix;
 import com.my.core.cryptography.matrix.word.properties.WordKeyMatrixTranspositionProperty;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,11 @@ public class WordKeyMatrixTranspositionEncryptor implements Encryptor {
         order = getOrder(keyword);
         List<CharacterMatrix> matrices = createMatrices(data, rowsNumber, columnsNumber);
         return encryptInternal(matrices, keyword);
+    }
+
+    @Override
+    public File encrypt(File data, Properties properties) {
+        return null;
     }
 
     protected List<CharacterMatrix> createMatrices(String data, int rowsNumber, int columnsNumber) {

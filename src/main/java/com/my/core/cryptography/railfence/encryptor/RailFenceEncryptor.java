@@ -3,6 +3,7 @@ package com.my.core.cryptography.railfence.encryptor;
 import com.my.core.cryptography.Encryptor;
 import com.my.core.cryptography.railfence.properties.RailfenceProperty;
 
+import java.io.File;
 import java.util.Properties;
 
 public class RailFenceEncryptor implements Encryptor {
@@ -12,6 +13,11 @@ public class RailFenceEncryptor implements Encryptor {
         String depth = properties.getProperty(RailfenceProperty.DEPTH.name());
         if (depth == null || depth.isEmpty() || data.isEmpty()) throw new IllegalArgumentException();
         return encryptInternal(Integer.valueOf(depth), data);
+    }
+
+    @Override
+    public File encrypt(File data, Properties properties) {
+        return null;
     }
 
     private String encryptInternal(int depth, String data) {
