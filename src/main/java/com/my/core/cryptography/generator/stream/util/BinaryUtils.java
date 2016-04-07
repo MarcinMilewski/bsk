@@ -41,4 +41,21 @@ public class BinaryUtils {
         return bytes;
     }
 
+    public static boolean[] byteToBoolArr(byte x) {
+        boolean[] boolArr = new boolean[8];
+        boolArr[0] = ((x & 0x01) != 0);
+        boolArr[1] = ((x & 0x02) != 0);
+        boolArr[2] = ((x & 0x04) != 0);
+        boolArr[3] = ((x & 0x08) != 0);
+
+        boolArr[4] = ((x & 0x10) != 0);
+        boolArr[5] = ((x & 0x20) != 0);
+        boolArr[6] = ((x & 0x40) != 0);
+        boolArr[7] = ((x & 0x80) != 0);
+        return boolArr;
+    }
+
+    public static boolean xor(boolean x, boolean y) {
+        return ( ( x || y ) && ! ( x && y ) );
+    }
 }
