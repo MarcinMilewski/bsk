@@ -6,11 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class CiphertextAutoKeyEncryptorTest {
     private CiphertextAutoKeyEncryptor ciphertextAutoKeyEncryptor;
@@ -44,10 +46,19 @@ public class CiphertextAutoKeyEncryptorTest {
         assertThat(outputFile.length(), is(inputFile.length()));
     }
 
-
     @Test
-    public void encrypt() throws Exception {
+    public void encryptDecryptTest() throws Exception {
+        File encrypted = ciphertextAutoKeyEncryptor.encrypt(inputFile, properties);
 
+        properties.setProperty(SynchronousStreamProperty.OUTPUT_FILE_PATH.name(), output.getPath());
+        File decrypted = ciphertextAutoKeyEncryptor.encrypt(encrypted, properties);
+
+        assertThat(decrypted.length(), is(inputFile.length()));
+        byte[] encryptedData = Files.readAllBytes(encrypted.toPath());
+        byte[] decryptedData = Files.readAllBytes(decrypted.toPath());
+        for (int i = 0; i < encrypted.length(); i++) {
+            assertTrue(encryptedData[i] == decryptedData[i]);
+        }
     }
 
 }
