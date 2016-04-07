@@ -30,4 +30,15 @@ public class BinaryUtils {
 
         return sbits;
     }
+
+    public static byte[] toByteArray(BitSet bits) {
+        byte[] bytes = new byte[bits.length()/8+1];
+        for (int i=0; i<bits.length(); i++) {
+            if (bits.get(i)) {
+                bytes[bytes.length-i/8-1] |= 1<<(i%8);
+            }
+        }
+        return bytes;
+    }
+
 }
