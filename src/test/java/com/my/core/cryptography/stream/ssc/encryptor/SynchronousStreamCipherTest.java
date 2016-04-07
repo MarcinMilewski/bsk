@@ -6,26 +6,32 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class SynchronousStreamCipherTest {
 
     private SynchronousStreamCipher synchronousStreamCipher;
     private Properties properties;
     private File inputFile;
+    private File output;
 
     @Before
     public void setUp() throws Exception {
         synchronousStreamCipher = new SynchronousStreamCipher();
         properties = new Properties();
-        properties.setProperty(SynchronousStreamProperty.OUTPUT_FILE_PATH.name(), "/home/marcin/testOutput2.bin");
+
         properties.setProperty(LfsrGeneratorProperty.POLYNOMIAL.name(), "1001");
         properties.setProperty(LfsrGeneratorProperty.SEED.name(), "1010");
         inputFile = new File(this.getClass().getResource("/test.txt").toURI());
+        File parentDirectory = inputFile.getParentFile();
+        output = new File(parentDirectory, "output.txt");
+        properties.setProperty(SynchronousStreamProperty.OUTPUT_FILE_PATH.name(), output.getPath());
     }
 
 
@@ -39,6 +45,21 @@ public class SynchronousStreamCipherTest {
     public void encryptOutFileShouldSameLengthAsInputFile() throws Exception {
         File outputFile = synchronousStreamCipher.encrypt(inputFile, properties);
         assertThat(outputFile.length(), is(inputFile.length()));
+    }
+
+    @Test
+    public void decrypt() throws Exception {
+        File encrypted = synchronousStreamCipher.encrypt(inputFile, properties);
+
+        properties.setProperty(SynchronousStreamProperty.OUTPUT_FILE_PATH.name(), output.getPath());
+        File decrypted = synchronousStreamCipher.encrypt(encrypted, properties);
+
+        assertThat(decrypted.length(), is(inputFile.length()));
+        byte[] encryptedData = Files.readAllBytes(encrypted.toPath());
+        byte[] decryptedData = Files.readAllBytes(decrypted.toPath());
+        for (int i = 0; i < encrypted.length(); i++) {
+            assertTrue(encryptedData[i] == decryptedData[i]);
+        }
     }
 
 }
