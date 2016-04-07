@@ -42,8 +42,6 @@ public class SynchronousStreamCipher implements Encryptor {
         byte[] dataBytes = Files.readAllBytes(data.toPath());
         byte[] generatorBytes = lfsrGenerator.generate(properties, dataBytes.length * 8).toByteArray();
 
-        if(dataBytes.length != generatorBytes.length) throw new RuntimeException("Fail");
-
         byte[] output = xor(dataBytes, generatorBytes);
 
         return createFile(outputFilePath, output);
@@ -59,7 +57,6 @@ public class SynchronousStreamCipher implements Encryptor {
 
     private byte[] xor(byte[] dataBytes, byte[] generatorBytes) {
         byte[] result = new byte[dataBytes.length];
-
         for (int i = 0; i < result.length; i++) {
             result[i] = (byte) (((int) dataBytes[i]) ^ ((int) generatorBytes[i]));
         }
