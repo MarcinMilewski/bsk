@@ -8,6 +8,7 @@ import com.my.ui.creator.matrix.number.NumberKeyMatrixTranspositionFieldsCreator
 import com.my.ui.creator.matrix.word.WordKeyColumnVariantMatrixTranspositionFieldsCreator;
 import com.my.ui.creator.matrix.word.WordKeyMatrixTranspositionFieldsCreator;
 import com.my.ui.creator.railfence.RailFenceFieldsCreator;
+import com.my.ui.creator.stream.ssc.SynchronousStreamCipherFieldsCreator;
 import com.my.ui.creator.vigenere.VigenereCipherFieldsCreator;
 
 public class AlgorithmFieldsCreatorFactory {
@@ -23,6 +24,7 @@ public class AlgorithmFieldsCreatorFactory {
             case CAESAR_CIPHER: return new CaesarCipherFieldsCreator();
             case VIGENERE_CIPHER: return new VigenereCipherFieldsCreator();
             case LFSR_GENERATOR: return new LfsrGeneratorFieldsCreator();
+            case SYNCHRONOUS_STREAM: return new SynchronousStreamCipherFieldsCreator();
             default: throw new IllegalArgumentException();
         }
     }

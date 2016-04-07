@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.BitSet;
 import java.util.Map;
 import java.util.Properties;
@@ -61,6 +63,33 @@ public class App extends JFrame {
             Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
             BitSet generated = GeneratorFactory.getGenerator(algorithm).generate(properties, Integer.parseInt(input.getText()));
             output.setText(BinaryUtils.toString(generated, Integer.parseInt(input.getText())));
+        }
+    };
+
+    private ActionListener encryptFileButtonListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
+            try {
+                EncryptorFactory.getEncryptor(algorithm).encrypt(new File(input.getText()), properties);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            output.setText("Encrypted");
+        }
+    };
+
+
+    private ActionListener decryptFileButtonListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
+            try {
+                DecryptorFactory.getDecryptor(algorithm).decrypt(new File(input.getText()), properties);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            output.setText("Decrypted");
         }
     };
 
@@ -199,6 +228,14 @@ public class App extends JFrame {
         removeCentralPanelButtons();
         if (algorithm.equals(Algorithm.LFSR_GENERATOR)) {
             createGeneratorButtons();
+        }
+        else if (algorithm.equals(Algorithm.SYNCHRONOUS_STREAM)) {
+            createCipherDecipherButtons();
+            decryptOutput.setEnabled(false);
+            encryptButton.removeActionListener(encryptButtonListener);
+            decryptButton.removeActionListener(decryptButtonListener);
+            encryptButton.addActionListener(encryptFileButtonListener);
+            decryptButton.addActionListener(decryptFileButtonListener);
         }
         else {
             createCipherDecipherButtons();

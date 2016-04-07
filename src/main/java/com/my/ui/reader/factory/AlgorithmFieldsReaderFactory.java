@@ -8,6 +8,7 @@ import com.my.ui.reader.matrix.number.NumberKeyMatrixTranspositionFieldsReader;
 import com.my.ui.reader.matrix.word.WordKeyColumnVariantMatrixTranspositionFieldsReader;
 import com.my.ui.reader.matrix.word.WordKeyMatrixTranspositionFieldsReader;
 import com.my.ui.reader.railfence.RailFenceFieldsReader;
+import com.my.ui.reader.stream.ssc.SynchronousStreamCipherFieldsReader;
 import com.my.ui.reader.vigenere.VigenereCipherFieldsReader;
 
 public class AlgorithmFieldsReaderFactory {
@@ -23,6 +24,7 @@ public class AlgorithmFieldsReaderFactory {
             case CAESAR_CIPHER: return new CaesarCipherFieldsReader();
             case VIGENERE_CIPHER: return new VigenereCipherFieldsReader();
             case LFSR_GENERATOR: return new LfsrGeneratorFieldsReader();
+            case SYNCHRONOUS_STREAM: return new SynchronousStreamCipherFieldsReader();
             default: throw new IllegalArgumentException();
         }
     }
