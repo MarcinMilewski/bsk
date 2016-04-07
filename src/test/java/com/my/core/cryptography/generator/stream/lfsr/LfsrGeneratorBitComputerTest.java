@@ -1,4 +1,4 @@
-package com.my.core.cryptography.stream.lfsr;
+package com.my.core.cryptography.generator.stream.lfsr;
 
 import com.google.common.collect.Lists;
 import org.junit.Assert;

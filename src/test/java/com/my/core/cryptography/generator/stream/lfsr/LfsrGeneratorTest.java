@@ -1,7 +1,7 @@
-package com.my.core.cryptography.stream.lfsr;
+package com.my.core.cryptography.generator.stream.lfsr;
 
 import com.google.common.collect.Lists;
-import com.my.core.cryptography.stream.property.LfsrGeneratorProperty;
+import com.my.core.cryptography.generator.stream.property.LfsrGeneratorProperty;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

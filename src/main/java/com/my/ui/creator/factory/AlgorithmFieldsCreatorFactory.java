@@ -3,6 +3,7 @@ package com.my.ui.creator.factory;
 import com.my.core.cryptography.enums.Algorithm;
 import com.my.ui.creator.AlgorithmFieldsCreator;
 import com.my.ui.creator.caesar.CaesarCipherFieldsCreator;
+import com.my.ui.creator.generator.lfsr.LfsrGeneratorFieldsCreator;
 import com.my.ui.creator.matrix.number.NumberKeyMatrixTranspositionFieldsCreator;
 import com.my.ui.creator.matrix.word.WordKeyColumnVariantMatrixTranspositionFieldsCreator;
 import com.my.ui.creator.matrix.word.WordKeyMatrixTranspositionFieldsCreator;
@@ -21,6 +22,7 @@ public class AlgorithmFieldsCreatorFactory {
             case WORD_KEY_COLUMN_VARIANT_MATRIX_TRANSPOSITION: return new WordKeyColumnVariantMatrixTranspositionFieldsCreator();
             case CAESAR_CIPHER: return new CaesarCipherFieldsCreator();
             case VIGENERE_CIPHER: return new VigenereCipherFieldsCreator();
+            case LFSR_GENERATOR: return new LfsrGeneratorFieldsCreator();
             default: throw new IllegalArgumentException();
         }
     }

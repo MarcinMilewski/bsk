@@ -3,12 +3,17 @@ package com.my.ui;
 import com.my.core.cryptography.enums.Algorithm;
 import com.my.core.cryptography.factory.DecryptorFactory;
 import com.my.core.cryptography.factory.EncryptorFactory;
+import com.my.core.cryptography.generator.factory.GeneratorFactory;
+import com.my.core.cryptography.generator.stream.util.BinaryUtils;
 import com.my.ui.creator.factory.AlgorithmFieldsCreatorFactory;
 import com.my.ui.reader.factory.AlgorithmFieldsReaderFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.BitSet;
 import java.util.Map;
 import java.util.Properties;
 
@@ -18,10 +23,46 @@ public class App extends JFrame {
     private JList list;
     private TextArea input, output;
     private Button encryptButton, decryptButton, decryptOutput;
+    private Button generateButton;
     private JPanel panel;
     private JPanel northPanel, southPanel, centerPanel, northWestPanel;
     private Map<Label,TextField> algorithmTextFields;
     private Algorithm algorithm;
+    private ActionListener encryptButtonListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
+            String encrypted = EncryptorFactory.getEncryptor(algorithm).encrypt(input.getText(), properties);
+            output.setText(encrypted);
+        }
+    };
+
+    private ActionListener decryptButtonListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
+            String encrypted = DecryptorFactory.getDecryptor(algorithm).decrypt(input.getText(), properties);
+            output.setText(encrypted);
+        }
+    };
+
+    private ActionListener decryptOutputButtonListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
+            String encrypted = DecryptorFactory.getDecryptor(algorithm).decrypt(output.getText(), properties);
+            output.setText(encrypted);
+        }
+    };
+
+    private ActionListener generateButtonListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
+            BitSet generated = GeneratorFactory.getGenerator(algorithm).generate(properties, Integer.parseInt(input.getText()));
+            output.setText(BinaryUtils.toString(generated, Integer.parseInt(input.getText())));
+        }
+    };
 
     public App() throws HeadlessException {
         initUi();
@@ -56,23 +97,13 @@ public class App extends JFrame {
         centerPanel.add(decryptButton);
         centerPanel.add(decryptOutput);
 
-        encryptButton.addActionListener(e -> {
-            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
-            String encrypted = EncryptorFactory.getEncryptor(algorithm).encrypt(input.getText(), properties);
-            output.setText(encrypted);
-        });
+        encryptButton.addActionListener(encryptButtonListener);
+        decryptButton.addActionListener(decryptButtonListener);
+        decryptOutput.addActionListener(decryptOutputButtonListener);
+    }
 
-        decryptButton.addActionListener(e -> {
-            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
-            String encrypted = DecryptorFactory.getDecryptor(algorithm).decrypt(input.getText(), properties);
-            output.setText(encrypted);
-        });
-
-        decryptOutput.addActionListener(e -> {
-            Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
-            String encrypted = DecryptorFactory.getDecryptor(algorithm).decrypt(output.getText(), properties);
-            output.setText(encrypted);
-        });
+    private void removeCentralPanelButtons() {
+        centerPanel.removeAll();
     }
 
     private void createCenterPanel() {
@@ -146,11 +177,14 @@ public class App extends JFrame {
             if (!e.getValueIsAdjusting()) {
                 northWestPanel.removeAll();
                 algorithm = (Algorithm) list.getSelectedValue();
+                createButtons(algorithm);
                 algorithmTextFields = AlgorithmFieldsCreatorFactory.getCreator(algorithm).getFields();
                 for (Map.Entry<Label, TextField> labelTextFieldEntry : algorithmTextFields.entrySet()) {
                     northWestPanel.add(labelTextFieldEntry.getKey());
                     northWestPanel.add(labelTextFieldEntry.getValue());
                 }
+
+
                 northWestPanel.revalidate();
                 pack();
             }
@@ -159,6 +193,22 @@ public class App extends JFrame {
         JScrollPane pane = new JScrollPane();
         pane.getViewport().add(list);
         northPanel.add(pane);
+    }
+
+    private void createButtons(Algorithm algorithm) {
+        removeCentralPanelButtons();
+        if (algorithm.equals(Algorithm.LFSR_GENERATOR)) {
+            createGeneratorButtons();
+        }
+        else {
+            createCipherDecipherButtons();
+        }
+    }
+
+    private void createGeneratorButtons() {
+        generateButton = new Button("Generate");
+        generateButton.addActionListener(generateButtonListener);
+        centerPanel.add(generateButton);
     }
 
     private void createWindow() {
@@ -180,6 +230,13 @@ public class App extends JFrame {
     }
 
     public static void main(String[] args ) {
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            public void uncaughtException(Thread t, Throwable e) {
+                JOptionPane.showMessageDialog(null, "Error: ");
+                e.printStackTrace();
+            }
+        });
+
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 App app = new App();
@@ -187,5 +244,6 @@ public class App extends JFrame {
             }
         });
     }
+
 }
 

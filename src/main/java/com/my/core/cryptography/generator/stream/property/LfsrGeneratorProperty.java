@@ -1,4 +1,4 @@
-package com.my.core.cryptography.stream.property;
+package com.my.core.cryptography.generator.stream.property;
 
 public enum LfsrGeneratorProperty {
     POLYNOMIAL,

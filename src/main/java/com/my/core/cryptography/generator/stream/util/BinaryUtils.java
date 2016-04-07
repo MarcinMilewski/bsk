@@ -1,4 +1,4 @@
-package com.my.core.cryptography.stream.util;
+package com.my.core.cryptography.generator.stream.util;
 
 import java.util.BitSet;
 
@@ -21,5 +21,13 @@ public class BinaryUtils {
             shifted.set(j, bits.get(i));
         }
         return shifted;
+    }
+
+    public static String toString(BitSet bits, int length) {
+        String sbits = "";
+        for (int i=length-1; i>=0; i--)
+            sbits += (bits.get(i)?"1":"0");
+
+        return sbits;
     }
 }

@@ -1,22 +1,24 @@
-package com.my.core.cryptography.stream.lfsr;
+package com.my.core.cryptography.generator.stream.lfsr;
 
 import com.google.common.collect.Lists;
-import com.my.core.cryptography.stream.property.LfsrGeneratorProperty;
+import com.my.core.cryptography.Generator;
+import com.my.core.cryptography.generator.stream.property.LfsrGeneratorProperty;
 
 import java.util.BitSet;
 import java.util.List;
 import java.util.Properties;
 
-import static com.my.core.cryptography.stream.util.BinaryUtils.getMask;
-import static com.my.core.cryptography.stream.util.BinaryUtils.shiftRightNoCarry;
+import static com.my.core.cryptography.generator.stream.util.BinaryUtils.getMask;
+import static com.my.core.cryptography.generator.stream.util.BinaryUtils.shiftRightNoCarry;
 
-public class LfsrGenerator {
+public class LfsrGenerator implements Generator {
     private LfsrGeneratorBitComputer lfsrGeneratorBitComputer;
 
     public LfsrGenerator() {
         lfsrGeneratorBitComputer = new LfsrGeneratorBitComputer();
     }
 
+    @Override
     public BitSet generate(Properties properties, int number) {
         String polynomialString = properties.getProperty(LfsrGeneratorProperty.POLYNOMIAL.name());
         String generatorStateString = properties.getProperty(LfsrGeneratorProperty.SEED.name());

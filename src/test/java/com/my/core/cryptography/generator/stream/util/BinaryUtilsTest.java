@@ -1,4 +1,4 @@
-package com.my.core.cryptography.stream.util;
+package com.my.core.cryptography.generator.stream.util;
 
 import org.junit.Assert;
 import org.junit.Test;

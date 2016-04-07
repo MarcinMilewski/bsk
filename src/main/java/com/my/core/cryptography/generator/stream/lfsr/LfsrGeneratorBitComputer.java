@@ -1,4 +1,4 @@
-package com.my.core.cryptography.stream.lfsr;
+package com.my.core.cryptography.generator.stream.lfsr;
 
 import java.util.BitSet;
 import java.util.List;
