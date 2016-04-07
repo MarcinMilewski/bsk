@@ -229,7 +229,7 @@ public class App extends JFrame {
         if (algorithm.equals(Algorithm.LFSR_GENERATOR)) {
             createGeneratorButtons();
         }
-        else if (algorithm.equals(Algorithm.SYNCHRONOUS_STREAM)) {
+        else if (algorithm.equals(Algorithm.SYNCHRONOUS_STREAM) || algorithm.equals(Algorithm.CIPHERTEXT_AUTOKEY)) {
             createCipherDecipherButtons();
             decryptOutput.setEnabled(false);
             encryptButton.removeActionListener(encryptButtonListener);

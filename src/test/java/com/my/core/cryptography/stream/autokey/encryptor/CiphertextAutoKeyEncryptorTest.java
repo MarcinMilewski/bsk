@@ -1,6 +1,7 @@
 package com.my.core.cryptography.stream.autokey.encryptor;
 
 import com.my.core.cryptography.generator.stream.property.LfsrGeneratorProperty;
+import com.my.core.cryptography.stream.autokey.decryptor.CiphertextAutoKeyDecryptor;
 import com.my.core.cryptography.stream.ssc.property.SynchronousStreamProperty;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import static org.junit.Assert.assertTrue;
 
 public class CiphertextAutoKeyEncryptorTest {
     private CiphertextAutoKeyEncryptor ciphertextAutoKeyEncryptor;
+    private CiphertextAutoKeyDecryptor ciphertextAutoKeyDecryptor;
     private Properties properties;
     private File inputFile;
     private File output;
@@ -23,11 +25,13 @@ public class CiphertextAutoKeyEncryptorTest {
     @Before
     public void setUp() throws Exception {
         ciphertextAutoKeyEncryptor = new CiphertextAutoKeyEncryptor();
+        ciphertextAutoKeyDecryptor = new CiphertextAutoKeyDecryptor();
         properties = new Properties();
 
         properties.setProperty(LfsrGeneratorProperty.POLYNOMIAL.name(), "1001");
         properties.setProperty(LfsrGeneratorProperty.SEED.name(), "1010");
         inputFile = new File(this.getClass().getResource("/test.txt").toURI());
+
         File parentDirectory = inputFile.getParentFile();
         output = new File(parentDirectory, "output.txt");
         properties.setProperty(SynchronousStreamProperty.OUTPUT_FILE_PATH.name(), output.getPath());
@@ -49,12 +53,12 @@ public class CiphertextAutoKeyEncryptorTest {
     @Test
     public void encryptDecryptTest() throws Exception {
         File encrypted = ciphertextAutoKeyEncryptor.encrypt(inputFile, properties);
+        byte[] encryptedData = Files.readAllBytes(encrypted.toPath());
 
         properties.setProperty(SynchronousStreamProperty.OUTPUT_FILE_PATH.name(), output.getPath());
-        File decrypted = ciphertextAutoKeyEncryptor.encrypt(encrypted, properties);
+        File decrypted = ciphertextAutoKeyDecryptor.decrypt(encrypted, properties);
 
         assertThat(decrypted.length(), is(inputFile.length()));
-        byte[] encryptedData = Files.readAllBytes(encrypted.toPath());
         byte[] decryptedData = Files.readAllBytes(decrypted.toPath());
         for (int i = 0; i < encrypted.length(); i++) {
             assertTrue(encryptedData[i] == decryptedData[i]);

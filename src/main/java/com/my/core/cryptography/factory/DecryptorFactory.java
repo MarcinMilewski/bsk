@@ -7,6 +7,7 @@ import com.my.core.cryptography.matrix.number.decryptor.NumberKeyMatrixTransposi
 import com.my.core.cryptography.matrix.word.decryptor.WordKeyColumnVariantMatrixTranspositionDecryptor;
 import com.my.core.cryptography.matrix.word.decryptor.WordKeyMatrixTranspositionDecryptor;
 import com.my.core.cryptography.railfence.decryptor.RailFenceDecryptor;
+import com.my.core.cryptography.stream.autokey.decryptor.CiphertextAutoKeyDecryptor;
 import com.my.core.cryptography.stream.ssc.decryptor.SynchronousStreamDecipher;
 import com.my.core.cryptography.vigenere.decryptor.VigenereCipherDecryptor;
 
@@ -23,6 +24,7 @@ public class DecryptorFactory {
             case CAESAR_CIPHER: return new CaesarCipherDecryptor();
             case VIGENERE_CIPHER: return new VigenereCipherDecryptor();
             case SYNCHRONOUS_STREAM: return new SynchronousStreamDecipher();
+            case CIPHERTEXT_AUTOKEY: return new CiphertextAutoKeyDecryptor();
             default: throw new IllegalArgumentException();
         }
     }
