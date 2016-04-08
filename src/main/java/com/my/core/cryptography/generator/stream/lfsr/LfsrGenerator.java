@@ -9,7 +9,7 @@ import java.util.BitSet;
 import java.util.List;
 import java.util.Properties;
 
-import static com.my.core.cryptography.generator.stream.util.BinaryUtils.getMask;
+import static com.my.core.cryptography.generator.stream.util.BinaryUtils.getBooleanArray;
 import static com.my.core.cryptography.generator.stream.util.BinaryUtils.shiftRightNoCarry;
 
 public class LfsrGenerator implements Generator {
@@ -25,8 +25,8 @@ public class LfsrGenerator implements Generator {
         String generatorStateString = properties.getProperty(LfsrGeneratorProperty.SEED.name());
         if (polynomialString == null || polynomialString.isEmpty()) throw new IllegalArgumentException();
         if (generatorStateString == null || generatorStateString.length() != polynomialString.length()) throw new IllegalArgumentException();
-        BitSet polynomial = getMask(polynomialString);
-        BitSet generatorState = getMask(generatorStateString);
+        BitSet polynomial = getBooleanArray(polynomialString);
+        BitSet generatorState = getBooleanArray(generatorStateString);
         BitSet output = new BitSet(number);
 
         List<Integer> additionOrder = getAdditionOrder(polynomial);

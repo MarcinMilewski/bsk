@@ -32,8 +32,8 @@ public class CiphertextAutoKeyEncryptor implements Encryptor {
             throw new IllegalArgumentException();
         if (outputFilePath == null || outputFilePath.isEmpty()) throw new IllegalArgumentException("Output file path is null");
 
-        BitSet polynomial = getMask(polynomialString);
-        BitSet seed = getMask(generatorStateString);
+        BitSet polynomial = getBooleanArray(polynomialString);
+        BitSet seed = getBooleanArray(generatorStateString);
 
         statefulLfsrGenerator = new StatefulLfsrGenerator(toBooleanArray(polynomial, polynomialString.length()),
                 toBooleanArray(seed, generatorStateString.length()));

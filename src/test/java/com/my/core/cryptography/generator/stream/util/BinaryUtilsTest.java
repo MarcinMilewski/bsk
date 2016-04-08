@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 public class BinaryUtilsTest {
     @Test
     public void getMask() throws Exception {
-        BitSet mask = BinaryUtils.getMask("10100");
+        BitSet mask = BinaryUtils.getBooleanArray("10100");
         Assert.assertThat(mask.get(0), is(true));
         Assert.assertThat(mask.get(1), is(false));
         Assert.assertThat(mask.get(2), is(true));
@@ -20,7 +20,7 @@ public class BinaryUtilsTest {
 
     @Test
     public void shiftRightNoCarryTest() throws Exception {
-        BitSet mask = BinaryUtils.getMask("10100");
+        BitSet mask = BinaryUtils.getBooleanArray("10100");
         mask = BinaryUtils.shiftRightNoCarry(mask); // should be 01010
         Assert.assertThat(mask.get(0), is(false));
         Assert.assertThat(mask.get(1), is(true));

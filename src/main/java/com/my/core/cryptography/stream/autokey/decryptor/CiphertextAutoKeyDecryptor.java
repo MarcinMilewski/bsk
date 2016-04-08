@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.util.BitSet;
 import java.util.Properties;
 
-import static com.my.core.cryptography.generator.stream.util.BinaryUtils.getMask;
+import static com.my.core.cryptography.generator.stream.util.BinaryUtils.getBooleanArray;
 import static com.my.core.cryptography.generator.stream.util.BinaryUtils.toBooleanArray;
 import static com.my.core.cryptography.generator.stream.util.BinaryUtils.xor;
 
@@ -36,8 +36,8 @@ public class CiphertextAutoKeyDecryptor implements Decryptor {
         if (outputFilePath == null || outputFilePath.isEmpty())
             throw new IllegalArgumentException("Output file path is null");
 
-        BitSet polynomial = getMask(polynomialString);
-        BitSet seed = getMask(generatorStateString);
+        BitSet polynomial = getBooleanArray(polynomialString);
+        BitSet seed = getBooleanArray(generatorStateString);
 
         statefulLfsrGenerator = new StatefulLfsrGenerator(toBooleanArray(polynomial, polynomialString.length()),
                 toBooleanArray(seed, generatorStateString.length()));
