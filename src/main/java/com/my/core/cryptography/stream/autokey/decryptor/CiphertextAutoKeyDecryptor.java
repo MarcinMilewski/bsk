@@ -44,10 +44,6 @@ public class CiphertextAutoKeyDecryptor implements Decryptor{
         BitSet dataBitSet = BitSet.valueOf(dataBytes);
         BitSet outputBitSet = new BitSet(dataBytes.length * 8);
 
-//        for (int i = 0; i < polynomialString.length(); i++) {
-//            statefulLfsrGenerator.set(i, dataBitSet.get(i));
-//        }
-
         for (int i = 0; i < dataBytes.length * 8; i++) {
             boolean generatedBit = statefulLfsrGenerator.generateNext();
             boolean xoredBit = xor(dataBitSet.get(i), generatedBit);
@@ -55,7 +51,6 @@ public class CiphertextAutoKeyDecryptor implements Decryptor{
             statefulLfsrGenerator.setFirstStateBit(dataBitSet.get(i));
             outputBitSet.set(i, xoredBit);
         }
-//        outputBitSet.flip(0, dataBytes.length * 8);
         return createFile(outputFilePath, outputBitSet.toByteArray());
     }
 
