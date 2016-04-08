@@ -58,4 +58,12 @@ public class BinaryUtils {
     public static boolean xor(boolean x, boolean y) {
         return ( ( x || y ) && ! ( x && y ) );
     }
+
+    private byte[] xor(byte[] dataBytes, byte[] generatorBytes) {
+        byte[] result = new byte[dataBytes.length];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = (byte) (((int) dataBytes[i]) ^ ((int) generatorBytes[i]));
+        }
+        return result;
+    }
 }

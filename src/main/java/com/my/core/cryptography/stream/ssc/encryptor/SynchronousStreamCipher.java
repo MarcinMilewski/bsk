@@ -1,7 +1,7 @@
 package com.my.core.cryptography.stream.ssc.encryptor;
 
 import com.my.core.cryptography.Encryptor;
-import com.my.core.cryptography.generator.stream.lfsr.LfsrGenerator;
+import com.my.core.cryptography.generator.stream.lfsr.StatefulLfsrGenerator;
 import com.my.core.cryptography.stream.ssc.property.SynchronousStreamProperty;
 
 import java.io.File;
@@ -12,13 +12,11 @@ import java.util.BitSet;
 import java.util.Properties;
 
 import static com.my.core.cryptography.generator.stream.util.BinaryUtils.getMask;
+import static com.my.core.cryptography.generator.stream.util.BinaryUtils.xor;
 
 public class SynchronousStreamCipher implements Encryptor {
-    private LfsrGenerator lfsrGenerator;
+    private StatefulLfsrGenerator lfsrGenerator;
 
-    public SynchronousStreamCipher() {
-        lfsrGenerator = new LfsrGenerator();
-    }
 
     @Override
     public String encrypt(String data, Properties properties) {
@@ -28,23 +26,31 @@ public class SynchronousStreamCipher implements Encryptor {
     @Override
     public File encrypt(File data, Properties properties) throws IOException {
         String polynomialString = properties.getProperty(SynchronousStreamProperty.POLYNOMIAL.name());
-        String generatorStateString = properties.getProperty(SynchronousStreamProperty.SEED.name());
+        String seedString = properties.getProperty(SynchronousStreamProperty.SEED.name());
         String outputFilePath = properties.getProperty(SynchronousStreamProperty.OUTPUT_FILE_PATH.name());
 
         if (polynomialString == null || polynomialString.isEmpty()) throw new IllegalArgumentException();
-        if (generatorStateString == null || generatorStateString.length() != polynomialString.length())
+        if (seedString == null || seedString.length() != polynomialString.length())
             throw new IllegalArgumentException();
         if (outputFilePath == null || outputFilePath.isEmpty()) throw new IllegalArgumentException("Output file path is null");
 
         BitSet polynomial = getMask(polynomialString);
-        BitSet generatorState = getMask(generatorStateString);
+        BitSet seed = getMask(seedString);
+
+        lfsrGenerator = new StatefulLfsrGenerator(polynomial, seed);
 
         byte[] dataBytes = Files.readAllBytes(data.toPath());
-        byte[] generatorBytes = lfsrGenerator.generate(properties, dataBytes.length * 8).toByteArray();
 
-        byte[] output = xor(dataBytes, generatorBytes);
+        BitSet dataBitSet = BitSet.valueOf(dataBytes);
+        BitSet outputBitSet = new BitSet(dataBytes.length * 8);
 
-        return createFile(outputFilePath, output);
+        for (int i = 0; i < dataBytes.length * 8; i++) {
+            boolean generatedBit = lfsrGenerator.generateNext();
+            lfsrGenerator.shiftRightNoCarry();
+            lfsrGenerator.setFirstStateBit(generatedBit);
+            outputBitSet.set(i, xor(generatedBit, dataBitSet.get(i)));
+        }
+        return createFile(outputFilePath, outputBitSet.toByteArray());
     }
 
     private File createFile(String outputFilePath, byte[] output) throws IOException {
@@ -55,11 +61,4 @@ public class SynchronousStreamCipher implements Encryptor {
         return outputFile;
     }
 
-    private byte[] xor(byte[] dataBytes, byte[] generatorBytes) {
-        byte[] result = new byte[dataBytes.length];
-        for (int i = 0; i < result.length; i++) {
-            result[i] = (byte) (((int) dataBytes[i]) ^ ((int) generatorBytes[i]));
-        }
-        return result;
-    }
 }
