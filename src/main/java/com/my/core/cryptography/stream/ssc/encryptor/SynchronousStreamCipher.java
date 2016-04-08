@@ -3,6 +3,7 @@ package com.my.core.cryptography.stream.ssc.encryptor;
 import com.my.core.cryptography.Encryptor;
 import com.my.core.cryptography.generator.stream.lfsr.StatefulLfsrGenerator;
 import com.my.core.cryptography.stream.ssc.property.SynchronousStreamProperty;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +18,7 @@ import static com.my.core.cryptography.generator.stream.util.BinaryUtils.xor;
 
 public class SynchronousStreamCipher implements Encryptor {
     private StatefulLfsrGenerator lfsrGenerator;
-
+    private static Logger logger = Logger.getLogger(SynchronousStreamCipher.class);
 
     @Override
     public String encrypt(String data, Properties properties) {
@@ -26,6 +27,7 @@ public class SynchronousStreamCipher implements Encryptor {
 
     @Override
     public File encrypt(File data, Properties properties) throws IOException {
+        logger.debug("Start encryption");
         String polynomialString = properties.getProperty(SynchronousStreamProperty.POLYNOMIAL.name());
         String seedString = properties.getProperty(SynchronousStreamProperty.SEED.name());
         String outputFilePath = properties.getProperty(SynchronousStreamProperty.OUTPUT_FILE_PATH.name());
@@ -42,6 +44,7 @@ public class SynchronousStreamCipher implements Encryptor {
                 toBooleanArray(seed, seedString.length()));
 
         byte[] dataBytes = Files.readAllBytes(data.toPath());
+        logger.debug("Input data size = " + dataBytes.length);
 
         BitSet dataBitSet = BitSet.valueOf(dataBytes);
         BitSet outputBitSet = new BitSet(dataBytes.length * 8);
@@ -56,6 +59,7 @@ public class SynchronousStreamCipher implements Encryptor {
     }
 
     private File createFile(String outputFilePath, byte[] output) throws IOException {
+        logger.debug("Creating output file, output size = " + output.length);
         File outputFile = new File(outputFilePath);
         FileOutputStream stream = new FileOutputStream(outputFile);
         stream.write(output);
