@@ -12,6 +12,7 @@ import java.util.BitSet;
 import java.util.Properties;
 
 import static com.my.core.cryptography.generator.stream.util.BinaryUtils.getMask;
+import static com.my.core.cryptography.generator.stream.util.BinaryUtils.toBooleanArray;
 import static com.my.core.cryptography.generator.stream.util.BinaryUtils.xor;
 
 public class SynchronousStreamCipher implements Encryptor {
@@ -37,7 +38,8 @@ public class SynchronousStreamCipher implements Encryptor {
         BitSet polynomial = getMask(polynomialString);
         BitSet seed = getMask(seedString);
 
-        lfsrGenerator = new StatefulLfsrGenerator(polynomial, seed);
+        lfsrGenerator = new StatefulLfsrGenerator(toBooleanArray(polynomial, polynomialString.length()),
+                toBooleanArray(seed, seedString.length()));
 
         byte[] dataBytes = Files.readAllBytes(data.toPath());
 

@@ -11,8 +11,7 @@ import java.nio.file.Files;
 import java.util.BitSet;
 import java.util.Properties;
 
-import static com.my.core.cryptography.generator.stream.util.BinaryUtils.getMask;
-import static com.my.core.cryptography.generator.stream.util.BinaryUtils.xor;
+import static com.my.core.cryptography.generator.stream.util.BinaryUtils.*;
 
 public class CiphertextAutoKeyEncryptor implements Encryptor {
     private StatefulLfsrGenerator statefulLfsrGenerator;
@@ -36,7 +35,8 @@ public class CiphertextAutoKeyEncryptor implements Encryptor {
         BitSet polynomial = getMask(polynomialString);
         BitSet seed = getMask(generatorStateString);
 
-        statefulLfsrGenerator = new StatefulLfsrGenerator(polynomial, seed);
+        statefulLfsrGenerator = new StatefulLfsrGenerator(toBooleanArray(polynomial, polynomialString.length()),
+                toBooleanArray(seed, generatorStateString.length()));
 
         byte[] dataBytes = Files.readAllBytes(data.toPath());
 

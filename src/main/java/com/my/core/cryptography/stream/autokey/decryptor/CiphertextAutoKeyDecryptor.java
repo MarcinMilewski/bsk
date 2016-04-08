@@ -12,9 +12,10 @@ import java.util.BitSet;
 import java.util.Properties;
 
 import static com.my.core.cryptography.generator.stream.util.BinaryUtils.getMask;
+import static com.my.core.cryptography.generator.stream.util.BinaryUtils.toBooleanArray;
 import static com.my.core.cryptography.generator.stream.util.BinaryUtils.xor;
 
-public class CiphertextAutoKeyDecryptor implements Decryptor{
+public class CiphertextAutoKeyDecryptor implements Decryptor {
     private StatefulLfsrGenerator statefulLfsrGenerator;
 
 
@@ -32,12 +33,14 @@ public class CiphertextAutoKeyDecryptor implements Decryptor{
         if (polynomialString == null || polynomialString.isEmpty()) throw new IllegalArgumentException();
         if (generatorStateString == null || generatorStateString.length() != polynomialString.length())
             throw new IllegalArgumentException();
-        if (outputFilePath == null || outputFilePath.isEmpty()) throw new IllegalArgumentException("Output file path is null");
+        if (outputFilePath == null || outputFilePath.isEmpty())
+            throw new IllegalArgumentException("Output file path is null");
 
         BitSet polynomial = getMask(polynomialString);
         BitSet seed = getMask(generatorStateString);
 
-        statefulLfsrGenerator = new StatefulLfsrGenerator(polynomial, seed);
+        statefulLfsrGenerator = new StatefulLfsrGenerator(toBooleanArray(polynomial, polynomialString.length()),
+                toBooleanArray(seed, generatorStateString.length()));
 
         byte[] dataBytes = Files.readAllBytes(data.toPath());
 

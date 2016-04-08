@@ -1,6 +1,7 @@
 package com.my.core.cryptography.generator.stream.lfsr;
 
 import com.google.common.collect.Lists;
+import com.my.core.cryptography.generator.stream.util.BinaryUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,11 +25,12 @@ public class LfsrGeneratorBitComputerTest {
         List<Integer> order = Lists.newArrayList(3, 0);
         BitSet state = new BitSet(4);
         state.set(0, true);
-        state.set(0, false);
-        state.set(0, true);
-        state.set(0, false);
-        boolean computed = lfsrGeneratorBitComputer.compute(order, state);
-        Assert.assertThat(computed, is(false));
+        state.set(1, false);
+        state.set(2, true);
+        state.set(3, false);
+
+        boolean computed = lfsrGeneratorBitComputer.compute(order, BinaryUtils.toBooleanArray(state, 4));
+        Assert.assertThat(computed, is(true));
     }
 
     @Test
@@ -36,10 +38,10 @@ public class LfsrGeneratorBitComputerTest {
         List<Integer> order = Lists.newArrayList(3, 0);
         BitSet state = new BitSet(4);
         state.set(0, false);
-        state.set(0, true);
-        state.set(0, false);
-        state.set(0, true);
-        boolean computed = lfsrGeneratorBitComputer.compute(order, state);
+        state.set(1, true);
+        state.set(2, false);
+        state.set(3, true);
+        boolean computed = lfsrGeneratorBitComputer.compute(order, BinaryUtils.toBooleanArray(state, 4));
         Assert.assertThat(computed, is(true));
     }
 

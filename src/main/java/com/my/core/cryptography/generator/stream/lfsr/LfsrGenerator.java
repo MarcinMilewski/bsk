@@ -3,6 +3,7 @@ package com.my.core.cryptography.generator.stream.lfsr;
 import com.google.common.collect.Lists;
 import com.my.core.cryptography.Generator;
 import com.my.core.cryptography.generator.stream.property.LfsrGeneratorProperty;
+import com.my.core.cryptography.generator.stream.util.BinaryUtils;
 
 import java.util.BitSet;
 import java.util.List;
@@ -31,7 +32,7 @@ public class LfsrGenerator implements Generator {
         List<Integer> additionOrder = getAdditionOrder(polynomial);
 
         for (int i = 0; i < number; i++) {
-            boolean computedBit = lfsrGeneratorBitComputer.compute(additionOrder, generatorState);
+            boolean computedBit = lfsrGeneratorBitComputer.compute(additionOrder, BinaryUtils.toBooleanArray(generatorState, generatorStateString.length()));
             generatorState = shiftRightNoCarry(generatorState);
             generatorState.set(0, computedBit);
             output.set(i, computedBit);
