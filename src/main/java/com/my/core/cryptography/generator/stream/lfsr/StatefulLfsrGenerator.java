@@ -49,4 +49,8 @@ public class StatefulLfsrGenerator {
     public void setFirstStateBit(boolean first) {
         state.set(0, first);
     }
+
+    public void set(int i, boolean b) {
+        state.set(i, b);
+    }
 }

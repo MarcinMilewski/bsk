@@ -55,10 +55,10 @@ public class SynchronousStreamCipherTest {
         File decrypted = synchronousStreamCipher.encrypt(encrypted, properties);
 
         assertThat(decrypted.length(), is(inputFile.length()));
-        byte[] encryptedData = Files.readAllBytes(encrypted.toPath());
         byte[] decryptedData = Files.readAllBytes(decrypted.toPath());
+        byte[] inputData = Files.readAllBytes(inputFile.toPath());
         for (int i = 0; i < encrypted.length(); i++) {
-            assertTrue(encryptedData[i] == decryptedData[i]);
+            assertTrue(inputData[i] == decryptedData[i]);
         }
     }
 

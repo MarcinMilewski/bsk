@@ -53,15 +53,15 @@ public class CiphertextAutoKeyEncryptorTest {
     @Test
     public void encryptDecryptTest() throws Exception {
         File encrypted = ciphertextAutoKeyEncryptor.encrypt(inputFile, properties);
-        byte[] encryptedData = Files.readAllBytes(encrypted.toPath());
 
         properties.setProperty(SynchronousStreamProperty.OUTPUT_FILE_PATH.name(), output.getPath());
         File decrypted = ciphertextAutoKeyDecryptor.decrypt(encrypted, properties);
 
         assertThat(decrypted.length(), is(inputFile.length()));
         byte[] decryptedData = Files.readAllBytes(decrypted.toPath());
+        byte[] inputData = Files.readAllBytes(inputFile.toPath());
         for (int i = 0; i < encrypted.length(); i++) {
-            assertTrue(encryptedData[i] == decryptedData[i]);
+            assertTrue(inputData[i] == decryptedData[i]);
         }
     }
 

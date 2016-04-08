@@ -28,4 +28,13 @@ public class BinaryUtilsTest {
         Assert.assertThat(mask.get(3), is(true));
         Assert.assertThat(mask.get(4), is(false));
     }
+
+    @Test
+    public void xorTest() throws Exception {
+        Assert.assertThat(Boolean.logicalXor(true, true), is(false));
+        Assert.assertThat(Boolean.logicalXor(false, false), is(false));
+        Assert.assertThat(Boolean.logicalXor(true, false), is(true));
+        Assert.assertThat(Boolean.logicalXor(false, true), is(true));
+    }
+
 }
