@@ -32,11 +32,11 @@ public class LfsrGeneratorTest {
         state.set(0, false);
         state.set(0, true);
         state.set(0, false);
-        BitSet bitSet = lfsrGenerator.generate(properties, 4);
-        Assert.assertThat(bitSet.get(0), is(true));
-        Assert.assertThat(bitSet.get(1), is(false));
-        Assert.assertThat(bitSet.get(2), is(false));
-        Assert.assertThat(bitSet.get(3), is(true));
+        boolean[] generated = lfsrGenerator.generate(properties, 4);
+        Assert.assertThat(generated[0], is(true));
+        Assert.assertThat(generated[1], is(false));
+        Assert.assertThat(generated[2], is(false));
+        Assert.assertThat(generated[3], is(true));
     }
 
 }

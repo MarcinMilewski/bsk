@@ -3,9 +3,7 @@ package com.my.core.cryptography.generator.stream.lfsr;
 import com.google.common.collect.Lists;
 import com.my.core.cryptography.Generator;
 import com.my.core.cryptography.generator.stream.property.LfsrGeneratorProperty;
-import com.my.core.cryptography.generator.stream.util.BinaryUtils;
 
-import java.util.BitSet;
 import java.util.List;
 import java.util.Properties;
 
@@ -20,30 +18,30 @@ public class LfsrGenerator implements Generator {
     }
 
     @Override
-    public BitSet generate(Properties properties, int number) {
+    public boolean[] generate(Properties properties, int number) {
         String polynomialString = properties.getProperty(LfsrGeneratorProperty.POLYNOMIAL.name());
         String generatorStateString = properties.getProperty(LfsrGeneratorProperty.SEED.name());
         if (polynomialString == null || polynomialString.isEmpty()) throw new IllegalArgumentException();
         if (generatorStateString == null || generatorStateString.length() != polynomialString.length()) throw new IllegalArgumentException();
-        BitSet polynomial = getBooleanArray(polynomialString);
-        BitSet generatorState = getBooleanArray(generatorStateString);
-        BitSet output = new BitSet(number);
+        boolean[] polynomial = getBooleanArray(polynomialString);
+        boolean[] generatorState = getBooleanArray(generatorStateString);
+        boolean[] output = new boolean[number];
 
         List<Integer> additionOrder = getAdditionOrder(polynomial);
 
         for (int i = 0; i < number; i++) {
-            boolean computedBit = lfsrGeneratorBitComputer.compute(additionOrder, BinaryUtils.toBooleanArray(generatorState, generatorStateString.length()));
+            boolean computedBit = lfsrGeneratorBitComputer.compute(additionOrder, generatorState);
             generatorState = shiftRightNoCarry(generatorState);
-            generatorState.set(0, computedBit);
-            output.set(i, computedBit);
+            generatorState[0] = computedBit;
+            output[i] = computedBit;
         }
         return output;
     }
 
-    private List<Integer> getAdditionOrder(BitSet polynomial) {
+    private List<Integer> getAdditionOrder(boolean[] polynomial) {
         List<Integer> order = Lists.newArrayList();
-        for (int i = polynomial.length() -1 ; i >=0 ; i--) {
-            if (polynomial.get(i) == true) {
+        for (int i = polynomial.length -1 ; i >=0 ; i--) {
+            if (polynomial[i] == true) {
                 order.add(i);
             }
         }

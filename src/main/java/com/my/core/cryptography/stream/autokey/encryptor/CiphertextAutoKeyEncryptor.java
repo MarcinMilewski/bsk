@@ -3,6 +3,7 @@ package com.my.core.cryptography.stream.autokey.encryptor;
 import com.my.core.cryptography.Encryptor;
 import com.my.core.cryptography.generator.stream.lfsr.StatefulLfsrGenerator;
 import com.my.core.cryptography.stream.ssc.property.SynchronousStreamProperty;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,6 +15,7 @@ import java.util.Properties;
 import static com.my.core.cryptography.generator.stream.util.BinaryUtils.*;
 
 public class CiphertextAutoKeyEncryptor implements Encryptor {
+    private static Logger logger = Logger.getLogger(CiphertextAutoKeyEncryptor.class);
     private StatefulLfsrGenerator statefulLfsrGenerator;
 
     @Override
@@ -23,6 +25,7 @@ public class CiphertextAutoKeyEncryptor implements Encryptor {
 
     @Override
     public File encrypt(File data, Properties properties) throws IOException {
+        logger.debug("Start encryption");
         String polynomialString = properties.getProperty(SynchronousStreamProperty.POLYNOMIAL.name());
         String generatorStateString = properties.getProperty(SynchronousStreamProperty.SEED.name());
         String outputFilePath = properties.getProperty(SynchronousStreamProperty.OUTPUT_FILE_PATH.name());
@@ -32,28 +35,27 @@ public class CiphertextAutoKeyEncryptor implements Encryptor {
             throw new IllegalArgumentException();
         if (outputFilePath == null || outputFilePath.isEmpty()) throw new IllegalArgumentException("Output file path is null");
 
-        BitSet polynomial = getBooleanArray(polynomialString);
-        BitSet seed = getBooleanArray(generatorStateString);
 
-        statefulLfsrGenerator = new StatefulLfsrGenerator(toBooleanArray(polynomial, polynomialString.length()),
-                toBooleanArray(seed, generatorStateString.length()));
+        statefulLfsrGenerator = new StatefulLfsrGenerator(getBooleanArray(polynomialString), getBooleanArray(generatorStateString));
 
         byte[] dataBytes = Files.readAllBytes(data.toPath());
+        logger.debug("Input data size = " + dataBytes.length);
 
         BitSet dataBitSet = BitSet.valueOf(dataBytes);
-        BitSet outputBitSet = new BitSet(dataBytes.length * 8);
+        boolean[] outputBitArray = new boolean[dataBytes.length * 8];
 
         for (int i = 0; i < dataBytes.length * 8; i++) {
             boolean generatedBit = statefulLfsrGenerator.generateNext();
             boolean xoredBit = xor(dataBitSet.get(i), generatedBit);
             statefulLfsrGenerator.shiftRightNoCarry();
             statefulLfsrGenerator.setFirstStateBit(xoredBit);
-            outputBitSet.set(i, xoredBit);
+            outputBitArray[i] = xoredBit;
         }
-        return createFile(outputFilePath, outputBitSet.toByteArray());
+        return createFile(outputFilePath, toBytes(outputBitArray));
     }
 
     private File createFile(String outputFilePath, byte[] output) throws IOException {
+        logger.debug("Creating output file, output size = " + output.length);
         File outputFile = new File(outputFilePath);
         FileOutputStream stream = new FileOutputStream(outputFile);
         stream.write(output);

@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.BitSet;
 import java.util.Map;
 import java.util.Properties;
 
@@ -61,8 +60,8 @@ public class App extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             Properties properties = AlgorithmFieldsReaderFactory.getAlgorithmFieldsReader(algorithm).read(algorithmTextFields);
-            BitSet generated = GeneratorFactory.getGenerator(algorithm).generate(properties, Integer.parseInt(input.getText()));
-            output.setText(BinaryUtils.toString(generated, Integer.parseInt(input.getText())));
+            boolean[] generated = GeneratorFactory.getGenerator(algorithm).generate(properties, Integer.parseInt(input.getText()));
+            output.setText(BinaryUtils.toString(generated));
         }
     };
 

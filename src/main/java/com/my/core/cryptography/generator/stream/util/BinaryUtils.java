@@ -7,14 +7,14 @@ public class BinaryUtils {
     public static boolean[] getBooleanArray(String maskString) {
         boolean[] mask = new boolean[maskString.length()];
         for (int i = 0; i < maskString.length(); i++) {
-            mask[i] = Boolean.parseBoolean(String.valueOf(maskString.charAt(i))));
+            mask[i] = maskString.charAt(i) == '1' ? true:  false;
         }
         return mask;
     }
 
     public static boolean[] shiftRightNoCarry(boolean[] bits) {
         boolean[] shifted = new boolean[bits.length];
-
+        shifted[0] = false;
         int j = 1;
         for (int i = 0; i < bits.length - 1; i++, j++) {
             shifted[j] =  bits[i];
