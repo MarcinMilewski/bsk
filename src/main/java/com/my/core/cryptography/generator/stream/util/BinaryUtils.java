@@ -50,16 +50,19 @@ public class BinaryUtils {
         return result;
     }
 
-    public static byte[] toBytes(boolean[] input) {
+    public static byte[] toByteArray(boolean[] input) {
+        if (input.length % 8 != 0) throw new IllegalArgumentException("input should divide by 8 ");
         byte[] toReturn = new byte[input.length / 8];
-        for (int entry = 0; entry < toReturn.length; entry++) {
-            for (int bit = 0; bit < 8; bit++) {
-                if (input[entry * 8 + bit]) {
-                    toReturn[entry] |= (128 >> bit);
-                }
-            }
+        int j = 0;
+        for(int i = 0; i < input.length / 8; i++, j+=8) {
+            int k = j;
+//            toReturn[i] = (byte)((input[k]?1<<7:0) + (input[k+1]?1<<6:0) + (input[k+2]?1<<5:0) +
+//                    (input[k+3]?1<<4:0) + (input[k+4]?1<<3:0) + (input[k+5]?1<<2:0) +
+//                    (input[k+6]?1<<1:0) + (input[k+7]?1:0));
+            toReturn[i] = (byte)((input[k+7]?1<<7:0) + (input[k+6]?1<<6:0) + (input[k+5]?1<<5:0) +
+                    (input[k+4]?1<<4:0) + (input[k+3]?1<<3:0) + (input[k+2]?1<<2:0) +
+                    (input[k+1]?1<<1:0) + (input[k+0]?1:0));
         }
-
         return toReturn;
     }
 }

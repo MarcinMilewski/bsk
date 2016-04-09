@@ -53,7 +53,7 @@ public class CiphertextAutoKeyDecryptor implements Decryptor {
             statefulLfsrGenerator.setFirstStateBit(dataBitSet.get(i));
             outputBitArray[i] = xoredBit;
         }
-        return createFile(outputFilePath, toBytes(outputBitArray));
+        return createFile(outputFilePath, toByteArray(outputBitArray));
     }
 
     private File createFile(String outputFilePath, byte[] output) throws IOException {

@@ -38,18 +38,9 @@ public class BinaryUtilsTest {
     @Test
     public void toBytesWhenNewBooleanTable() throws Exception {
         boolean[] boolArr = new boolean[8];
-        byte[] byteArray = BinaryUtils.toBytes(boolArr);
+        byte[] byteArray = BinaryUtils.toByteArray(boolArr);
         assertThat(byteArray.length, is(1));
         assertThat(byteArray[0], is((byte) 0));
-    }
-
-    @Test
-    public void toBytesWhen2NewBooleanTable() throws Exception {
-        boolean[] boolArr = new boolean[10];
-        byte[] byteArray = BinaryUtils.toBytes(boolArr);
-        assertThat(byteArray.length, is(2));
-        assertThat(byteArray[0], is((byte) 0));
-        assertThat(byteArray[1], is((byte) 0));
     }
 
 }
