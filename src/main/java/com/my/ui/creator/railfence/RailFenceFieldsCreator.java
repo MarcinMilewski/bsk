@@ -14,7 +14,6 @@ public class RailFenceFieldsCreator implements AlgorithmFieldsCreator {
         TextField depth = new TextField();
         depth.setName(RailfenceProperty.DEPTH.name());
         depth.setText("3");
-        depth.setEditable(false);
         labelToFieldMap.put(new Label("Depth"), depth);
         return labelToFieldMap;
     }

@@ -36,7 +36,7 @@ public class RailFenceDecryptor implements Decryptor {
 
     private String decryptInternal(Integer depth, String data) {
         List<Integer> from1ToDataLengthNumbers = RailFenceUtil.range(0, data.length() - 1);
-        List<Integer> encryptedIndexes = getByRow(RailFenceEncryptor.getRowIntegerRailFenceOrderMap(RailFenceUtil.upDownList(3, from1ToDataLengthNumbers.size()), from1ToDataLengthNumbers, depth));
+        List<Integer> encryptedIndexes = getByRow(RailFenceEncryptor.getRowIntegerRailFenceOrderMap(RailFenceUtil.upDownList(depth, from1ToDataLengthNumbers.size()), from1ToDataLengthNumbers, depth));
         return getOrderBy(encryptedIndexes, data);
     }
 

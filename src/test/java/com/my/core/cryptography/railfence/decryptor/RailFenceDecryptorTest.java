@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.util.Properties;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class RailFenceDecryptorTest {
@@ -29,4 +31,19 @@ public class RailFenceDecryptorTest {
         assertTrue(output.equals("cryptography"));
     }
 
+    @Test
+    public void depth2() throws Exception {
+        Properties properties = new Properties();
+        properties.setProperty(RailfenceProperty.DEPTH.name(), "2");
+        String output = railFenceDecryptor.decrypt("cytgahrporpy", properties);
+        assertThat(output, is("cryptography"));
+    }
+
+    @Test
+    public void depth4() throws Exception {
+        Properties properties = new Properties();
+        properties.setProperty(RailfenceProperty.DEPTH.name(), "4");
+        String output = railFenceDecryptor.decrypt("cgroryytahpp", properties);
+        assertThat(output, is("cryptography"));
+    }
 }

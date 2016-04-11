@@ -2,6 +2,7 @@ package com.my.core.cryptography.railfence.util;
 
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -11,7 +12,7 @@ public class RailFenceUtil {
         List<Integer> upDownList = Lists.newArrayList();
         for (int i = 0; i < length; i += 2 * depth- 2) {
             upDownList.addAll(range(1, depth));
-            upDownList.addAll(range(depth - 1, 2));
+            upDownList.addAll(range(depth, 2));
         }
         return truncate(upDownList, length);
     }
@@ -21,12 +22,12 @@ public class RailFenceUtil {
     }
 
     public static List<Integer> range(int from, int to) {
+        if (from == to) return new ArrayList<>();
         if (from > to) {
-            return IntStream.rangeClosed(to, from).boxed().map(i -> from - i + to - 1).collect(Collectors.toList());
+            return IntStream.range(to, from).map(i -> from - i + to - 1).boxed().collect(Collectors.toList());
         } else {
-
+            return IntStream.rangeClosed(from, to).boxed().collect(Collectors.toList());
         }
-        return IntStream.rangeClosed(from, to).boxed().collect(Collectors.toList());
     }
 
 }
