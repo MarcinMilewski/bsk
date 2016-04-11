@@ -1,19 +1,20 @@
 package com.my.core.cryptography.railfence.encryptor;
 
 import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.my.core.cryptography.Encryptor;
 import com.my.core.cryptography.railfence.properties.RailfenceProperty;
 import com.my.core.util.CharacterIterator;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
+import static com.my.core.cryptography.railfence.util.RailFenceUtil.upDownList;
 
 public class RailFenceEncryptor implements Encryptor {
 
@@ -51,27 +52,16 @@ public class RailFenceEncryptor implements Encryptor {
         return rowCharacterMap;
     }
 
-    private List<Integer> upDownList(int depth, int length) {
-        List<Integer> upDownList = Lists.newArrayList();
-        for (int i = 0; i < length; i += 2 * depth- 2) {
-            upDownList.addAll(range(1, depth));
-            upDownList.addAll(range(depth - 1, 2));
+    public static Multimap<Integer, Integer> getRowIntegerRailFenceOrderMap(List<Integer> upDownList, List<Integer> data, int depth) {
+        Multimap<Integer, Integer> rowIntegerMap = LinkedListMultimap.create();
+        Iterator<Integer> iterator = data.iterator();
+        for (Integer integer : upDownList) {
+            rowIntegerMap.put(integer, iterator.next());
         }
-        return truncate(upDownList, length);
+        return rowIntegerMap;
     }
 
-    private List<Integer> truncate(List<Integer> upDownList, int length) {
-        return upDownList.subList(0, length);
-    }
 
-    private List<Integer> range(int from, int to) {
-        if (from > to) {
-            return IntStream.rangeClosed(to, from).boxed().map(i -> from - i + to - 1).collect(Collectors.toList());
-        } else {
-
-        }
-        return IntStream.rangeClosed(from, to).boxed().collect(Collectors.toList());
-    }
 
 
 
