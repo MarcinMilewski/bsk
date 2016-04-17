@@ -30,12 +30,23 @@ public class LfsrGenerator implements Generator {
         List<Integer> additionOrder = getAdditionOrder(polynomial);
 
         for (int i = 0; i < number; i++) {
+            printState(i, generatorState);
             boolean computedBit = lfsrGeneratorBitComputer.compute(additionOrder, generatorState);
+            System.out.println(i + " computed bit: " + (computedBit == true ? "1" : "0") );
             generatorState = shiftRightNoCarry(generatorState);
             generatorState[0] = computedBit;
             output[i] = computedBit;
         }
         return output;
+    }
+
+    private void printState(int i, boolean[] generatorState) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(i).append(" Stan: ");
+        for (boolean b : generatorState) {
+            sb.append(b==true ? "1" : "0");
+        }
+        System.out.println(sb.toString());
     }
 
     private List<Integer> getAdditionOrder(boolean[] polynomial) {

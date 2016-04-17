@@ -5,6 +5,7 @@ import com.my.core.cryptography.Decryptor;
 import com.my.core.cryptography.caesar.property.CaesarCipherProperty;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.Properties;
 
 import static com.my.core.util.AlphabetBiMap.alphabet;
@@ -37,7 +38,13 @@ public class CaesarCipherDecryptor implements Decryptor{
 
     private final Character decryptChar(char a, Integer k0, Integer k1, Integer n) {
         int c = characterValueMap.get(a);
-        int decryptedCharValue =  ( (c + (n -k0))*((int)Math.pow(k1, phiEuler(n) -1))) % n;
+        int sum = (c + (n -k0));
+        BigDecimal pow = BigDecimal.valueOf(k1).pow(phiEuler(n) -1);
+        BigDecimal product = pow.multiply(BigDecimal.valueOf(sum));
+        int decryptedCharValue = (product.remainder(BigDecimal.valueOf(n))).intValue();
+        while (decryptedCharValue < 0) {
+            decryptedCharValue += n;
+        }
         return alphabet.get(decryptedCharValue);
     }
 

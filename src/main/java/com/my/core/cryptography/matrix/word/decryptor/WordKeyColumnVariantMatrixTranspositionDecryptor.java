@@ -69,7 +69,7 @@ public class WordKeyColumnVariantMatrixTranspositionDecryptor extends WordKeyMat
         currentColumn += 1;
         for (int row = 0; row < rowCharsNumberMap.size(); row++) {
             int charsInRow = rowCharsNumberMap.get(row);
-            if (currentColumn <= charsInRow) {
+            if (currentColumn <= charsInRow && encoded.hasNext()) {
                 columnData.add(encoded.next());
             } else {
                 columnData.add(null);
