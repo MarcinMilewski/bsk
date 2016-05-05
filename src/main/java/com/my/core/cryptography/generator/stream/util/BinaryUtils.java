@@ -56,13 +56,25 @@ public class BinaryUtils {
         int j = 0;
         for(int i = 0; i < input.length / 8; i++, j+=8) {
             int k = j;
-//            toReturn[i] = (byte)((input[k]?1<<7:0) + (input[k+1]?1<<6:0) + (input[k+2]?1<<5:0) +
-//                    (input[k+3]?1<<4:0) + (input[k+4]?1<<3:0) + (input[k+5]?1<<2:0) +
-//                    (input[k+6]?1<<1:0) + (input[k+7]?1:0));
             toReturn[i] = (byte)((input[k+7]?1<<7:0) + (input[k+6]?1<<6:0) + (input[k+5]?1<<5:0) +
                     (input[k+4]?1<<4:0) + (input[k+3]?1<<3:0) + (input[k+2]?1<<2:0) +
                     (input[k+1]?1<<1:0) + (input[k+0]?1:0));
         }
         return toReturn;
+    }
+
+    public static boolean[][] toBooleanArray(byte[] input) {
+        boolean[][] result = new boolean[input.length][8];
+        for (int i = 0; i < input.length; i++) {
+            result[i][0] = ((input[i] & 0x01) != 0);
+            result[i][1] = ((input[i] & 0x02) != 0);
+            result[i][2] = ((input[i] & 0x04) != 0);
+            result[i][3] = ((input[i] & 0x08) != 0);
+            result[i][4] = ((input[i] & 0x10) != 0);
+            result[i][5] = ((input[i] & 0x20) != 0);
+            result[i][6] = ((input[i] & 0x40) != 0);
+            result[i][7] = ((input[i] & 0x80) != 0);
+        }
+        return result;
     }
 }
