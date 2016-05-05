@@ -15,7 +15,7 @@ import java.util.Properties;
 public class DesEncryptor implements Encryptor{
     private static Logger logger = Logger.getLogger(DesEncryptor.class);
     private byte[] dataBytes;
-    private byte[][] blocks;
+    private boolean[][] blocks;
 
     @Override
     public String encrypt(String data, Properties properties) {
@@ -25,6 +25,8 @@ public class DesEncryptor implements Encryptor{
     @Override
     public File encrypt(File data, Properties properties) throws IOException {
         dataBytes = Files.readAllBytes(data.toPath());
+        int complementaryBytes = 8 - dataBytes.length % 8;
+        blocks = DesUtils.createBlocks(dataBytes);
 
         return null;
     }
