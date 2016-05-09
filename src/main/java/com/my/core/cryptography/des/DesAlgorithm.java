@@ -60,7 +60,7 @@ public class DesAlgorithm {
             for (int j = 0, k = 28; j < 28; j++, k++) {
                 series[k] = rightKeyShiftedSeries[i][j];
             }
-            mergedShiftedSeries[i-1] = series;
+            mergedShiftedSeries[i - 1] = series;
         }
         return mergedShiftedSeries;
     }
@@ -70,7 +70,7 @@ public class DesAlgorithm {
         for (int i = 0; i < 16; i++) {
             boolean[] key = new boolean[48];
             for (int j = 0; j < 48; j++) {
-                key[j] = mergedShiftedSeries[i][pc2PermutationLUT[j] -1];
+                key[j] = mergedShiftedSeries[i][pc2PermutationLUT[j] - 1];
             }
             keys[i] = key;
         }
@@ -105,5 +105,42 @@ public class DesAlgorithm {
             result[i] = key[DesUtils.pc1PermutationLUT[i] - 1];
         }
         return result;
+    }
+
+    public static boolean[] encryptBlock(boolean[] block, boolean[][] keys) {
+        boolean[] leftSide = getLeftBlocksHalf(block);
+        boolean[] rightSide = getRightBlocksHalf(block);
+        boolean[] expandedRightSide = getExpanded(rightSide);
+        boolean[] leftTmp = leftSide;
+        boolean[] rightTmp = rightSide;
+
+        // first iteration
+        leftSide = rightSide;
+
+        return null;
+    }
+
+    public static boolean[] getExpanded(boolean[] rightSide) {
+        boolean[] expanded = new boolean[48];
+        for (int i = 0; i < 48; i++) {
+            expanded[i] = rightSide[expansionFunctionLUT[i] - 1];
+        }
+        return expanded;
+    }
+
+    private static boolean[] getLeftBlocksHalf(boolean[] block) {
+        boolean[] leftHalf = new boolean[32];
+        for (int i = 0; i < 32; i++) {
+            leftHalf[i] = block[i];
+        }
+        return leftHalf;
+    }
+
+    private static boolean[] getRightBlocksHalf(boolean[] block) {
+        boolean[] rightHalf = new boolean[32];
+        for (int i = 0, j = 32; i < 32; i++, j++) {
+            rightHalf[i] = block[j];
+        }
+        return rightHalf;
     }
 }

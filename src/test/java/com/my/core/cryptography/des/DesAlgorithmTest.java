@@ -59,4 +59,14 @@ public class DesAlgorithmTest {
         assertTrue(Arrays.equals(ipBlock, expected));
     }
 
+    @Test
+    public void getExpandedTest() throws Exception {
+        boolean[] bits32 = BinaryUtils.
+                toBooleanArray(new String("1111 0000 1010 1010 1111 0000 1010 1010 ").replaceAll("\\s",""));
+        boolean[] expected = BinaryUtils.
+                toBooleanArray(new String("011110 100001 010101 010101 011110 100001 010101 010101 ").replaceAll("\\s",""));
+        boolean[] result = DesAlgorithm.getExpanded(bits32);
+        assertTrue(Arrays.equals(result, expected));
+    }
+
 }

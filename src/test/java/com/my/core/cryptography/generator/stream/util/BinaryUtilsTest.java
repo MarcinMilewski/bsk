@@ -3,6 +3,7 @@ package com.my.core.cryptography.generator.stream.util;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import org.junit.Test;
 
+import static com.my.core.cryptography.generator.stream.util.BinaryUtils.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -79,4 +80,18 @@ public class BinaryUtilsTest {
         assertThat(key[63], is(true));
     }
 
+    @Test
+    public void booleansToIntTest() throws Exception {
+        boolean[] bits = {true, false, false, true};
+        int dec = BinaryUtils.toInt(bits);
+        assertThat(dec, is(9));
+    }
+
+    @Test
+    public void binaryAdditionTest() throws Exception {
+        boolean[] op1 = new boolean[] {true, false};
+        boolean[] op2 = new boolean[] {true, true};
+        boolean[] result = xor(op1, op2);
+        assertThat(result, is(new boolean[]{false, true}));
+    }
 }

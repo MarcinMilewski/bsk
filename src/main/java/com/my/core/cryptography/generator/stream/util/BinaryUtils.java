@@ -22,6 +22,14 @@ public class BinaryUtils {
     public static final boolean[] b14 = {T, T, T, F};
     public static final boolean[] b15 = {T, T, T, T};
 
+    public static int toInt(boolean[] bits) {
+        int n = 0, l = bits.length;
+        for (int i = 0; i < l; ++i) {
+            n = (n << 1) + (bits[i] ? 1 : 0);
+        }
+        return n;
+    }
+
     public static boolean[] getBooleanArray(String maskString) {
         boolean[] mask = new boolean[maskString.length()];
         for (int i = 0; i < maskString.length(); i++) {
@@ -130,5 +138,14 @@ public class BinaryUtils {
             shifted = shiftLeftWithCarry(shifted);
         }
         return shifted;
+    }
+
+    public static boolean[] xor(boolean[] operand1, boolean[] operand2) {
+        if (operand1.length != operand2.length) throw new IllegalArgumentException();
+        boolean[] result = new boolean[operand1.length];
+        for (int i = 0; i < operand1.length; i++) {
+            result[i] = operand1[i] != operand2[i] ? true : false;
+        }
+        return result;
     }
 }
