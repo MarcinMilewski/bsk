@@ -149,4 +149,22 @@ public class BinaryUtils {
         return result;
     }
 
+    public static void swap(boolean[] operand1, boolean[] operand2) {
+        boolean[] operand1Tmp = operand1;
+        operand1 = operand2;
+        operand2 = operand1Tmp;
+    }
+
+    public static boolean[] merge(boolean[] left, boolean[] right) {
+        boolean[] result = new boolean[left.length + right.length];
+        int i = 0;
+        for (;i < left.length; i++) {
+            result[i] = left[i];
+        }
+        for (int j = 0;j < right.length; j++, i++) {
+            result[i] = right[j];
+        }
+        return result;
+    }
+
 }

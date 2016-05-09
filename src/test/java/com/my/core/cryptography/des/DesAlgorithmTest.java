@@ -71,7 +71,6 @@ public class DesAlgorithmTest {
     }
 
     @Test
-    @Ignore
     public void encryptBlockTest() throws Exception {
         boolean[] key = BinaryUtils.
                 toBooleanArray(new String("00010011 00110100 01010111 01111001 10011011 10111100 11011111 11110001").replaceAll("\\s", ""));
@@ -86,10 +85,9 @@ public class DesAlgorithmTest {
     @Test
     public void getFunctionValueTest() throws Exception {
         boolean[] key = BinaryUtils.toBooleanArray(new String("000110 110000 001011 101111 111111 000111 000001 110010").replaceAll("\\s", ""));
-        boolean[] expandedRightSide = BinaryUtils.toBooleanArray(new String("011110 100001 010101 010101 011110 100001 010101 010101").replaceAll("\\s", ""));
+        boolean[] rightSide = BinaryUtils.toBooleanArray(new String("1111 0000 1010 1010 1111 0000 1010 1010").replaceAll("\\s", ""));
         boolean[] expected = BinaryUtils.toBooleanArray(new String("0010 0011 0100 1010 1010 1001 1011 1011").replaceAll("\\s", ""));
-        boolean[] result = DesAlgorithm.getFunctionValue(key, expandedRightSide);
+        boolean[] result = DesAlgorithm.getFunctionValue(key, rightSide);
         assertThat(result, is(expected));
-
     }
 }

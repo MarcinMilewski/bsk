@@ -108,24 +108,24 @@ public class DesAlgorithm {
     }
 
     public static boolean[] encryptBlock(boolean[] block, boolean[][] keys) {
-        boolean[] leftSide = getLeftBlocksHalf(block);
-        boolean[] rightSide = getRightBlocksHalf(block);
-        boolean[] expandedRightSide = getExpanded(rightSide);
-        boolean[] leftTmp = leftSide;
-        boolean[] rightTmp = rightSide;
+        boolean[] initialPermutatedBlock = initialPermutate(block);
+        boolean[] leftSide = getLeftBlocksHalf(initialPermutatedBlock);
+        boolean[] rightSide = getRightBlocksHalf(initialPermutatedBlock);
+        boolean[] previousLeft = leftSide;
 
-        // first iteration
-        leftSide = rightSide;
-
-        return null;
+        for (int i = 0; i < 16; i++) {
+            leftSide = rightSide;
+            rightSide = BinaryUtils.xor(previousLeft, getFunctionValue(keys[i], rightSide));
+            previousLeft = leftSide;
+        }
+        boolean[] reversed = BinaryUtils.merge(rightSide, leftSide);
+        return finalPermutate(reversed);
     }
 
-    public static boolean[] getFunctionValue(boolean[] subKey, boolean[] expandedRightSide) {
+    public static boolean[] getFunctionValue(boolean[] subKey, boolean[] rightSide) {
         boolean[] result = new boolean[32];
-        boolean[] xored =  BinaryUtils.xor(subKey, expandedRightSide);
-        boolean[][] eightSeries = getEightSeries(xored);
+        boolean[] xored = BinaryUtils.xor(subKey, getExpanded(rightSide));
         boolean[] sBoxesOutput = getSBoxesValue(getEightSeries(xored));
-
         for (int i = 0; i < 32; i++) {
             result[i] = sBoxesOutput[pPermutationLUT[i] - 1];
         }
@@ -139,7 +139,7 @@ public class DesAlgorithm {
             int row = getFirstAndLastBitsDecValue(eightSeries[i]);
             int column = getMiddleBitsDecValue(eightSeries[i]);
             boolean[] sBoxValue = DesUtils.getSBoxBinValue(i, row, column);
-            for (int k = 0; k < 4; k++,j++) {
+            for (int k = 0; k < 4; k++, j++) {
                 result[j] = sBoxValue[k];
             }
         }
@@ -182,10 +182,11 @@ public class DesAlgorithm {
     }
 
     private static int getFirstAndLastBitsDecValue(boolean[] bits) {
-        return BinaryUtils.toInt(new boolean[] {bits[0], bits[5]});
+        return BinaryUtils.toInt(new boolean[]{bits[0], bits[5]});
     }
 
     private static int getMiddleBitsDecValue(boolean[] bits) {
         return BinaryUtils.toInt(new boolean[]{bits[1], bits[2], bits[3], bits[4]});
     }
+
 }
