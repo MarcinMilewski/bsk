@@ -1,5 +1,8 @@
 package com.my.core.cryptography.generator.stream.util;
 
+import com.google.common.primitives.Booleans;
+
+import java.util.Arrays;
 import java.util.BitSet;
 
 public class BinaryUtils {
@@ -103,6 +106,10 @@ public class BinaryUtils {
                     (input[k+1]?1<<1:0) + (input[k+0]?1:0));
         }
         return toReturn;
+    }
+
+    public static byte[] toByteArray(boolean[][] input) {
+        return toByteArray(Booleans.concat(input));
     }
 
     public static boolean[][] toBoolean2DArray(byte[] input) {

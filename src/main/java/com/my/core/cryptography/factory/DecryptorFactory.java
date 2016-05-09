@@ -2,6 +2,7 @@ package com.my.core.cryptography.factory;
 
 import com.my.core.cryptography.Decryptor;
 import com.my.core.cryptography.caesar.decryptor.CaesarCipherDecryptor;
+import com.my.core.cryptography.des.DesDecryptor;
 import com.my.core.cryptography.enums.Algorithm;
 import com.my.core.cryptography.matrix.number.decryptor.NumberKeyMatrixTranspositionDecryptor;
 import com.my.core.cryptography.matrix.word.decryptor.WordKeyColumnVariantMatrixTranspositionDecryptor;
@@ -25,6 +26,7 @@ public class DecryptorFactory {
             case VIGENERE_CIPHER: return new VigenereCipherDecryptor();
             case SYNCHRONOUS_STREAM: return new SynchronousStreamDecipher();
             case CIPHERTEXT_AUTOKEY: return new CiphertextAutoKeyDecryptor();
+            case DES: return new DesDecryptor();
             default: throw new IllegalArgumentException();
         }
     }

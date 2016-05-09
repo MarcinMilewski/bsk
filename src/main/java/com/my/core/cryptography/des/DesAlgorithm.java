@@ -25,7 +25,7 @@ public class DesAlgorithm {
 
 
     public static boolean[] get64BitKey(Properties properties) {
-        final String keyContent = properties.getProperty(String.valueOf(DesProperty.KEY));
+        final String keyContent = properties.getProperty(String.valueOf(DesProperty.KEY)).replaceAll("\\s+","");
         if (keyContent.isEmpty() && keyContent.length() != 64) throw new IllegalArgumentException();
         return BinaryUtils.toBooleanArray(keyContent.replace("/s", ""));
     }

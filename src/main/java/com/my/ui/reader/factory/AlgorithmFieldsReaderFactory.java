@@ -3,6 +3,7 @@ package com.my.ui.reader.factory;
 import com.my.core.cryptography.enums.Algorithm;
 import com.my.ui.reader.AlgorithmFieldsReader;
 import com.my.ui.reader.caesar.CaesarCipherFieldsReader;
+import com.my.ui.reader.des.DesAlgorithmFieldsReader;
 import com.my.ui.reader.generator.lfsr.LfsrGeneratorFieldsReader;
 import com.my.ui.reader.matrix.number.NumberKeyMatrixTranspositionFieldsReader;
 import com.my.ui.reader.matrix.word.WordKeyColumnVariantMatrixTranspositionFieldsReader;
@@ -27,6 +28,7 @@ public class AlgorithmFieldsReaderFactory {
             case LFSR_GENERATOR: return new LfsrGeneratorFieldsReader();
             case SYNCHRONOUS_STREAM: return new SynchronousStreamCipherFieldsReader();
             case CIPHERTEXT_AUTOKEY: return new CiphertextAutoKeyFieldsReader();
+            case DES:return new DesAlgorithmFieldsReader();
             default: throw new IllegalArgumentException();
         }
     }

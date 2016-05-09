@@ -3,6 +3,7 @@ package com.my.ui.creator.factory;
 import com.my.core.cryptography.enums.Algorithm;
 import com.my.ui.creator.AlgorithmFieldsCreator;
 import com.my.ui.creator.caesar.CaesarCipherFieldsCreator;
+import com.my.ui.creator.des.DesCipherFieldsCreator;
 import com.my.ui.creator.generator.lfsr.LfsrGeneratorFieldsCreator;
 import com.my.ui.creator.matrix.number.NumberKeyMatrixTranspositionFieldsCreator;
 import com.my.ui.creator.matrix.word.WordKeyColumnVariantMatrixTranspositionFieldsCreator;
@@ -27,6 +28,7 @@ public class AlgorithmFieldsCreatorFactory {
             case LFSR_GENERATOR: return new LfsrGeneratorFieldsCreator();
             case SYNCHRONOUS_STREAM: return new SynchronousStreamCipherFieldsCreator();
             case CIPHERTEXT_AUTOKEY: return new CiphertextAutoKeyFieldsCreator();
+            case DES: return new DesCipherFieldsCreator();
             default: throw new IllegalArgumentException();
         }
     }

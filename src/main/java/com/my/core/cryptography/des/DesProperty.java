@@ -1,5 +1,5 @@
 package com.my.core.cryptography.des;
 
 public enum DesProperty {
-    KEY;
+    KEY, OUTPUT_FILE_PATH;
 }
