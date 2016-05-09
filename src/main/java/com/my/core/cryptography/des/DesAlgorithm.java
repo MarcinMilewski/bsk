@@ -10,7 +10,7 @@ public class DesAlgorithm {
     public static boolean[] initialPermutate(boolean[] block) {
         boolean[] result = new boolean[64];
         for (int i = 0; i < 64; ++i) {
-            result[i] = block[initialPermutationLUT[i] - 1];
+            result[i] = block[initialPermutationLUT[i]];
         }
         return result;
     }
@@ -18,7 +18,7 @@ public class DesAlgorithm {
     public static boolean[] finalPermutate(boolean[] block) {
         boolean[] result = new boolean[64];
         for (int i = 0; i < 64; ++i) {
-            result[i] = block[finalPermutationLUT[i] - 1];
+            result[i] = block[finalPermutationLUT[i]];
         }
         return result;
     }
