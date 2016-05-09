@@ -3,6 +3,8 @@ package com.my.core.cryptography.des;
 import com.my.core.cryptography.generator.stream.util.BinaryUtils;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -37,4 +39,13 @@ public class DesAlgorithmTest {
         assertThat(subKeys[0][5], is(false));
     }
 
+    @Test
+    public void initialPermutationTest() throws Exception {
+        boolean[] block = BinaryUtils.
+                toBooleanArray(new String("0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111").replaceAll("\\s",""));
+        boolean[] ipBlock = DesAlgorithm.initialPermutate(block);
+        boolean[] expected = BinaryUtils.
+                toBooleanArray(new String("1100 1100 0000 0000 1100 1100 1111 1111 1111 0000 1010 1010 1111 0000 1010 1010").replaceAll("\\s",""));
+        assertTrue(Arrays.equals(ipBlock, expected));
+    }
 }
