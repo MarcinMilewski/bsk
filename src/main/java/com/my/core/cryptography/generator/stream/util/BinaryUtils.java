@@ -3,6 +3,24 @@ package com.my.core.cryptography.generator.stream.util;
 import java.util.BitSet;
 
 public class BinaryUtils {
+    public static final boolean T = true;
+    public static final boolean F = false;
+    public static final boolean[] b0 = {F, F, F, F};
+    public static final boolean[] b1 = {F, F, F, T};
+    public static final boolean[] b2 = {F, F, T, F};
+    public static final boolean[] b3 = {F, F, T, T};
+    public static final boolean[] b4 = {F, T, F, F};
+    public static final boolean[] b5 = {F, T, F, T};
+    public static final boolean[] b6 = {F, T, T, F};
+    public static final boolean[] b7 = {F, T, T, T};
+    public static final boolean[] b8 = {T, F, F, F};
+    public static final boolean[] b9 = {T, F, F, T};
+    public static final boolean[] b10 = {T, F, T, F};
+    public static final boolean[] b11 = {T, F, T, T};
+    public static final boolean[] b12 = {T, T, F, F};
+    public static final boolean[] b13 = {T, T, F, T};
+    public static final boolean[] b14 = {T, T, T, F};
+    public static final boolean[] b15 = {T, T, T, T};
 
     public static boolean[] getBooleanArray(String maskString) {
         boolean[] mask = new boolean[maskString.length()];

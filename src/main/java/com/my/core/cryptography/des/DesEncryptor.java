@@ -29,7 +29,6 @@ public class DesEncryptor implements Encryptor {
         dataBytes = Files.readAllBytes(data.toPath());
         int complementaryBytes = 8 - dataBytes.length % 8;
         blocks = DesUtils.createBlocks(dataBytes);
-
         boolean[][] permutatedBlocks = new boolean[blocks.length][];
         for (int i = 0; i < blocks.length; i++) {
             permutatedBlocks[i] = DesAlgorithm.initialPermutate(blocks[i]);
