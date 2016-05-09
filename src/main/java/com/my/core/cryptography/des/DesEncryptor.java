@@ -6,6 +6,7 @@ import com.my.core.cryptography.stream.ssc.property.SynchronousStreamProperty;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,7 +31,7 @@ public class DesEncryptor implements Encryptor {
         boolean[] key = DesAlgorithm.get64BitKey(properties);
         boolean[][] subKeys = DesAlgorithm.create16Subkeys(key);
         byte[] dataBytes = Files.readAllBytes(data.toPath());
-        int complementaryBytes = 8 - dataBytes.length % 8;
+        int complementBytes = 8 - dataBytes.length % 8;
         boolean[][] blocks = DesUtils.createBlocks(dataBytes);
 
         boolean[][] encryptedBlocks = new boolean[blocks.length][];
@@ -38,7 +39,19 @@ public class DesEncryptor implements Encryptor {
             encryptedBlocks[i] = DesAlgorithm.encryptBlock(blocks[i], subKeys);
         }
 
+        if (complementBytes > 0) {
+            createFileWithComplementBitsNumber(outputFilePath, complementBytes);
+        }
         return createFile(outputFilePath, toByteArray(encryptedBlocks));
+    }
+
+    private void createFileWithComplementBitsNumber(String outputFilePath, int complementBytes) throws IOException {
+        String outputPath = outputFilePath.concat(".compl");
+        logger.debug("Creating complement output file: " + outputFilePath + " with " + complementBytes + " bytes number.");
+        File outputFile = new File(outputPath);
+        FileOutputStream stream = new FileOutputStream(outputFile);
+        stream.write(String.valueOf(complementBytes).getBytes());
+        stream.close();
     }
 
     private File createFile(String outputFilePath, byte[] output) throws IOException {
