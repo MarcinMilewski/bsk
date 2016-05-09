@@ -243,5 +243,15 @@ public class DesUtils {
     public static final boolean[][][] sBox8 = new boolean[][][]{
         sBox8Row0, sBox8Row1, sBox8Row2, sBox8Row3
     };
+
+    public static final boolean[][][][] sBoxes = new boolean[][][][] {
+            sBox1, sBox2, sBox3, sBox4, sBox5, sBox6, sBox7, sBox8
+    };
+
+    public static boolean[] getSBoxBinValue(int no, int row, int column) {
+        return sBoxes[no][row][column];
+    }
+
+
     
 }

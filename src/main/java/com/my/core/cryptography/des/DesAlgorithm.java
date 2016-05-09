@@ -1,8 +1,10 @@
 package com.my.core.cryptography.des;
 
 import com.my.core.cryptography.generator.stream.util.BinaryUtils;
+import com.sun.deploy.util.ArrayUtil;
 
 import java.util.Properties;
+import java.util.stream.IntStream;
 
 import static com.my.core.cryptography.des.DesUtils.*;
 
@@ -116,8 +118,26 @@ public class DesAlgorithm {
 
         // first iteration
         leftSide = rightSide;
-
+        boolean[] sBoxValues = getSBoxValues(getEightSeries(rightSide));
         return null;
+    }
+
+    private static boolean[] getSBoxValues(boolean[][] eightSeries) {
+        boolean[] result = new boolean[32];
+        int j = 0;
+        for (int i = 0; i < 8; i++) {
+            int row = getFirstAndLastBitsDecValue(eightSeries[i]);
+            int column = getMiddleBitsDecValue(eightSeries[i]);
+            boolean[] sBoxValue = DesUtils.getSBoxBinValue(i, row, column);
+            for (int k = 0; k < 4; k++,j++) {
+                result[j] = sBoxValue[k];
+            }
+        }
+        return result;
+    }
+
+    public static boolean[] getFunctionValue(boolean[] subKey, boolean[] expandedRightSide) {
+        return BinaryUtils.xor(subKey, expandedRightSide);
     }
 
     public static boolean[] getExpanded(boolean[] rightSide) {
@@ -142,5 +162,24 @@ public class DesAlgorithm {
             rightHalf[i] = block[j];
         }
         return rightHalf;
+    }
+
+    private static boolean[][] getEightSeries(boolean[] block) {
+        boolean[][] result = new boolean[8][6];
+        int j = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int k = 0; k < 6; k++, j++) {
+                result[i][k] = block[k];
+            }
+        }
+        return result;
+    }
+
+    private static int getFirstAndLastBitsDecValue(boolean[] bits) {
+        return BinaryUtils.toInt(new boolean[] {bits[0], bits[5]});
+    }
+
+    private static int getMiddleBitsDecValue(boolean[] bits) {
+        return BinaryUtils.toInt(new boolean[]{bits[1], bits[2], bits[3], bits[4]});
     }
 }
