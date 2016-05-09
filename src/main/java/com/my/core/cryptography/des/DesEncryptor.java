@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Properties;
 
 import static com.my.core.cryptography.generator.stream.util.BinaryUtils.toByteArray;
@@ -19,7 +20,6 @@ import static com.my.core.cryptography.generator.stream.util.BinaryUtils.toByteA
  */
 public class DesEncryptor implements Encryptor {
     private static Logger logger = Logger.getLogger(DesEncryptor.class);
-
     @Override
     public String encrypt(String data, Properties properties) {
         return null;
@@ -29,7 +29,10 @@ public class DesEncryptor implements Encryptor {
     public File encrypt(File data, Properties properties) throws IOException {
         String outputFilePath = properties.getProperty(DesProperty.OUTPUT_FILE_PATH.name());
         boolean[] key = DesAlgorithm.get64BitKey(properties);
+        logger.info("Key: " + Arrays.toString(key));
         boolean[][] subKeys = DesAlgorithm.create16Subkeys(key);
+        logger.info("Sub keys: " + Arrays.deepToString(subKeys));
+
         byte[] dataBytes = Files.readAllBytes(data.toPath());
         int complementBytes = 8 - dataBytes.length % 8;
         boolean[][] blocks = DesUtils.createBlocks(dataBytes);

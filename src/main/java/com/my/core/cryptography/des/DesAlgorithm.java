@@ -1,12 +1,16 @@
 package com.my.core.cryptography.des;
 
 import com.my.core.cryptography.generator.stream.util.BinaryUtils;
+import org.apache.log4j.Logger;
 
+import java.util.Arrays;
 import java.util.Properties;
 
 import static com.my.core.cryptography.des.DesUtils.*;
 
 public class DesAlgorithm {
+    private static Logger logger = Logger.getLogger(DesAlgorithm.class);
+
     public static boolean[] initialPermutate(boolean[] block) {
         boolean[] result = new boolean[64];
         for (int i = 0; i < 64; ++i) {
@@ -113,9 +117,17 @@ public class DesAlgorithm {
         boolean[] rightSide = getRightBlocksHalf(initialPermutatedBlock);
         boolean[] previousLeft = leftSide;
 
+        logger.info("Encrypt block");
+        logger.info("L0: " + Arrays.toString(leftSide));
+        logger.info("R0: " + Arrays.toString(rightSide));
         for (int i = 0; i < 16; i++) {
             leftSide = rightSide;
-            rightSide = BinaryUtils.xor(previousLeft, getFunctionValue(keys[i], rightSide));
+            logger.info("L" + i +1 + ": " + Arrays.toString(leftSide));
+            boolean[] functionValue = getFunctionValue(keys[i], rightSide);
+            logger.info("F" + i+ 1 + ": " + Arrays.toString(functionValue));
+
+            rightSide = BinaryUtils.xor(previousLeft, functionValue);
+            logger.info("R" + i+1 + ": " + Arrays.toString(rightSide));
             previousLeft = leftSide;
         }
         boolean[] reversed = BinaryUtils.merge(rightSide, leftSide);
