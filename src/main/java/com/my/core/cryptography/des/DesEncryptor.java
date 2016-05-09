@@ -39,7 +39,7 @@ public class DesEncryptor implements Encryptor {
             encryptedBlocks[i] = DesAlgorithm.encryptBlock(blocks[i], subKeys);
         }
 
-        if (complementBytes > 0) {
+        if (complementBytes > 0 && complementBytes != 8) {
             createFileWithComplementBitsNumber(outputFilePath, complementBytes);
         }
         return createFile(outputFilePath, toByteArray(encryptedBlocks));

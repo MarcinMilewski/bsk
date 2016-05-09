@@ -70,7 +70,7 @@ public class DesAlgorithm {
         for (int i = 0; i < 16; i++) {
             boolean[] key = new boolean[48];
             for (int j = 0; j < 48; j++) {
-                key[j] = mergedShiftedSeries[i][pc2PermutationLUT[j] - 1];
+                key[j] = mergedShiftedSeries[i][pc2PermutationLUT[j]];
             }
             keys[i] = key;
         }
@@ -102,7 +102,7 @@ public class DesAlgorithm {
     public static boolean[] create64BitKey(boolean[] key) {
         boolean[] result = new boolean[56];
         for (int i = 0; i < 56; i++) {
-            result[i] = key[DesUtils.pc1PermutationLUT[i] - 1];
+            result[i] = key[DesUtils.pc1PermutationLUT[i]];
         }
         return result;
     }
@@ -127,7 +127,7 @@ public class DesAlgorithm {
         boolean[] xored = BinaryUtils.xor(subKey, getExpanded(rightSide));
         boolean[] sBoxesOutput = getSBoxesValue(getEightSeries(xored));
         for (int i = 0; i < 32; i++) {
-            result[i] = sBoxesOutput[pPermutationLUT[i] - 1];
+            result[i] = sBoxesOutput[pPermutationLUT[i]];
         }
         return result;
     }
@@ -149,7 +149,7 @@ public class DesAlgorithm {
     public static boolean[] getExpanded(boolean[] rightSide) {
         boolean[] expanded = new boolean[48];
         for (int i = 0; i < 48; i++) {
-            expanded[i] = rightSide[expansionFunctionLUT[i] - 1];
+            expanded[i] = rightSide[expansionFunctionLUT[i]];
         }
         return expanded;
     }
