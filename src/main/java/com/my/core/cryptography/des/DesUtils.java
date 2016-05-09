@@ -129,28 +129,94 @@ public class DesUtils {
     };
 
     public static final boolean[][] sBox2Row0 = new boolean[][]{
-
+            b15, b1, b8, b14, b6, b11, b3, b4, b9, b7, b2, b13, b12, b0, b5, b10
     };
-    public static final boolean[][] sBox1Row2 = new boolean[][]{
-
+    public static final boolean[][] sBox2Row1 = new boolean[][]{
+            b3, b13, b4, b7, b15, b2, b8, b14, b12, b0, b1, b10, b6, b9, b11, b5
     };
-    public static final boolean[][] sBox1Row2 = new boolean[][]{
-
+    public static final boolean[][] sBox2Row2 = new boolean[][]{
+            b0, b14, b7, b11, b10, b4, b13, b1, b5, b8, b12, b6, b9, b3, b2, b15
     };
-    public static final boolean[][] sBox1Row2 = new boolean[][]{
-
+    public static final boolean[][] sBox2Row3 = new boolean[][]{
+            b13, b8, b10, b1, b3, b15, b4, b2, b11, b6, b7, b12, b0, b5, b14, b9
     };
-    public static final boolean[][] sBox1Row2 = new boolean[][]{
 
+    public static final boolean[][] sBox3Row0 = new boolean[][]{
+            b10, b0, b9, b14, b6, b3, b15, b5, b1, b13, b12, b7, b11, b4, b2, b8
     };
-    public static final boolean[][] sBox1Row2 = new boolean[][]{
-
+    public static final boolean[][] sBox3Row1 = new boolean[][]{
+            b13, b7, b0, b9, b3, b4, b6, b10, b2, b8, b5, b14, b12, b11, b15, b1
     };
-    public static final boolean[][] sBox1Row2 = new boolean[][]{
-
+    public static final boolean[][] sBox3Row2 = new boolean[][]{
+            b13, b6, b4, b9, b8, b15, b3, b0, b11, b1, b2, b12, b5, b10, b14, b7
     };
-    public static final boolean[][] sBox1Row2 = new boolean[][]{
+    public static final boolean[][] sBox3Row3 = new boolean[][]{
+            b1, b10, b13, b0, b6, b9, b8, b7, b4, b15, b14, b3, b11, b5, b2, b12
+    };
 
+    public static final boolean[][] sBox4Row0 = new boolean[][]{
+            b7, b13, b14, b3, b0, b6, b9, b10, b1, b2, b8, b5, b11, b12, b4, b15
+    };
+    public static final boolean[][] sBox4Row1 = new boolean[][]{
+            b13, b8, b11, b5, b6, b15, b0, b3, b4, b7, b2, b12, b1, b10, b14, b9
+    };
+    public static final boolean[][] sBox4Row2 = new boolean[][]{
+            b10, b6, b9, b0, b12, b11, b7, b13, b15, b1, b3, b14, b5, b2, b8, b4
+    };
+    public static final boolean[][] sBox4Row3 = new boolean[][]{
+            b3, b15, b0, b6, b10, b1, b13, b8, b9, b4, b5, b11, b12, b7, b2, b14
+    };
+
+    public static final boolean[][] sBox5Row0 = new boolean[][]{
+            b2, b12, b4, b1, b7, b10, b11, b6, b8, b5, b3, b15, b13, b0, b14, b9
+    };
+    public static final boolean[][] sBox5Row1 = new boolean[][]{
+            b14, b11, b2, b12, b4, b7, b13, b1, b5, b0, b15, b10, b3, b9, b8, b6
+    };
+    public static final boolean[][] sBox5Row2 = new boolean[][]{
+            b4, b2, b1, b11, b10, b13, b7, b8, b15, b9, b12, b5, b6, b3, b0, b14
+    };
+    public static final boolean[][] sBox5Row3 = new boolean[][]{
+            b11, b8, b12, b7, b1, b14, b2, b13, b6, b15, b0, b9, b10, b4, b5, b3
+    };
+
+    public static final boolean[][] sBox6Row0 = new boolean[][]{
+            b12, b1, b10, b15, b9, b2, b6, b8, b0, b13, b3, b4, b14, b7, b5, b11
+    };
+    public static final boolean[][] sBox6Row1 = new boolean[][]{
+            b10, b15, b4, b2, b7, b12, b9, b5, b6, b1, b13, b14, b0, b11, b3, b8
+    };
+    public static final boolean[][] sBox6Row2 = new boolean[][]{
+            b9, b14, b15, b5, b2, b8, b12, b3, b7, b0, b4, b10, b1, b13, b11, b6
+    };
+    public static final boolean[][] sBox6Row3 = new boolean[][]{
+            b4, b3, b2, b12, b9, b5, b15, b10, b11, b14, b1, b7, b6, b0, b8, b13
+    };
+
+    public static final boolean[][] sBox7Row0 = new boolean[][]{
+            b4, b11, b2, b14, b15, b0, b8, b13, b3, b12, b9, b7, b5, b10, b6, b1
+    };
+    public static final boolean[][] sBox7Row1 = new boolean[][]{
+            b13, b0, b11, b7, b4, b9, b1, b10, b14, b3, b5, b12, b2, b15, b8, b6
+    };
+    public static final boolean[][] sBox7Row2 = new boolean[][]{
+            b1, b4, b11, b13, b12, b3, b7, b14, b10, b15, b6, b8, b0, b5, b9, b2
+    };
+    public static final boolean[][] sBox7Row3 = new boolean[][]{
+            b6, b11, b13, b8, b1, b4, b10, b7, b9, b5, b0, b15, b14, b2, b3, b12
+    };
+
+    public static final boolean[][] sBox8Row0 = new boolean[][]{
+            b13, b2, b8, b4, b6, b15, b11, b1, b10, b9, b3, b14, b5, b0, b12, b7
+    };
+    public static final boolean[][] sBox8Row1 = new boolean[][]{
+            b1, b15, b13, b8, b10, b3, b7, b4, b12, b5, b6, b11, b0, b14, b9, b2
+    };
+    public static final boolean[][] sBox8Row2 = new boolean[][]{
+            b7, b11, b4, b1, b9, b12, b14, b2, b0, b6, b10, b13, b15, b3, b5, b8
+    };
+    public static final boolean[][] sBox8Row3 = new boolean[][]{
+            b2, b1, b14, b7, b4, b10, b8, b13, b15, b12, b9, b0, b3, b5, b6, b11
     };
 
     public static final boolean[][][] sBox1 = new boolean[][][]{
