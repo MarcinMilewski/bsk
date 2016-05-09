@@ -84,10 +84,10 @@ public class DesAlgorithmTest {
     }
 
     @Test
-    public void getFunctionValue() throws Exception {
+    public void getFunctionValueTest() throws Exception {
         boolean[] key = BinaryUtils.toBooleanArray(new String("000110 110000 001011 101111 111111 000111 000001 110010").replaceAll("\\s", ""));
         boolean[] expandedRightSide = BinaryUtils.toBooleanArray(new String("011110 100001 010101 010101 011110 100001 010101 010101").replaceAll("\\s", ""));
-        boolean[] expected = BinaryUtils.toBooleanArray(new String("011000 010001 011110 111010 100001 100110 010100 100111").replaceAll("\\s", ""));
+        boolean[] expected = BinaryUtils.toBooleanArray(new String("0010 0011 0100 1010 1010 1001 1011 1011").replaceAll("\\s", ""));
         boolean[] result = DesAlgorithm.getFunctionValue(key, expandedRightSide);
         assertThat(result, is(expected));
 

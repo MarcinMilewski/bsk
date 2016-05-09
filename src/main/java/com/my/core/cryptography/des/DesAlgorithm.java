@@ -1,10 +1,8 @@
 package com.my.core.cryptography.des;
 
 import com.my.core.cryptography.generator.stream.util.BinaryUtils;
-import com.sun.deploy.util.ArrayUtil;
 
 import java.util.Properties;
-import java.util.stream.IntStream;
 
 import static com.my.core.cryptography.des.DesUtils.*;
 
@@ -118,11 +116,23 @@ public class DesAlgorithm {
 
         // first iteration
         leftSide = rightSide;
-        boolean[] sBoxValues = getSBoxValues(getEightSeries(rightSide));
+
         return null;
     }
 
-    private static boolean[] getSBoxValues(boolean[][] eightSeries) {
+    public static boolean[] getFunctionValue(boolean[] subKey, boolean[] expandedRightSide) {
+        boolean[] result = new boolean[32];
+        boolean[] xored =  BinaryUtils.xor(subKey, expandedRightSide);
+        boolean[][] eightSeries = getEightSeries(xored);
+        boolean[] sBoxesOutput = getSBoxesValue(getEightSeries(xored));
+
+        for (int i = 0; i < 32; i++) {
+            result[i] = sBoxesOutput[pPermutationLUT[i] - 1];
+        }
+        return result;
+    }
+
+    private static boolean[] getSBoxesValue(boolean[][] eightSeries) {
         boolean[] result = new boolean[32];
         int j = 0;
         for (int i = 0; i < 8; i++) {
@@ -134,10 +144,6 @@ public class DesAlgorithm {
             }
         }
         return result;
-    }
-
-    public static boolean[] getFunctionValue(boolean[] subKey, boolean[] expandedRightSide) {
-        return BinaryUtils.xor(subKey, expandedRightSide);
     }
 
     public static boolean[] getExpanded(boolean[] rightSide) {
@@ -169,7 +175,7 @@ public class DesAlgorithm {
         int j = 0;
         for (int i = 0; i < 8; i++) {
             for (int k = 0; k < 6; k++, j++) {
-                result[i][k] = block[k];
+                result[i][k] = block[j];
             }
         }
         return result;
