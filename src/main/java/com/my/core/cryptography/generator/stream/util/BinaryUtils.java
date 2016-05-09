@@ -95,4 +95,22 @@ public class BinaryUtils {
     }
 
 
+    public static boolean[] shiftLeftWithCarry(boolean[] bits) {
+        boolean[] shifted = new boolean[bits.length];
+        boolean carry = bits[0];
+        for (int i = 0; i < bits.length - 1; i++ ) {
+            shifted[i] = bits[i + 1];
+        }
+        shifted[bits.length - 1] = carry;
+        return shifted;
+    }
+
+    public static boolean[] shiftLeftWithCarry(boolean[] bits, int n) {
+        if (n <= 0) throw new IllegalArgumentException();
+        boolean[] shifted = bits;
+        for (int i = 0; i < n; i++) {
+            shifted = shiftLeftWithCarry(shifted);
+        }
+        return shifted;
+    }
 }

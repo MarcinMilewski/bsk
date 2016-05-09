@@ -25,7 +25,7 @@ public class DesEncryptor implements Encryptor {
     @Override
     public File encrypt(File data, Properties properties) throws IOException {
         boolean[] key = DesAlgorithm.get64BitKey(properties);
-        boolean[] subkeys = DesAlgorithm.create16Subkeys(key);
+        boolean[][] subkeys = DesAlgorithm.create16Subkeys(key);
         dataBytes = Files.readAllBytes(data.toPath());
         int complementaryBytes = 8 - dataBytes.length % 8;
         blocks = DesUtils.createBlocks(dataBytes);

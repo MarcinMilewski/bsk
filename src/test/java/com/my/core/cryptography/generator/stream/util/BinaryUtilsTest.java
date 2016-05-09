@@ -1,9 +1,11 @@
 package com.my.core.cryptography.generator.stream.util;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class BinaryUtilsTest {
     @Test
@@ -41,6 +43,40 @@ public class BinaryUtilsTest {
         byte[] byteArray = BinaryUtils.toByteArray(boolArr);
         assertThat(byteArray.length, is(1));
         assertThat(byteArray[0], is((byte) 0));
+    }
+
+    @Test
+    public void shiftLeftWithCarryTest() throws Exception {
+        boolean[] bits = new boolean[] {true, false, false, true, false};
+        boolean[] shifted = BinaryUtils.shiftLeftWithCarry(bits);
+        assertTrue(Arrays.equals(shifted, new boolean[] {false, false, true, false, true}));
+    }
+
+    @Test
+    public void shiftLeftWithCarryMultipleTest() throws Exception {
+        boolean[] bits = new boolean[] {true, false, false, true, false};
+        boolean[] shifted = BinaryUtils.shiftLeftWithCarry(bits, 2);
+        assertTrue(Arrays.equals(shifted, new boolean[] {false, true, false, true, false}));
+    }
+
+    @Test
+    public void toBooleanArrayTest() throws Exception {
+        boolean[] key = BinaryUtils.
+                toBooleanArray(new String("00010011 00110100 01010111 01111001 10011011 10111100 11011111 11110001").replaceAll("\\s",""));
+        assertThat(key.length, is(64));
+        assertThat(key[0], is(false));
+        assertThat(key[1], is(false));
+        assertThat(key[2], is(false));
+        assertThat(key[3], is(true));
+        assertThat(key[4], is(false));
+        assertThat(key[5], is(false));
+        assertThat(key[6], is(true));
+        assertThat(key[7], is(true));
+        assertThat(key[8], is(false));
+
+        assertThat(key[61], is(false));
+        assertThat(key[62], is(false));
+        assertThat(key[63], is(true));
     }
 
 }
