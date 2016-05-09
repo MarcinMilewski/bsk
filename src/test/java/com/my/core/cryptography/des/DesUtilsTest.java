@@ -1,5 +1,6 @@
 package com.my.core.cryptography.des;
 
+import com.my.core.cryptography.generator.stream.util.BinaryUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,4 +23,24 @@ public class DesUtilsTest {
         assertThat(blocks.length, is(2));
     }
 
+    @Test
+    public void create64BitKeyTest() throws Exception {
+        boolean[] key = BinaryUtils.
+                toBooleanArray(new String("00010011 00110100 01010111 01111001 10011011 10111100 11011111 11110001").replaceAll("\\s",""));
+        assertThat(key.length, is(64));
+        assertThat(key[0], is(false));
+        assertThat(key[1], is(false));
+        assertThat(key[2], is(false));
+        assertThat(key[3], is(true));
+
+        assertThat(key[61], is(false));
+        assertThat(key[62], is(false));
+        assertThat(key[63], is(true));
+    }
+
+    @Test
+    public void pc1PermutationTest() throws Exception {
+        boolean[] key = BinaryUtils.
+                toBooleanArray(new String("00010011 00110100 01010111 01111001 10011011 10111100 11011111 11110001").replaceAll("\\s",""));
+    }
 }

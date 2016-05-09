@@ -50,6 +50,22 @@ public class BinaryUtils {
         return result;
     }
 
+    public static boolean[] toBooleanArray(String zerosOnesString) {
+        boolean[] result = new boolean[zerosOnesString.length()];
+        for (int i = 0; i < result.length; i++) {
+            char c = zerosOnesString.charAt(i);
+            if (c != '1' && c != '0') throw new IllegalArgumentException("Invalid character: " + c);
+
+            if (c == '1') {
+                result[i] = true;
+            } else if (c == '0') {
+                result[i] = false;
+            }
+            else throw new IllegalArgumentException("Illegal character");
+        }
+        return result;
+    }
+
     public static byte[] toByteArray(boolean[] input) {
         if (input.length % 8 != 0) throw new IllegalArgumentException("input should divide by 8 ");
         byte[] toReturn = new byte[input.length / 8];
@@ -63,7 +79,7 @@ public class BinaryUtils {
         return toReturn;
     }
 
-    public static boolean[][] toBooleanArray(byte[] input) {
+    public static boolean[][] toBoolean2DArray(byte[] input) {
         boolean[][] result = new boolean[input.length][8];
         for (int i = 0; i < input.length; i++) {
             result[i][0] = ((input[i] & 0x01) != 0);
@@ -77,4 +93,6 @@ public class BinaryUtils {
         }
         return result;
     }
+
+
 }
