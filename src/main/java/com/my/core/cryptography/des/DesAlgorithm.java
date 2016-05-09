@@ -189,4 +189,18 @@ public class DesAlgorithm {
         return BinaryUtils.toInt(new boolean[]{bits[1], bits[2], bits[3], bits[4]});
     }
 
+    public static boolean[] decryptBlock(boolean[] block, boolean[][] subKeys) {
+        boolean[] initialPermutatedBlock = initialPermutate(block);
+        boolean[] leftSide = getLeftBlocksHalf(initialPermutatedBlock);
+        boolean[] rightSide = getRightBlocksHalf(initialPermutatedBlock);
+        boolean[] previousLeft = leftSide;
+
+        for (int i = 15; i >= 0; --i) {
+            leftSide = rightSide;
+            rightSide = BinaryUtils.xor(previousLeft, getFunctionValue(subKeys[i], rightSide));
+            previousLeft = leftSide;
+        }
+        boolean[] reversed = BinaryUtils.merge(rightSide, leftSide);
+        return finalPermutate(reversed);
+    }
 }

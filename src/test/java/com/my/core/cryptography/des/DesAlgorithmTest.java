@@ -83,6 +83,19 @@ public class DesAlgorithmTest {
     }
 
     @Test
+    public void decryptBlockTest() throws Exception {
+        boolean[] key = BinaryUtils.
+                toBooleanArray(new String("00010011 00110100 01010111 01111001 10011011 10111100 11011111 11110001").replaceAll("\\s", ""));
+        boolean[] pc1Key = DesAlgorithm.create64BitKey(key);
+        boolean[][] subKeys = DesAlgorithm.create16Subkeys(pc1Key);
+        boolean[] block = BinaryUtils.toBooleanArray(new String("1000 0101 1110 1000 0001 0011 0101 0100 0000 1111 0000 1010 1011 0100 0000 0101").replaceAll("\\s", ""));
+        boolean[] expected = BinaryUtils.toBooleanArray(new String("0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111").replaceAll("\\s", ""));
+        boolean[] result = DesAlgorithm.decryptBlock(block, subKeys);
+        assertThat(result, is(expected));
+    }
+
+
+    @Test
     public void getFunctionValueTest() throws Exception {
         boolean[] key = BinaryUtils.toBooleanArray(new String("000110 110000 001011 101111 111111 000111 000001 110010").replaceAll("\\s", ""));
         boolean[] rightSide = BinaryUtils.toBooleanArray(new String("1111 0000 1010 1010 1111 0000 1010 1010").replaceAll("\\s", ""));
