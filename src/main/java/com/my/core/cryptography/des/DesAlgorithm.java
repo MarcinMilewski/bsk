@@ -128,12 +128,17 @@ public class DesAlgorithm {
             previousLeft = leftSide;
         }
         boolean[] reversed = BinaryUtils.merge(rightSide, leftSide);
-        return finalPermutate(reversed);
+        logger.info("R16L16: " + BinaryUtils.toString(reversed));
+        boolean[] afterFinalPermutation = finalPermutate(reversed);
+        logger.info("After FP permutation: " + BinaryUtils.toString(afterFinalPermutation));
+        return afterFinalPermutation;
     }
 
     public static boolean[] getFunctionValue(boolean[] subKey, boolean[] rightSide) {
         boolean[] result = new boolean[32];
-        boolean[] xored = BinaryUtils.xor(subKey, getExpanded(rightSide));
+        boolean[] expandedRightSide = getExpanded(rightSide);
+        logger.info("Expanded right: " + BinaryUtils.toString(expandedRightSide));
+        boolean[] xored = BinaryUtils.xor(subKey, expandedRightSide);
         logger.info("Xored: " + BinaryUtils.toString(xored));
         boolean[] sBoxesOutput = getSBoxesValue(getEightSeries(xored));
         logger.info("S Box: " + BinaryUtils.toString(sBoxesOutput));

@@ -2,18 +2,16 @@ package com.my.core.cryptography.des;
 
 import com.my.core.cryptography.Encryptor;
 import com.my.core.cryptography.generator.stream.util.BinaryUtils;
-import com.my.core.cryptography.stream.ssc.property.SynchronousStreamProperty;
 import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.Properties;
 
-import static com.my.core.cryptography.generator.stream.util.BinaryUtils.toByteArray;
+import static com.my.core.cryptography.generator.stream.util.BinaryUtils.toByteArrayLSBLeft;
+
 
 /**
  * Created by marcin on 5/5/16.
@@ -47,7 +45,7 @@ public class DesEncryptor implements Encryptor {
         if (complementBytes > 0 && complementBytes != 8) {
             createFileWithComplementBitsNumber(outputFilePath, complementBytes);
         }
-        return createFile(outputFilePath, toByteArray(encryptedBlocks));
+        return createFile(outputFilePath, toByteArrayLSBLeft(encryptedBlocks));
     }
 
     private void createFileWithComplementBitsNumber(String outputFilePath, int complementBytes) throws IOException {

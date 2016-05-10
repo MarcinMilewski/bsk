@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
-import static com.my.core.cryptography.generator.stream.util.BinaryUtils.toByteArray;
+import static com.my.core.cryptography.generator.stream.util.BinaryUtils.toByteArrayLSBLeft;
 
 /**
  * Created by marcin on 5/5/16.
@@ -38,8 +38,10 @@ public class DesDecryptor implements Decryptor {
             decryptedBlocks[i] = DesAlgorithm.decryptBlock(blocks[i], subKeys);
         }
 
-        return createFile(outputFilePath, toByteArray(decryptedBlocks), complementaryBytes);
+        return createFile(outputFilePath, toByteArrayLSBLeft(decryptedBlocks), complementaryBytes);
     }
+
+
 
     private int getComplementaryBytesNumber(File data) {
         int complementaryBitsNumber = 0;

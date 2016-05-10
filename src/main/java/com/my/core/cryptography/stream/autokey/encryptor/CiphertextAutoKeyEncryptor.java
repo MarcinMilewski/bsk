@@ -51,7 +51,7 @@ public class CiphertextAutoKeyEncryptor implements Encryptor {
             statefulLfsrGenerator.setFirstStateBit(xoredBit);
             outputBitArray[i] = xoredBit;
         }
-        return createFile(outputFilePath, toByteArray(outputBitArray));
+        return createFile(outputFilePath, toByteArrayLSBLeft(outputBitArray));
     }
 
     private File createFile(String outputFilePath, byte[] output) throws IOException {

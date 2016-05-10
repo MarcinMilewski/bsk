@@ -41,7 +41,7 @@ public class BinaryUtilsTest {
     @Test
     public void toBytesWhenNewBooleanTable() throws Exception {
         boolean[] boolArr = new boolean[8];
-        byte[] byteArray = BinaryUtils.toByteArray(boolArr);
+        byte[] byteArray = BinaryUtils.toByteArrayLSBLeft(boolArr);
         assertThat(byteArray.length, is(1));
         assertThat(byteArray[0], is((byte) 0));
     }

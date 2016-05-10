@@ -61,6 +61,16 @@ public class DesAlgorithmTest {
     }
 
     @Test
+    public void finalPermutationTest2() throws Exception {
+        boolean[] block = BinaryUtils.
+                toBooleanArray(new String("10010100 10010101 01110101 01001000 11011100 11110001 11011111 00111110").replaceAll("\\s", ""));
+        boolean[] ipBlock = DesAlgorithm.finalPermutate(block);
+        boolean[] expected = BinaryUtils.
+                toBooleanArray(new String("00111100 00001010 11011110 10001011 11111110 00100110 10101101 11111000").replaceAll("\\s", ""));
+        assertTrue(Arrays.equals(ipBlock, expected));
+    }
+
+    @Test
     public void getExpandedTest() throws Exception {
         boolean[] bits32 = BinaryUtils.
                 toBooleanArray(new String("1111 0000 1010 1010 1111 0000 1010 1010 ").replaceAll("\\s", ""));
