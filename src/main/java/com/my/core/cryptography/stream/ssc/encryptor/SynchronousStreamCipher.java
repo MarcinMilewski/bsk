@@ -49,7 +49,7 @@ public class SynchronousStreamCipher implements Encryptor {
             lfsrGenerator.setFirstStateBit(generatedBit);
             outputBitArray[i] = xor(generatedBit, dataBitSet.get(i));
         }
-        return createFile(outputFilePath, toByteArrayLSBLeft(outputBitArray));
+        return createFile(outputFilePath, toByteArrayLSBRight(outputBitArray));
     }
 
     private File createFile(String outputFilePath, byte[] output) throws IOException {
