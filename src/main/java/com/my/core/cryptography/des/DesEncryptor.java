@@ -28,10 +28,12 @@ public class DesEncryptor implements Encryptor {
     @Override
     public File encrypt(File data, Properties properties) throws IOException {
         String outputFilePath = properties.getProperty(DesProperty.OUTPUT_FILE_PATH.name());
-        boolean[] key = DesAlgorithm.get64BitKey(properties);
-        logger.info("Key: " + Arrays.toString(key));
+        String givenKey = properties.getProperty(DesProperty.KEY.name());
+        logger.info("Given Key: " + givenKey);
+        boolean[] key = DesAlgorithm.create64BitKey(DesUtils.get64KeyBlock(properties));
+        logger.info("Key+: " + BinaryUtils.toString(key));
         boolean[][] subKeys = DesAlgorithm.create16Subkeys(key);
-        logger.info("Sub keys: " + Arrays.deepToString(subKeys));
+        logger.info("Sub keys: " + BinaryUtils.toString(subKeys));
 
         byte[] dataBytes = Files.readAllBytes(data.toPath());
         int complementBytes = 8 - dataBytes.length % 8;

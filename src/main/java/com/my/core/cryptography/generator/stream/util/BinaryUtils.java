@@ -51,14 +51,6 @@ public class BinaryUtils {
         return shifted;
     }
 
-    public static String toString(boolean[] b) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < b.length; i++) {
-            sb.append(b[i] == true ? '1' : '0');
-        }
-        return sb.toString();
-    }
-
     public static boolean xor(boolean x, boolean y) {
         return ( ( x || y ) && ! ( x && y ) );
     }
@@ -174,4 +166,31 @@ public class BinaryUtils {
         return result;
     }
 
+    public static String toString(boolean[] data) {
+        if (data.length == 0) return "";
+        StringBuilder sb = new StringBuilder();
+        sb.append("[ ");
+        for (boolean b : data) {
+            sb.append(b==true ? "1" : "0");
+        }
+        sb.append(" ]");
+        return sb.toString();
+    }
+
+    public static String toString(boolean[][] data) {
+        if (data.length == 0) return "";
+        StringBuilder sb = new StringBuilder();
+        sb.append("[[ \n");
+        int i = 0;
+        for (boolean[] inner : data) {
+            sb.append(i + " [ ");
+            for (boolean b : inner) {
+                sb.append(b==true ? "1" : "0");
+            }
+            sb.append(" ]\n");
+            i++;
+        }
+        sb.append(" ]]");
+        return sb.toString();
+    }
 }

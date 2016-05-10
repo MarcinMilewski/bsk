@@ -27,7 +27,7 @@ public class DesDecryptor implements Decryptor {
     @Override
     public File decrypt(File data, Properties properties) throws IOException {
         String outputFilePath = properties.getProperty(DesProperty.OUTPUT_FILE_PATH.name());
-        boolean[] key = DesAlgorithm.get64BitKey(properties);
+        boolean[] key = DesAlgorithm.create64BitKey(DesUtils.get64KeyBlock(properties));
         boolean[][] subKeys = DesAlgorithm.create16Subkeys(key);
         byte[] dataBytes = Files.readAllBytes(data.toPath());
         int complementaryBytes = getComplementaryBytesNumber(data);

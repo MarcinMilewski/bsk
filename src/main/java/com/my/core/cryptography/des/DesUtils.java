@@ -2,6 +2,8 @@ package com.my.core.cryptography.des;
 
 import com.my.core.cryptography.generator.stream.util.BinaryUtils;
 
+import java.util.Properties;
+
 import static com.my.core.cryptography.generator.stream.util.BinaryUtils.*;
 
 public class DesUtils {
@@ -37,6 +39,12 @@ public class DesUtils {
             }
         }
         return blocks;
+    }
+
+    public static boolean[] get64KeyBlock(Properties properties) {
+        final String keyContent = properties.getProperty(String.valueOf(DesProperty.KEY)).replaceAll("\\s+","");
+        if (keyContent.isEmpty() && keyContent.length() != 64) throw new IllegalArgumentException();
+        return BinaryUtils.toBooleanArray(keyContent.replace("/s", ""));
     }
 
     public static final int[] initialPermutationLUT = new int[]{

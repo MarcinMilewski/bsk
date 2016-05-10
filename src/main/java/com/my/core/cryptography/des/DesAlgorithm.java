@@ -27,13 +27,6 @@ public class DesAlgorithm {
         return result;
     }
 
-
-    public static boolean[] get64BitKey(Properties properties) {
-        final String keyContent = properties.getProperty(String.valueOf(DesProperty.KEY)).replaceAll("\\s+","");
-        if (keyContent.isEmpty() && keyContent.length() != 64) throw new IllegalArgumentException();
-        return BinaryUtils.toBooleanArray(keyContent.replace("/s", ""));
-    }
-
     public static boolean[][] create16Subkeys(boolean[] key) {
         boolean[] leftKeySide = new boolean[28];
         boolean[] rightKeySide = new boolean[28];
@@ -47,6 +40,8 @@ public class DesAlgorithm {
 
         boolean[][] leftKeyShiftedSeries = createKeyShiftedSeries(leftKeySide);
         boolean[][] rightKeyShiftedSeries = createKeyShiftedSeries(rightKeySide);
+        logger.info("C: " + BinaryUtils.toString(leftKeyShiftedSeries));
+        logger.info("D: " + BinaryUtils.toString(rightKeyShiftedSeries));
 
         boolean[][] mergedKeyShiftedSeries = createMergedKeyShiftedSeries(leftKeyShiftedSeries, rightKeyShiftedSeries);
         boolean[][] keys = createKeys(mergedKeyShiftedSeries);
@@ -112,22 +107,24 @@ public class DesAlgorithm {
     }
 
     public static boolean[] encryptBlock(boolean[] block, boolean[][] keys) {
+        logger.info("Given block: " + BinaryUtils.toString(block));
         boolean[] initialPermutatedBlock = initialPermutate(block);
+        logger.info("After IP block: " + BinaryUtils.toString(initialPermutatedBlock));
         boolean[] leftSide = getLeftBlocksHalf(initialPermutatedBlock);
         boolean[] rightSide = getRightBlocksHalf(initialPermutatedBlock);
         boolean[] previousLeft = leftSide;
 
         logger.info("Encrypt block");
-        logger.info("L0: " + Arrays.toString(leftSide));
-        logger.info("R0: " + Arrays.toString(rightSide));
+        logger.info("L0: " + BinaryUtils.toString(leftSide));
+        logger.info("R0: " + BinaryUtils.toString(rightSide));
         for (int i = 0; i < 16; i++) {
             leftSide = rightSide;
-            logger.info("L" + i +1 + ": " + Arrays.toString(leftSide));
+            logger.info("L" + (i +1) + ": " + BinaryUtils.toString(leftSide));
             boolean[] functionValue = getFunctionValue(keys[i], rightSide);
-            logger.info("F" + i+ 1 + ": " + Arrays.toString(functionValue));
+            logger.info("F" + (i+ 1) + ": " + BinaryUtils.toString(functionValue));
 
             rightSide = BinaryUtils.xor(previousLeft, functionValue);
-            logger.info("R" + i+1 + ": " + Arrays.toString(rightSide));
+            logger.info("R" + (i+1) + ": " + BinaryUtils.toString(rightSide));
             previousLeft = leftSide;
         }
         boolean[] reversed = BinaryUtils.merge(rightSide, leftSide);
@@ -137,7 +134,10 @@ public class DesAlgorithm {
     public static boolean[] getFunctionValue(boolean[] subKey, boolean[] rightSide) {
         boolean[] result = new boolean[32];
         boolean[] xored = BinaryUtils.xor(subKey, getExpanded(rightSide));
+        logger.info("Xored: " + BinaryUtils.toString(xored));
         boolean[] sBoxesOutput = getSBoxesValue(getEightSeries(xored));
+        logger.info("S Box: " + BinaryUtils.toString(sBoxesOutput));
+
         for (int i = 0; i < 32; i++) {
             result[i] = sBoxesOutput[pPermutationLUT[i]];
         }
