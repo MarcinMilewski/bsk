@@ -22,7 +22,7 @@ public class SynchronousStreamCipher implements Encryptor {
     public String encrypt(String data, Properties properties) {
         throw new UnsupportedOperationException();
     }
-
+        //0011101100111000100110000011011100010101001000001111011101011110
     @Override
     public File encrypt(File data, Properties properties) throws IOException {
         logger.debug("Start encryption");

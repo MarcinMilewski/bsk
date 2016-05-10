@@ -51,6 +51,16 @@ public class DesAlgorithmTest {
     }
 
     @Test
+    public void pc1PermutationTest() throws Exception {
+        boolean[] block = BinaryUtils.
+                toBooleanArray(new String("00111011 00111000 10011000 00110111 00010101 00100000 11110111 01011110").replaceAll("\\s", ""));
+        boolean[] pc1Permutated = DesAlgorithm.create64BitKey(block);
+        boolean[] expected = BinaryUtils.
+                toBooleanArray(new String("0100010 0110000 0001101 0111101 1100100 1110110 0010000 1111111").replaceAll("\\s", ""));
+        assertThat(pc1Permutated, is(expected));
+    }
+
+    @Test
     public void finalPermutationTest() throws Exception {
         boolean[] block = BinaryUtils.
                 toBooleanArray(new String("00001010 01001100 11011001 10010101 01000011 01000010 00110010 00110100").replaceAll("\\s", ""));
