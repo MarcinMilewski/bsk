@@ -27,11 +27,11 @@ public class DesEncryptor implements Encryptor {
     public File encrypt(File data, Properties properties) throws IOException {
         String outputFilePath = properties.getProperty(DesProperty.OUTPUT_FILE_PATH.name());
         String givenKey = properties.getProperty(DesProperty.KEY.name());
-        logger.info("Given Key: " + givenKey);
+        logger.trace("Given Key: " + givenKey);
         boolean[] key = DesAlgorithm.create64BitKey(DesUtils.get64KeyBlock(properties));
-        logger.info("Key+: " + BinaryUtils.toString(key));
+        logger.trace("Key+: " + BinaryUtils.toString(key));
         boolean[][] subKeys = DesAlgorithm.create16Subkeys(key);
-        logger.info("Sub keys: " + BinaryUtils.toString(subKeys));
+        logger.trace("Sub keys: " + BinaryUtils.toString(subKeys));
 
         byte[] dataBytes = Files.readAllBytes(data.toPath());
         int complementBytes = 8 - dataBytes.length % 8;

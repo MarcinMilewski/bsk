@@ -16,7 +16,7 @@ public class DesCipherFieldsCreator implements AlgorithmFieldsCreator {
 
         TextField key = new TextField();
         key.setName(DesProperty.KEY.name());
-        key.setText("00010011 00110100 01010111 01111001 10011011 10111100 11011111 11110001");
+        key.setText("00111011 00111000 10011000 00110111 00010101 00100000 11110111 01011110");
         key.setMaximumSize(new Dimension(500, 40));
         key.setPreferredSize(new Dimension(500, 40));
         key.setFont(font1);

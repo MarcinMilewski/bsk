@@ -5,6 +5,7 @@ import com.my.core.cryptography.factory.DecryptorFactory;
 import com.my.core.cryptography.factory.EncryptorFactory;
 import com.my.core.cryptography.generator.factory.GeneratorFactory;
 import com.my.core.cryptography.generator.stream.util.BinaryUtils;
+import com.my.core.util.LogUtils;
 import com.my.ui.creator.factory.AlgorithmFieldsCreatorFactory;
 import com.my.ui.reader.factory.AlgorithmFieldsReaderFactory;
 
@@ -29,6 +30,8 @@ public class App extends JFrame {
     private JPanel northPanel, southPanel, centerPanel, northWestPanel;
     private Map<Label,TextField> algorithmTextFields;
     private Algorithm algorithm;
+    private final JCheckBox logEnableCheckBox = new JCheckBox("Log");
+
     private ActionListener encryptButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -168,6 +171,24 @@ public class App extends JFrame {
         southPanel.add(input, inputConstraint);
         southPanel.add(output, outputConstraint);
 
+        GridBagConstraints logEnabledConstraint = new GridBagConstraints();
+        outputConstraint.fill = GridBagConstraints.HORIZONTAL;
+        outputConstraint.gridx =0;
+        outputConstraint.gridy =2;
+        outputConstraint.gridwidth = 3;
+        outputConstraint.weightx = 0.0;
+        logEnableCheckBox.setSelected(true);
+        logEnableCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (logEnableCheckBox.isSelected()) {
+                    LogUtils.enableLogging();
+                } else {
+                    LogUtils.disableLogging();
+                }
+            }
+        });
+        southPanel.add(logEnableCheckBox);
     }
 
     private void createSouthPanel() {
